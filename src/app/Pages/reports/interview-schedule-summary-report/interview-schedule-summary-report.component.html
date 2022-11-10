@@ -1,0 +1,257 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb"></div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div>
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Reports / Interview Schedule Summary Report
+                  </div>
+
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                  <div class="col-sm-2 col-md-2" id="search">
+                    <a
+                      (click)="showFilter()"
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 text-muted"></div>
+                  <div class="col-sm-2 col-md-2">
+                    <a
+                      (click)="downloadInterviewScheduleDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </a>
+                  </div>
+                </div>
+                <br />
+                <div *ngIf="ShowFilterDiv">
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- Job Request No -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Id">Job Request No.</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="jrNumber"
+                        [(ngModel)]="searchModal.jrNumber"
+                        required
+                        placeholder="Search by Job Request"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Candidate Name -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Name">Candidate Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="candidateName"
+                        [(ngModel)]="searchModal.candidateName"
+                        required
+                        placeholder="Search by Candidate Name"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Interviewer -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Interviewer">Interviewer</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="interviewerName"
+                        [(ngModel)]="searchModal.interviewerName"
+                        required
+                        placeholder="Search by Interviewer Name"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Rounds -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Round">Round</label>
+                      <select
+                        class="form-select"
+                        name="round"
+                        [(ngModel)]="searchModal.round"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Round
+                        </option>
+                        <option value="1">Internal Round 1</option>
+                        <option value="2">Internal Round 2</option>
+                        <option value="3">Customer Round</option>
+                        <option value="4">HR Round</option>
+                      </select>
+                    </div>
+                    <!-- From Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="From Date">From Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.fromDateTime"
+                        type="date"
+                        name="fromDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                    <!-- To Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="To Date">To Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.toDateTime"
+                        type="date"
+                        name="toDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <a
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                        (click)="searchInterviewScheduleForDownload()"
+                      >
+                        <i class="fa fa-search"></i>Search
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        class="dropdown-toggle btn btn-secondary btn-sm"
+                        style="font-size: 12px"
+                        (click)="resetFilter()"
+                      >
+                        <i class="fa fa-refresh" style="color: white"></i
+                        ><span style="color: white">Reset</span>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        (click)="closeFilter()"
+                        class="dropdown-toggle btn btn-danger btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-times" style="color: white"></i
+                        ><span style="color: white">close</span>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4"></div>
+                  </div>
+                  <br />
+                </div>
+
+                <br />
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Job Request #</th>
+                      <th>Customer | Business Unit | Recruitment Role</th>
+                      <th>Candidate Name</th>
+                      <th>Interviewer</th>
+                      <th>Round</th>
+                      <th>Scheduled On</th>
+                      <th>Duration</th>
+                      <!-- <th>Remarks</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of interviewScheList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+
+                      <td>{{ item.jrNumber }}</td>
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.customerName }} | {{ item.buName }} | {{
+                          item.roleName
+                        }} "
+                      >
+                        {{ item.customerName }} | {{ item.buName }} |
+                        {{ item.roleName }}
+                      </td>
+                      <td>{{ item.candidateName }}</td>
+                      <td>{{ item.interviewerName }}</td>
+                      <td *ngIf="item.round == 1">Internal Round 1</td>
+                      <td *ngIf="item.round == 2">Internal Round 2</td>
+                      <td *ngIf="item.round == 3">Customer Round</td>
+                      <td *ngIf="item.round == 4">HR Round</td>
+                      <td>{{ item.scheduleDateTime | date: shortDate }}</td>
+                      <td>{{ item.duration }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 29px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ interviewScheListCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="preloader" *ngIf="loader == 1">
+    <div id="loader"></div>
+  </div>
+</div>

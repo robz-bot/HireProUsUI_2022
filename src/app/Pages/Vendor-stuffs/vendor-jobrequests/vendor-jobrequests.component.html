@@ -1,0 +1,391 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb"></div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-md-2 col-md-2 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Recruitment / Job Request
+                  </div>
+                  <div class="col-sm-1 col-md-1"></div>
+                  <div
+                    style="font-size: 14px"
+                    class="col-md-4 col-md-4 text-muted"
+                  >
+                    <form
+                      class="form-horizontal"
+                      role="form"
+                      #kf="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="search(kf)"
+                    >
+                      <div class="input-group" id="adv-search">
+                        <input
+                          type="text"
+                          placeholder="Search for Job Request"
+                          name="jrNumber"
+                          class="form-control"
+                          [(ngModel)]="searchJobReq.jrNumber"
+                        />
+                        <div class="input-group-btn">
+                          <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                              <button
+                                type="button"
+                                class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i
+                                  class="fa fa-angle-down"
+                                  aria-hidden="true"
+                                ></i>
+                              </button>
+                              <div
+                                class="dropdown-menu dropdown-menu-right"
+                                role="menu"
+                                id="MenuCard"
+                                syle="    position: absolute;
+                                top: 39px;
+                                left: -282px;"
+                              >
+                                <form
+                                  class="form-horizontal"
+                                  role="form"
+                                  #kf="ngForm"
+                                  name="form"
+                                  novalidate
+                                  (ngSubmit)="search(kf)"
+                                >
+                                  <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <select
+                                      class="form-select"
+                                      name="buId"
+                                      [(ngModel)]="searchJobReq.buId"
+                                    >
+                                      <option
+                                        class="dropdown-item"
+                                        disabled
+                                        selected
+                                        value="undefined"
+                                      >
+                                        Select Business Unit
+                                      </option>
+                                      <option
+                                        *ngFor="let item of bulist"
+                                        value="{{ item.id }}"
+                                      >
+                                        {{ item.businessUnitName }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <select
+                                      class="form-select"
+                                      name="jobReqStatus"
+                                      [(ngModel)]="searchJobReq.jobReqStatus"
+                                    >
+                                      <option
+                                        class="dropdown-item"
+                                        disabled
+                                        selected
+                                        value="undefined"
+                                      >
+                                        Select Status
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="In Progress"
+                                      >
+                                        In Progress
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Closed"
+                                      >
+                                        Closed
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Yet to Start"
+                                      >
+                                        Open
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Hold"
+                                      >
+                                        Hold
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Terminated"
+                                      >
+                                        Terminated
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <select
+                                      class="form-select"
+                                      name="jobReqStatus"
+                                      [(ngModel)]="searchJobReq.employmentType"
+                                    >
+                                      <option
+                                        class="dropdown-item"
+                                        disabled
+                                        selected
+                                        value="undefined"
+                                      >
+                                        Select Employment Type
+                                      </option>
+                                      <option value="Full Time">
+                                        Full Time
+                                      </option>
+                                      <option value="Contract">Contract</option>
+                                    </select>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">
+                                    <i
+                                      class="fa fa-search"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                              <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-2 col-md-2" *ngIf="resetBtn">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="reset()"
+                      style="font-size: 14px; margin: 11px"
+                    >
+                      Reset All</a
+                    >
+                  </div>
+                  <div class="col-sm-2 col-md-2" *ngIf="!resetBtn"></div>
+                  <div class="col-sm-1 col-md-1"></div>
+                  <div class="col-sm-2 col-md-2"></div>
+                </div>
+                <br />
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Job Request #</th>
+                      <th>Business Unit</th>
+                      <th>Recruitment Role</th>
+                      <th>Progress</th>
+                      <th>Status</th>
+                      <th>Requested By</th>
+                      <th>Recruiter</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of jobReqList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr>
+                        <td (click)="item.expanded = !item.expanded">
+                          {{ item.expanded ? "&ndash;" : "+" }}
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            (click)="gotoJobReqView(item.referenceNumber)"
+                            >{{ item.referenceNumber }}</a
+                          >
+                        </td>
+                        <td>{{ item.buName }}</td>
+                        <td>{{ item.roleName }}</td>
+                        <td>
+                          <div class="progress">
+                            <div
+                              class="progress-bar"
+                              role="progressbar"
+                              [style.width.%]="item.progress"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                          <span
+                            class="text-muted center"
+                            style="font-size: 10px"
+                          >
+                            {{ item.closedOpenings }} /
+                            {{ item.noOfOpenings }} ({{ item.progress }}%)
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            class="feedLblStyle lblOpen"
+                            *ngIf="item.jobReqStatus == 'Yet to Start'"
+                            >Open</span
+                          >
+                          <span
+                            class="feedLblStyle lblCommentStyle"
+                            *ngIf="item.jobReqStatus == 'In Progress'"
+                            >In Progress</span
+                          >
+                          <span
+                            class="feedLblStyle lblTaskStyle"
+                            *ngIf="item.jobReqStatus == 'Completed'"
+                            >Completed</span
+                          >
+                          <span
+                            class="feedLblStyle lblTerminated"
+                            *ngIf="item.jobReqStatus == 'Terminated'"
+                            >Terminated</span
+                          >
+                          <span
+                            class="feedLblStyle lblClosed"
+                            *ngIf="item.jobReqStatus == 'Closed'"
+                            >Closed</span
+                          >
+                          <span
+                            class="feedLblStyle lblHold"
+                            *ngIf="item.jobReqStatus == 'Hold'"
+                            >Hold</span
+                          >
+                        </td>
+                        <td>
+                          {{ item.requesterName }}
+                        </td>
+                        <td>{{ item.recruiterName }}</td>
+
+                        <td class="center">
+                          <a
+                            *ngIf="
+                              item.jobReqStatus == 'Yet to Start' ||
+                              item.jobReqStatus == 'In Progress'
+                            "
+                            class="btn btn-tbl-add btn-xs"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Add External Candidate"
+                            (click)="
+                              gotoAddCandidate(
+                                item.referenceNumber,
+                                item.roleName,
+                                item.placementFor
+                              )
+                            "
+                          >
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                          </a>
+
+                          <a
+                            *ngIf="
+                              item.jobReqStatus == 'Terminated' ||
+                              item.jobReqStatus == 'Closed' ||
+                              item.jobReqStatus == 'Hold' ||
+                              item.jobReqStatus == 'Completed'
+                            "
+                            class="btn btn-tbl-add btn-xs disabled"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Cannot Add Candidate"
+                          >
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngIf="item.expanded">
+                        <tr *ngFor="let details of findDetails(item)">
+                          <td style="padding-left: 12px"></td>
+                          <td
+                            colspan="3"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="{{ details.customerNameInDetail }} | {{
+                              details.buName
+                            }}| {{ details.employmentType }} | {{
+                              details.placementFor
+                            }}  "
+                          >
+                            {{ details.customerNameInDetail }} |
+                            {{ details.employmentType }} |
+                            {{ details.placementFor }}
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            {{ details.updatedDateTime | date: shortDate }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12 paginate"
+                  style="height: 29px"
+                >
+                  <br />
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ jobReqList.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

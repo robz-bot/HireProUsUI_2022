@@ -1,0 +1,221 @@
+<div class="page-content" style="min-height: 1157px">
+  <div class="page-bar-history">
+    <div class="page-title-breadcrumb">
+      <div class="pull-center">
+        <div class="page-title">Candidate History</div>
+      </div>
+      <div class="pull-right">
+        <button
+          (click)="gotoToBack()"
+          type="button"
+          class="btn btn-primary"
+          style="margin-top: -98px; margin-right: 1115px"
+        >
+          Back<span class="sr-only">Click To Back</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <section id="cd-timeline" class="cd-container">
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-left">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content">
+        <h4>Candiate Added On</h4>
+        <p><strong>Job Request Num:</strong> {{ round0.jrNumber }}</p>
+        <p><strong>Candidate Name:</strong> {{ round0.candidateName }}</p>
+        <p><strong>Initiated By:</strong> {{ round0.createdByName }}</p>
+        <span class="cd-date rightDate">{{
+          round0.updatedDateTime | date
+        }}</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+    <div class="cd-timeline-block" *ngIf="round0 != null">
+      <div class="cd-timeline-img cd-right">
+        <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content right">
+        <h4>Resume Shortlist</h4>
+        <p><strong>Shortlisted By:</strong> {{ round0.updatedByName }}</p>
+
+        <p><strong> Remarks :</strong> {{ round0.resultRemarks }}</p>
+        <p *ngIf="round0 && round0.recStatus">
+          <strong>Result:</strong>
+          {{ setRecStatus(round0.recStatus).split(" ")[0] }}
+        </p>
+        <span *ngIf="round0 && round0.updatedDateTime" class="cd-date">{{
+          round1.updatedDateTime | date
+        }}</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+    <div class="cd-timeline-block" *ngIf="round1 != null">
+      <div class="cd-timeline-img cd-left">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content">
+        <h4>Internal Round 1</h4>
+        <p *ngIf="round1 && round1.createdByName">
+          <strong>Scheduled By:</strong> {{ round1.createdByName }}
+        </p>
+        <p *ngIf="round1 && round1.interviewerName">
+          <strong>Interviewer:</strong> {{ round1.interviewerName }}
+        </p>
+        <p *ngIf="round1 && round1.scheduleDateTime">
+          <strong>Interview DateTime:</strong>
+          {{ round1.scheduleDateTime | date: "short" }}, {{ round1.duration }}
+        </p>
+
+        <p *ngIf="round1 && round1.recStatus">
+          <strong>Result:</strong>
+          {{ setRecStatus(round1.recStatus).split(" ")[0] }}
+        </p>
+        <p *ngIf="round1 && round1.recStatus == 26">
+          <strong>Remarks:</strong>
+          Job Request seems to be Terminated / Closed
+        </p>
+        <p *ngIf="round1 && round1.interviewerName">
+          <strong>Interview Result Remarks :</strong> {{ round1.resultRemarks }}
+        </p>
+
+        <span
+          *ngIf="round1 && round1.updatedDateTime"
+          class="cd-date rightDate"
+          >{{ round1.updatedDateTime | date }}</span
+        >
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+    <div class="cd-timeline-block" *ngIf="round2 != null">
+      <div class="cd-timeline-img cd-right">
+        <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content right">
+        <h4>Internal Round 2</h4>
+        <p *ngIf="round2 && round2.createdByName">
+          <strong>Scheduled By:</strong> {{ round2.createdByName }}
+        </p>
+        <h5 *ngIf="round2.id == null">This Round Skipped</h5>
+        <p *ngIf="round2 && round2.interviewerName">
+          <strong>Interviewer:</strong> {{ round2.interviewerName }}
+        </p>
+        <p *ngIf="round2 && round2.scheduleDateTime">
+          <strong>Interview DateTime:</strong>
+          {{ round2.scheduleDateTime | date: "short" }}, {{ round2.duration }}
+        </p>
+
+        <p *ngIf="round2 && round2.recStatus">
+          <strong>Result:</strong>
+          {{ setRecStatus(round2.recStatus).split(" ")[0] }}
+        </p>
+        <p *ngIf="round2 && round2.recStatus == 26">
+          <strong>Remarks:</strong>
+          Job Request seems to be Terminated / Closed
+        </p>
+        <p *ngIf="round2 && round2.interviewerName">
+          <strong>Interview Result Remarks :</strong> {{ round2.resultRemarks }}
+        </p>
+
+        <span *ngIf="round2 && round2.updatedDateTime" class="cd-date">{{
+          round2.updatedDateTime | date
+        }}</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+
+    <!-- cd-timeline-block -->
+    <div class="cd-timeline-block" *ngIf="round3 != null">
+      <div class="cd-timeline-img cd-left">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content">
+        <h4>Customer Round</h4>
+        <h5 *ngIf="round3.id == null">This Round Skipped</h5>
+        <p *ngIf="round3 && round3.createdByName">
+          <strong>Scheduled By:</strong> {{ round3.createdByName }}
+        </p>
+        <p *ngIf="round3 && round3.interviewerName">
+          <strong>Interviewer:</strong> {{ round3.interviewerName }}
+        </p>
+        <p *ngIf="round3 && round3.scheduleDateTime">
+          <strong>Interview DateTime:</strong>
+          {{ round3.scheduleDateTime | date: "short" }}, {{ round3.duration }}
+        </p>
+
+        <p *ngIf="round3 && round3.recStatus">
+          <strong>Result:</strong>
+          {{ setRecStatus(round3.recStatus).split(" ")[0] }}
+        </p>
+        <p *ngIf="round3 && round3.recStatus == 26">
+          <strong>Remarks:</strong>
+          Job Request seems to be Terminated / Closed
+        </p>
+        <p *ngIf="round3 && round3.interviewerName">
+          <strong>Interview Result Remarks :</strong> {{ round3.resultRemarks }}
+        </p>
+
+        <span
+          *ngIf="round3 && round3.updatedDateTime"
+          class="cd-date rightDate"
+          >{{ round3.updatedDateTime | date }}</span
+        >
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+
+    <!-- cd-timeline-block -->
+    <div class="cd-timeline-block" *ngIf="round4 != null">
+      <div class="cd-timeline-img cd-left">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+      </div>
+      <!-- cd-timeline-img -->
+      <div class="cd-timeline-content right">
+        <h4>HR Round</h4>
+        <h5 *ngIf="round4.id == null">This Round Skipped</h5>
+        <p *ngIf="round4 && round4.createdByName">
+          <strong>Scheduled By:</strong> {{ round4.createdByName }}
+        </p>
+        <p *ngIf="round4 && round4.interviewerName">
+          <strong>Interviewer:</strong> {{ round4.interviewerName }}
+        </p>
+        <p *ngIf="round4 && round4.scheduleDateTime">
+          <strong>Interview DateTime:</strong>
+          {{ round4.scheduleDateTime | date: "short" }}, {{ round4.duration }}
+        </p>
+
+        <p *ngIf="round4 && round4.recStatus">
+          <strong>Result:</strong>
+          {{ setRecStatus(round4.recStatus).split(" ")[0] }}
+        </p>
+        <p *ngIf="round4 && round4.recStatus == 26">
+          <strong>Remarks:</strong>
+          Job Request seems to be Terminated / Closed
+        </p>
+        <p *ngIf="round4 && round4.interviewerName">
+          <strong>Interview Result Remarks :</strong> {{ round4.resultRemarks }}
+        </p>
+
+        <span
+          *ngIf="round4 && round4.updatedDateTime"
+          class="cd-date rightDate"
+          >{{ round4.updatedDateTime | date }}</span
+        >
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+  </section>
+  <!-- cd-timeline -->
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

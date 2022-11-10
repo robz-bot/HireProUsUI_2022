@@ -1,0 +1,1184 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div
+        class="tab-pane active show"
+        id="tab1"
+        *ngIf="enableOnboardList == 1"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12 text-muted">
+                    <div class="col-sm-3 col-md-3" style="font-size: 14px">
+                      Recruitment / Onboard Details
+                    </div>
+                    <div
+                      style="font-size: 14px"
+                      class="col-md-4 col-md-4 text-muted"
+                    >
+                      <form
+                        class="form-horizontal"
+                        role="form"
+                        #kf="ngForm"
+                        name="form"
+                        novalidate
+                        (ngSubmit)="searchOnboard(kf)"
+                      >
+                        <div class="input-group" id="adv-search">
+                          <input
+                            type="text"
+                            placeholder="Search for Job Request"
+                            name="jrNumber"
+                            class="form-control"
+                            [(ngModel)]="searchOnboardDto.jrNumber"
+                          />
+                          <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                              <div class="dropdown dropdown-lg">
+                                <button
+                                  type="button"
+                                  class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  <i
+                                    class="fa fa-angle-down"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button>
+                                <div
+                                  class="dropdown-menu dropdown-menu-right"
+                                  role="menu"
+                                  id="MenuCard"
+                                  syle="    position: absolute;
+                                top: 39px;
+                                left: -282px;"
+                                >
+                                  <form
+                                    class="form-horizontal"
+                                    role="form"
+                                    #kf="ngForm"
+                                    name="form"
+                                    novalidate
+                                    (ngSubmit)="searchOnboardAdv(kf)"
+                                  >
+                                    <div class="form-group">
+                                      <label for="filter">Filter by</label>
+                                      <input
+                                        type="text"
+                                        placeholder="Search for Job Request"
+                                        name="jrNumber"
+                                        class="form-control"
+                                        [(ngModel)]="searchOnboardDto.jrNumber"
+                                      />
+                                    </div>
+                                    <div class="form-group">
+                                      <input
+                                        type="text"
+                                        placeholder="Search for Employee ID"
+                                        name="employeeId"
+                                        class="form-control"
+                                        [(ngModel)]="
+                                          searchOnboardDto.employeeId
+                                        "
+                                      />
+                                    </div>
+                                    <div class="form-group">
+                                      <input
+                                        type="text"
+                                        placeholder="Search for Employee ID By HR"
+                                        name="employeeIdByHR"
+                                        class="form-control"
+                                        [(ngModel)]="
+                                          searchOnboardDto.employeeIdByHR
+                                        "
+                                      />
+                                    </div>
+                                    <div class="form-group">
+                                      <input
+                                        type="text"
+                                        placeholder="Search for Work Order Number"
+                                        name="workOrderNumber"
+                                        class="form-control"
+                                        [(ngModel)]="
+                                          searchOnboardDto.workOrderNumber
+                                        "
+                                      />
+                                    </div>
+
+                                    <button
+                                      type="submit"
+                                      class="btn btn-primary"
+                                    >
+                                      <i
+                                        class="fa fa-search"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </button>
+                                  </form>
+                                </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-1 col-md-1" *ngIf="resetBtn">
+                      <a
+                        href="javascript:void(0)"
+                        (click)="reset()"
+                        style="font-size: 14px; margin: 11px"
+                      >
+                        Reset All</a
+                      >
+                    </div>
+                    <div class="col-sm-1 col-md-1" *ngIf="!resetBtn"></div>
+
+                    <div class="col-sm-4 col-md-4">
+                      <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                          <a
+                            (click)="showNewSchedule()"
+                            class="dropdown-toggle btn btn-primary btn-sm"
+                            style="font-size: 12px"
+                            ><i class="fa fa-plus" aria-hidden="true"></i>New
+                            Onboard Detail
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Job Request Reference</th>
+                        <th>Candidate Details</th>
+                        <th>Employee ID</th>
+                        <th>Employee ID By HR</th>
+                        <th>D.O.J</th>
+                        <!-- <th>Joined</th> -->
+                        <th>
+                          Docs.<br />
+                          Verified
+                        </th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="odd gradeX"
+                        *ngFor="
+                          let item of onBoardList
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td *ngIf="onBoardListCount == 0">
+                          <i
+                            aria-hidden="true"
+                            class="fa fa-exclamation-triangle"
+                          ></i
+                          >&nbsp;No Record Found
+                        </td>
+
+                        <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            >{{ item.jrNumber }}</a
+                          >
+                          | {{ item.roleName }} | {{ item.employmentType }} |
+                          {{ item.placementFor }}
+                        </td>
+                        <td>
+                          <span
+                            *ngIf="item.sex == 'Male'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Male"
+                            class="badge headerBadgeColor2"
+                          >
+                            M
+                          </span>
+                          <span
+                            *ngIf="item.sex == 'Female'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Female"
+                            class="badge headerBadgeColor1"
+                          >
+                            F
+                          </span>
+                          |
+                          <a
+                            (click)="gotoCandidateView(item.candidateId)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.candidateName }}</a
+                          >
+                          |
+                          <a href="tel:{{ item.contactNumber }}">{{
+                            item.contactNumber
+                          }}</a>
+                          | {{ item.experience }} yr(s)
+                        </td>
+
+                        <td>{{ item.employeeId }}</td>
+                        <td>{{ item.employeeIdByHR }}</td>
+                        <td>{{ item.joiningDate }}</td>
+                        <!-- <td *ngIf="item.joined == 1">✔️</td>
+                        <td *ngIf="item.joined == 0">❌</td> -->
+                        <td *ngIf="item.docsVerified == 1">✔️</td>
+                        <td *ngIf="item.docsVerified == 0">❌</td>
+
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                            data-toggle="modal"
+                            data-target="#updateOnboardModel"
+                            (click)="
+                              getId(
+                                item.buId,
+                                item.id,
+                                item.candidateId,
+                                item.jrNumber,
+                                item.resourceId
+                              )
+                            "
+                          >
+                            <i class="fa fa-pencil"></i>
+                          </a>
+                          <a
+                            *ngIf="enableDeleteIcon('Delete')"
+                            href="javascript:;"
+                            class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                            data-toggle="dropdown"
+                            data-hover="dropdown"
+                            data-close-others="true"
+                            aria-expanded="true"
+                          >
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                          <ul class="dropdown-menu animated slideInDown">
+                            <li>
+                              <div class="card-body">
+                                <label
+                                  >Sure You Want to Delete this Onboard Detail? </label
+                                ><br />
+                                <button
+                                  (click)="deleteOnboardDetail(item.id)"
+                                  type="button"
+                                  class="btn btn-circle btn-danger"
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-circle btn-info"
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </li>
+                          </ul>
+                          <!-- <a
+                            *ngIf="enableDeleteIcon('Delete')"
+                            href="javascript:;"
+                            class="btn btn-tbl-delete btn-xs"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Delete"
+                            data-toggle="dropdown"
+                            data-hover="dropdown"
+                            data-close-others="true"
+                          >
+                            <i class="fa fa-trash-o"></i>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-default jello">
+                            <li>
+                              <div class="card-body">
+                                <label
+                                  >Sure You Want to Delete this Onboard Detail? </label
+                                ><br />
+                                <button
+                                  (click)="deleteOnboardDetail(item.id)"
+                                  type="button"
+                                  class="btn btn-circle btn-danger"
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-circle btn-info"
+                                >
+                                  No
+                                </button>
+                              </div>
+                            </li>
+                          </ul> -->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ onBoardList.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane active show"
+        id="tab2"
+        *ngIf="enableNewSchedule == 1"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12">
+                    <div
+                      class="col-sm-4 col-md-4 text-muted"
+                      style="font-size: 14px"
+                    >
+                      Recruitment / Onboarded Candidate
+                    </div>
+
+                    <div class="col-sm-4 col-md-4">
+                      <form
+                        #kf="ngForm"
+                        name="form"
+                        novalidate
+                        (submit)="searchCandidateByRecStatusList()"
+                      >
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            maxlength="35"
+                            class="form-control"
+                            name="keyword"
+                            [(ngModel)]="candidate.keyword"
+                            placeholder="Search for Candidate Name"
+                          />
+
+                          &nbsp;
+                          <input
+                            type="submit"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                            "
+                            value="Search"
+                          />
+                          &nbsp; &nbsp;
+
+                          <input
+                            type="button"
+                            (click)="reset()"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                              width: 15%;
+                            "
+                            value="Reset"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                      <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                          <a
+                            (click)="showScheduleList()"
+                            class="dropdown-toggle btn btn-primary btn-sm"
+                            style="font-size: 12px"
+                            ><i
+                              class="fa fa-angle-double-left"
+                              style="font-size: 16px"
+                              aria-hidden="true"
+                            ></i
+                            >Back to Onboarded List
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Job Request Reference</th>
+                        <th>Candidate Details</th>
+                        <th>Shortlisted By | On</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="selectedCandidatesListCount == 0">
+                        <td class="center" colspan="5" style="font-size: 15px">
+                          <i
+                            aria-hidden="true"
+                            class="fa fa-exclamation-triangle"
+                          ></i
+                          >&nbsp;No Record(s) Found
+                        </td>
+                      </tr>
+                      <tr
+                        class="odd gradeX"
+                        *ngFor="
+                          let item of selectedCandidatesList
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            >{{ item.jrNumber }}</a
+                          >
+                          | {{ item.roleName }} |
+
+                          {{ item.employmentType }} |
+                          {{ item.placementFor }}
+                        </td>
+                        <td>
+                          <span
+                            *ngIf="item.sex == 'Male'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Male"
+                            class="badge headerBadgeColor2"
+                          >
+                            M
+                          </span>
+                          <span
+                            *ngIf="item.sex == 'Female'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Female"
+                            class="badge headerBadgeColor1"
+                          >
+                            F
+                          </span>
+                          |
+                          <a
+                            (click)="gotoCandidateView(item.id)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.fullName }}</a
+                          >
+                          |
+                          <a href="tel:{{ item.contactNumber }}">{{
+                            item.contactNumber
+                          }}</a>
+                          | {{ item.experience }} yr(s)
+                        </td>
+                        <td>
+                          {{ item.updatedByName }} |
+                          {{ item.updatedDateTime | date }}
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="dropdown-toggle btn btn-tbl-add btn-xs"
+                            data-toggle="modal"
+                            data-target="#OnboardModel"
+                            (click)="
+                              getDet(
+                                item.buId,
+                                item.id,
+                                item.jrNumber,
+                                item.resourceId,
+                                item.candidateType,
+                                item.contactNumber
+                              )
+                            "
+                          >
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <br />
+
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ selectedCandidatesListCount }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Onboard Model -->
+    <div
+      class="modal fade"
+      id="OnboardModel"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form #f="ngForm" novalidate (ngSubmit)="addOnBoard(f)">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                New Onboard Details
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(f)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <!-- <div class="col-md-6 col-sm-6" *ngIf="!enablebenchData">
+                  <label for="Customer"
+                    >Employee ID By HR&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.employeeIdByHR"
+                      class="form-control"
+                      name="employeeIdByHR"
+                      #employeeIdByHR="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && employeeIdByHR.invalid
+                      }"
+                    />
+                    <div *ngIf="f.submitted" class="invalid-feedback">
+                      <div
+                        *ngIf="
+                          employeeIdByHR.errors.required
+                        "
+                      >
+                        Employee ID By HR is required
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer"
+                    >Employee ID By HR&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.employeeIdByHR"
+                      class="form-control"
+                      name="employeeIdByHR"
+                      required
+                      #employeeIdByHR="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && employeeIdByHR.invalid
+                      }"
+                    />
+                    <div *ngIf="f.submitted" class="invalid-feedback">
+                      <div *ngIf="employeeIdByHR.errors.required">
+                        Employee ID By HR is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer"
+                    >Date Of Joining&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      (keydown)="noManualType($event)"
+                      min="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      [(ngModel)]="onBoard.joiningDate"
+                      type="date"
+                      name="joiningDate"
+                      #joiningDate="ngModel"
+                      required
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && joiningDate.invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="f.submitted && joiningDate.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="joiningDate.errors.required">
+                        Date Of Joining is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12" *ngIf="!enablebenchData">
+                  <label for="Customer"
+                    >Email&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.email"
+                      class="form-control"
+                      name="email"
+                      #email="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && email.invalid
+                      }"
+                    />
+                    <div *ngIf="f.submitted" class="invalid-feedback">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12" *ngIf="enablebenchData">
+                  <label for="Customer"
+                    >Email&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      [disabled]="enablebenchData"
+                      type="text"
+                      [(ngModel)]="onBoard.email"
+                      class="form-control"
+                      name="email"
+                    />
+                    <!-- <div *ngIf="f.submitted" class="invalid-feedback">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Documents Verified</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <select
+                      [disabled]="enablebenchData"
+                      [(ngModel)]="onBoard.docsVerified"
+                      name="docsVerified"
+                      class="form-select"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select
+                      </option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Candidate Joined</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <select
+                      [disabled]="enablebenchData"
+                      [(ngModel)]="onBoard.joined"
+                      name="joined"
+                      class="form-select"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select
+                      </option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Work Order #</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.workOrderNumber"
+                      class="form-control"
+                      name="workOrderNumber"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Project</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <select
+                      [(ngModel)]="onBoard.projectId"
+                      name="projectId"
+                      class="form-select"
+                    >
+                      <option
+                        class="dropdown-item"
+                        selected
+                        value="undefined"
+                      >
+                        Select Project
+                      </option>
+                      <option
+                        *ngFor="let item of projectList"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.projectName }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <br />
+                  <input
+                    type="submit"
+                    class="form-control btn btn-primary col-sm-6 col-md-6"
+                    value="save"
+                  /><br />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Onboard Model -->
+    <div
+      class="modal fade"
+      id="updateOnboardModel"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <form #uf="ngForm" novalidate (ngSubmit)="updateOnBoardDet(uf)">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                Update Onboard Details
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(uf)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer"
+                    >Employee ID&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      disabled
+                      type="text"
+                      value="{{ onBoard.employeeId }}"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer"
+                    >Employee ID By HR&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.employeeIdByHR"
+                      class="form-control"
+                      name="employeeIdByHR"
+                      #employeeIdByHR="ngModel"
+                      required
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': uf.submitted && employeeIdByHR.invalid
+                      }"
+                    />
+                    <div *ngIf="uf.submitted" class="invalid-feedback">
+                      <div *ngIf="employeeIdByHR.errors.required">
+                        Employee ID By HR is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                  <label for="Customer"
+                    >Email&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.email"
+                      class="form-control"
+                      name="email"
+                      #email="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': uf.submitted && email.invalid
+                      }"
+                    />
+                    <div *ngIf="uf.submitted" class="invalid-feedback">
+                      <div *ngIf="email.errors.required">Email is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer"
+                    >Date Of Joining&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <input
+                      (keydown)="noManualType($event)"
+                      min="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      [(ngModel)]="onBoard.joiningDate"
+                      type="date"
+                      name="joiningDate"
+                      #joiningDate="ngModel"
+                      required
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': uf.submitted && joiningDate.invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="uf.submitted && joiningDate.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="joiningDate.errors.required">
+                        Date Of Joining is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Documents Verified</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <select
+                      [(ngModel)]="onBoard.docsVerified"
+                      name="docsVerified"
+                      class="form-select"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select
+                      </option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Work Order #</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <input
+                      type="text"
+                      [(ngModel)]="onBoard.workOrderNumber"
+                      class="form-control"
+                      name="workOrderNumber"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="Customer">Project</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <select
+                      [(ngModel)]="onBoard.projectId"
+                      name="projectId"
+                      class="form-select"
+                    >
+                      <option
+                        class="dropdown-item"
+                        selected
+                        value="undefined"
+                      >
+                        Select Project
+                      </option>
+                      <option
+                        *ngFor="let item of projectList"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.projectName }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br />
+
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <br />
+                  <input
+                    type="submit"
+                    class="form-control btn btn-primary col-sm-6 col-md-6"
+                    value="update"
+                  /><br />
+                </div>
+              </div>
+
+              <br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- searchModal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="searchModal"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #kf="ngForm" name="form" novalidate>
+              <div class="row col-sm-12 col-md-12">
+                <input
+                  type="text"
+                  maxlength="35"
+                  class="form-control"
+                  name="keyword"
+                  required
+                  placeholder="Job Reference Number"
+                />
+              </div>
+              <br />
+              <div class="row col-sm-12 col-md-12">
+                <input
+                  type="text"
+                  maxlength="35"
+                  class="form-control"
+                  name="keyword"
+                  required
+                  placeholder="Candidate Name"
+                />
+              </div>
+              <br />
+              <div class="row col-sm-12 col-md-12">
+                <input
+                  type="submit"
+                  class="btn btn-xs searchbtn"
+                  style="
+                    background-color: #706e6e !important;
+                    color: white;
+                    height: 32px;
+                  "
+                  value="Search"
+                />
+              </div>
+            </form>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

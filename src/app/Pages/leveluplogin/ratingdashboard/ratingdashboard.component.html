@@ -1,0 +1,68 @@
+<div class="container my-3">
+    <div class="d-flex justify-content-center">
+
+        <div class="p-2 bd-highlight">
+            <button class="btn btn-outline-primary" routerLink="/ratingdashboard">New Entry</button>
+        </div>
+
+        <div class="p-2 bd-highlight">
+            <button class="btn btn-primary" routerLink="/reviewlist">Review Teams Perfomance
+            </button>
+        </div>
+
+        <div class="p-2 bd-highlight">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-primary" routerLink="/levelupgrade-login">Logout</button>
+        </div>
+    </div>
+    <div>
+        <ul class="btn btn-outline-primary">
+            <li class="dropdown dropdown-user">
+                <a class="btn btn-outline-primary" data-toggle="modal"
+                    data-target="#exampleModal">
+                    <i class="fa fa btn-outline-primary"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row-12 text-center my-3">
+        Welcome, {{SS_currentUserName}} !
+    </div>
+    <!-- Add Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Add New Entry
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+		<form  #f="ngForm" name="form" novalidate (ngSubmit)="addAchievements(f)">
+        <div class="row my-3 form">
+            <div class="row-12 my-3">
+                Resource Name | Role | Business Unit</div>
+            <div class="row-12">
+                <input type="text" class="form-control" value={{resourceDisplay}} disabled>
+            </div>
+            <div class="row-12 my-3">
+                Achievements
+            </div>
+            <div class="row-12 ">
+                <textarea name="achievements" [(ngModel)]="resourceAccomplishment.achievements"
+                required
+                #achievements="ngModel" class="form-control" rows="4" cols="10"></textarea>
+            </div>
+            <div class="row-12 my-3">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+	<br />
+	 </div>
+    </div>
+   </div>
+</div>
+<app-footer></app-footer>

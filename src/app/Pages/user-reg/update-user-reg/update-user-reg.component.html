@@ -1,0 +1,549 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12">
+    <div class="card card-box">
+      <div class="card-head bg-pan-left">
+        <header>Update User</header>
+      </div>
+      <div class="card-body" id="bar-parent10">
+        <form #f="ngForm" name="form" (ngSubmit)="updateUserReg(f)" novalidate>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <!-- UserName -->
+            <div class="col-md-6 col-sm-6">
+              <label for="Customer"
+                >User Name (Email)&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-envelope"></i
+                ></span>
+                <input
+                  readonly
+                  name="email"
+                  [(ngModel)]="userReg.email"
+                  type="email"
+                  class="form-control"
+                  required="required"
+                  #email="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+                />
+                <div
+                  *ngIf="f.submitted && email.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="email.errors.required">Email is required</div>
+                </div>
+              </div>
+            </div>
+            <!-- Gender -->
+            <div class="col-md-6 col-sm-6">
+              <label for="Customer"
+                >Gender&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3 radiodiv">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-transgender-alt"></i></span
+                >&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="form-check form-check-inline">
+                  <input
+                    name="sex"
+                    required
+                    [(ngModel)]="userReg.sex"
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio1"
+                    value="1"
+                    #sex="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && sex.invalid }"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Male</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    required
+                    name="sex"
+                    [(ngModel)]="userReg.sex"
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineRadio2"
+                    value="0"
+                    #sex="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && sex.invalid }"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Female</label
+                  >
+                </div>
+                <div
+                  *ngIf="f.submitted && sex.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="sex.errors.required">Gender is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <!-- First Name -->
+            <div class="col-md-6 col-sm-6">
+              <label for="Customer"
+                >First Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-address-book"></i
+                ></span>
+                <input
+                  name="firstName"
+                  [(ngModel)]="userReg.firstName"
+                  type="text"
+                  class="form-control"
+                  required="required"
+                  #firstName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && firstName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && firstName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="firstName.errors.required">
+                    First Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Last Name -->
+            <div class="col-md-6 col-sm-6">
+              <label for="Customer"
+                >Last Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-address-book"></i
+                ></span>
+                <input
+                  name="lastName"
+                  [(ngModel)]="userReg.lastName"
+                  type="text"
+                  class="form-control"
+                  required="required"
+                  #lastName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && lastName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && lastName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="lastName.errors.required">
+                    Last Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <!-- Contact Number -->
+            <div class="col-md-6 col-sm-6">
+              <label for="Customer"
+                >Contact Number&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-map-marker-alt"></i
+                ></span>
+                <input
+                  type="text"
+                  name="contactNumber"
+                  [(ngModel)]="userReg.contactNumber"
+                  class="form-control"
+                  (keypress)="onlyNumber($event)"
+                  required
+                  #contactNumber="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && contactNumber.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && contactNumber.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="contactNumber.errors.required">
+                    Contact Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Designation -->
+            <div class="col-md-3 col-sm-3">
+              <label for="Customer"
+                >Designation&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tie"></i
+                ></span>
+                <input
+                  type="text"
+                  name="designation"
+                  [(ngModel)]="userReg.designation"
+                  required
+                  class="form-control"
+                  #designation="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && designation.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && designation.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="designation.errors.required">
+                    Designation is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Location -->
+            <div class="col-md-3 col-sm-3">
+              <label for="Customer"
+                >Location&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-map-marker-alt"></i
+                ></span>
+                <input
+                  type="text"
+                  name="location"
+                  [(ngModel)]="userReg.location"
+                  class="form-control"
+                  required
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && location.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && location.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="location.errors.required">
+                    Location is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <!-- Business Unit -->
+            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+              <label for="Customer"
+                >Business Unit&nbsp;<span style="color: red">*</span>
+              </label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <select
+                  class="form-select"
+                  required
+                  name="businessUnitId"
+                  [(ngModel)]="userReg.businessUnitId"
+                  #businessUnitId="ngModel"
+                  (change)="onchangeBu(userReg.businessUnitId)"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && businessUnitId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Business Unit
+                  </option>
+                  <option *ngFor="let item of bulist" value="{{ item.id }}">
+                    {{ item.businessUnitName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && businessUnitId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="businessUnitId.errors.required">
+                    Business Unit is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+              <label for="Customer"
+                >Business Unit&nbsp;<span style="color: red">*</span>
+              </label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <select
+                  disabled
+                  class="form-select"
+                  required
+                  name="businessUnitId"
+                  [(ngModel)]="userReg.businessUnitId"
+                  #businessUnitId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && businessUnitId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Business Unit
+                  </option>
+                  <option *ngFor="let item of bulist" value="{{ item.id }}">
+                    {{ item.businessUnitName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && businessUnitId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="businessUnitId.errors.required">
+                    Business Unit is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <label for="Customer"
+                >Manager Name&nbsp;<span style="color: red">*</span>
+              </label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-user"></i
+                ></span>
+               <input
+               disabled
+               value = "{{changedManagerName}}"
+               type="text"
+               class="form-control"
+             />  
+              </div>
+            </div>
+            <!-- Role -->
+            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+              <label for="Customer">
+                Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-user-check"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="roleId"
+                  [(ngModel)]="userReg.roleId"
+                  required
+                  #roleId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && roleId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Role
+                  </option>
+                  <option *ngFor="let item of rolelist" value="{{ item.id }}">
+                    {{ item.roleName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && roleId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="roleId.errors.required">Role is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+              <label for="Customer">
+                Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-user-check"></i
+                ></span>
+                <select
+                  disabled
+                  class="form-select"
+                  name="roleId"
+                  [(ngModel)]="userReg.roleId"
+                  required
+                  #roleId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && roleId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Role
+                  </option>
+                  <option *ngFor="let item of rolelist" value="{{ item.id }}">
+                    {{ item.roleName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && roleId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="roleId.errors.required">Role is required</div>
+                </div>
+              </div>
+            </div>
+            <!-- Status -->
+            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+              <label for="Customer">
+                Status&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-check"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="active"
+                  [(ngModel)]="userReg.active"
+                  required
+                  #active="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && active.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Status
+                  </option>
+                  <option value="1">Active</option>
+                  <option value="0">In-Active</option>
+                </select>
+                <div
+                  *ngIf="f.submitted && active.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="active.errors.required">Status is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+              <label for="Customer">
+                Status&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-user-check"></i
+                ></span>
+                <select
+                  disabled
+                  class="form-select"
+                  name="active"
+                  [(ngModel)]="userReg.active"
+                  required
+                  #active="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && active.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Status
+                  </option>
+                  <option value="1">Active</option>
+                  <option value="0">In-Active</option>
+                </select>
+                <div
+                  *ngIf="f.submitted && active.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="active.errors.required">Status is required</div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <!-- Skill Set -->
+            <div class="col-md-12 col-sm-12">
+              <label for="Customer">Skill Set </label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-align-left"></i
+                ></span>
+                <textarea
+                  name="skillSet"
+                  [(ngModel)]="userReg.skillSet"
+                  class="form-control"
+                  rows="2"
+                  #skillSet="ngModel"
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <div class="col-md-2 col-sm-2">
+              <input
+                type="submit"
+                class="form-control btn btn-primary"
+                value="Update"
+              />
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <input
+                (click)="gotoback()"
+                type="button"
+                class="form-control btn btn-secondary"
+                value="Cancel"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

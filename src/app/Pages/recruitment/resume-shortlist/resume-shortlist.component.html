@@ -1,0 +1,331 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-sm-4 col-md-4 text-muted">
+                      Recruitment / Resume Shortlist
+                    </div>
+                    <div class="col-sm-4 col-md-4"></div>
+                    <div class="col-sm-4 col-md-4" id="search">
+                      <form #f="ngForm" name="form" novalidate>
+                        <div class="input-group mb-3">
+                          <input
+                            [(ngModel)]="searchKeyword"
+                            type="text"
+                            maxlength="35"
+                            class="form-control"
+                            name="searchKeyword"
+                            placeholder="Search Candidate..."
+                          />
+
+                          &nbsp;
+                          <input
+                            (click)="searchCandidateByRecStatusList()"
+                            type="button"
+                            value="Search"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                            "
+                          />
+                          &nbsp; &nbsp;
+
+                          <input
+                            type="button"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                            "
+                            value="Reset"
+                            (click)="loadCandidates()"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Job Request Reference</th>
+                        <th>Candidate Details</th>
+                        <th>Resume</th>
+                        <th *ngIf="enableSubMenu('ResumeShortlist_Action')">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="odd gradeX"
+                        *ngFor="
+                          let item of candidateList
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+                        <td>
+                          <a
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.jrNumber }}</a
+                          >
+                          | {{ item.roleName }} |
+
+                          {{ item.employmentType }} |
+                          {{ item.placementFor }}
+                        </td>
+                        <td>
+                          <span
+                            *ngIf="item.sex == 'Male'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Male"
+                            class="badge headerBadgeColor2"
+                          >
+                            M
+                          </span>
+                          <span
+                            *ngIf="item.sex == 'Female'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Female"
+                            class="badge headerBadgeColor1"
+                          >
+                            F
+                          </span>
+                          |
+                          <a
+                            (click)="gotoCandidateView(item.id)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.fullName }}</a
+                          >
+                          | {{ item.contactNumber }} | {{ item.experience }} yrs
+                        </td>
+
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-resume btn-xs"
+                            (click)="getResume(item.id)"
+                          >
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        <td
+                          *ngIf="
+                            enableSubMenu('ResumeShortlist_Action') &&
+                            enableApprovalCondition(item.buId)
+                          "
+                        >
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user">
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Shortlist "
+                                class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                (click)="getJRNumber(item.jrNumber)"
+                              >
+                                <i class="fa fa-check"></i>
+                              </a>
+                              <ul
+                                class="dropdown-menu dropdown-menu-default jello"
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Shortlist</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            class="form-control"
+                                            name="remarks"
+                                            [(ngModel)]="candidate.remarks"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-select"
+                                            id="basic-addon1"
+                                            (click)="
+                                              saveShortlistStatus(item.id)
+                                            "
+                                            >Shortlist</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                          <ul class="nav navbar-nav pull-left">
+                            <li
+                              _ngcontent-wri-c52=""
+                              class="dropdown dropdown-user"
+                            >
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Hold "
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                class="dropdown-toggle btn btn-tbl-plus btn-xs"
+                                aria-expanded="false"
+                                (click)="getJRNumber(item.jrNumber)"
+                              >
+                                <i class="fa fa-pause" aria-hidden="true"></i
+                              ></a>
+                              <ul
+                                class="dropdown-menu dropdown-menu-default jello"
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Hold</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            name="remarks"
+                                            [(ngModel)]="candidate.remarks"
+                                            class="form-control"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-hold"
+                                            id="basic-addon1"
+                                            (click)="saveHoldStatus(item.id)"
+                                            >Hold</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user">
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Rejection "
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                                aria-expanded="false"
+                                (click)="getJRNumber(item.jrNumber)"
+                                ><i class="fa fa-times"></i
+                              ></a>
+                              <ul
+                                class="dropdown-menu dropdown-menu-default jello"
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Rejection</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            class="form-control"
+                                            name="remarks"
+                                            [(ngModel)]="candidate.remarks"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-reject"
+                                            id="basic-addon1"
+                                            (click)="saveRejectStatus(item.id)"
+                                            >Reject</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                        <td *ngIf="!enableApprovalCondition(item.buId)">
+                          <span class="text-muted"
+                            >No Action Required (Other BU)</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ candidateList.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

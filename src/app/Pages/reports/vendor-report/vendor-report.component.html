@@ -1,0 +1,275 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-3 col-md-3 text-muted">
+                    Reports / Vendor Management Report
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                  <div class="col-sm-2 col-md-2" id="search">
+                    <a
+                      (click)="showFilter()"
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 text-muted"></div>
+                  <div class="col-sm-2 col-md-2">
+                    <!-- <img
+                      (click)="downloadResourceDetails()"
+                      id="excelImg"
+                      src="https://icon-library.com/images/download-to-excel-icon/download-to-excel-icon-0.jpg"
+                      alt=""
+                      srcset=""
+                    /> -->
+                    <a
+                      (click)="downloadVendorDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </a>
+                    <!-- <button
+                      (click)="downloadResourceDetails()"
+                      class="btn btn-success btn-sm"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </button> -->
+                    <!-- <img
+                      (click)="downloadResourceDetails()"
+                      title="Download Excel"
+                      id="excelImg"
+                      style="cursor: pointer"
+                      src="https://img.icons8.com/color/96/000000/microsoft-excel-2019--v1.png"
+                    /> -->
+                    <!-- <a
+                      (click)="downloadResourceDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel
+                    </a> -->
+                  </div>
+                </div>
+                <br />
+                <div *ngIf="ShowFilterDiv">
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- Vendor Id -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Id">Vendor Id</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="vendorId"
+                        [(ngModel)]="searchModal.vendorId"
+                        required
+                        placeholder="Search by Vendor Id"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Vendor Name -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Name">Vendor Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="vendorName"
+                        [(ngModel)]="searchModal.vendorName"
+                        required
+                        placeholder="Search by Vendor Name"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Email -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Email">Email</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="email"
+                        [(ngModel)]="searchModal.email"
+                        required
+                        placeholder="Search by Email"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Loaction -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Loaction">Loaction</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="location"
+                        [(ngModel)]="searchModal.location"
+                        required
+                        placeholder="Search by Location"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- From Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="From Date">From Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.fromDateTime"
+                        type="date"
+                        name="fromDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                    <!-- To Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="To Date">To Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.toDateTime"
+                        type="date"
+                        name="toDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <a
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                        (click)="searchVendor()"
+                      >
+                        <i class="fa fa-search"></i>Search
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        class="dropdown-toggle btn btn-secondary btn-sm"
+                        style="font-size: 12px"
+                        (click)="resetFilter()"
+                      >
+                        <i class="fa fa-refresh" style="color: white"></i
+                        ><span style="color: white">Reset</span>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        (click)="closeFilter()"
+                        class="dropdown-toggle btn btn-danger btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-times" style="color: white"></i
+                        ><span style="color: white">close</span>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4"></div>
+                  </div>
+                  <br />
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Vendor ID</th>
+                      <th>Vendor Name</th>
+                      <th>Email</th>
+                      <th>Contact Number</th>
+                      <th>Location</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of vendorList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr>
+                        <td (click)="item.expanded = !item.expanded">
+                          {{ item.expanded ? "&ndash;" : "+" }}
+                        </td>
+                        <td>
+                          {{ item.vendorId }}
+                        </td>
+                        <td>{{ item.vendorName }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.contactNumber }}</td>
+                        <td>{{ item.location }}</td>
+                      </tr>
+                      <ng-container *ngIf="item.expanded">
+                        <tr *ngFor="let details of findDetails(item)">
+                          <td style="padding-left: 12px"></td>
+                          <td style="padding-left: 12px">
+                            {{
+                              details.address == null || details.address == ""
+                                ? "-"
+                                : details.address
+                            }}
+                            | {{ details.ccEmailIds }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                    <br />
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ vendorListCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

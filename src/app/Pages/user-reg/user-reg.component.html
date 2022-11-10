@@ -1,0 +1,1360 @@
+<div class="container-fluid">
+  <br />
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1" *ngIf="enableRegGrid == 1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-3 col-md-3 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Configurations / Users List
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <input
+                      id="listview"
+                      type="button"
+                      class="btn btn-xs searchbtn btn-primary"
+                      value="List View"
+                      (click)="showRegList()"
+                      style="
+                        border-top-left-radius: 12px;
+                        border-bottom-left-radius: 12px;
+                        height: 34px;
+                        background-color: white !important;
+                        color: #188ae2 !important;
+                      "
+                    />
+                    <input
+                      id="gridview"
+                      type="button"
+                      class="btn btn-xs searchbtn btn-primary"
+                      value="Grid View"
+                      (click)="showRegGrid()"
+                      style="
+                        border-top-right-radius: 12px;
+                        border-bottom-right-radius: 12px;
+                        height: 34px;
+                      "
+                    />
+                  </div>
+
+                  <div class="col-sm-2 col-md-2 pull-right">
+                    <div class="input-group mb-3">
+                      <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                          <a
+                            style="
+                              background-color: #706e6e !important;
+                              font-size: 12px;
+                              color: white;
+                            "
+                            class="dropdown-toggle btn btn-sm"
+                            data-toggle="modal"
+                            data-target="#searchModal"
+                          >
+                            Search
+                          </a>
+                        </li>
+                      </ul>
+                      &nbsp;
+                      <input
+                        type="button"
+                        class="btn btn-xs searchbtn"
+                        style="
+                          background-color: #706e6e !important;
+                          color: white;
+                          width: 44%;
+                        "
+                        (click)="resetAll()"
+                        value="Reset"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          (click)="showNewReg()"
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          style="font-size: 12px"
+                          ><i class="fa fa-plus" aria-hidden="true"></i>New User
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <div class="row">
+                    <div
+                      class="col-md-3 col-sm-3"
+                      *ngFor="
+                        let item of userReglist
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <div class="card">
+                        <div class="m-b-20">
+                          <div class="doctor-profile">
+                            <div
+                              [className]="
+                                i % 5 == 0
+                                  ? 'profile-header bg-b-purple'
+                                  : i % 5 == 1
+                                  ? 'profile-header cyan-bgcolor'
+                                  : i % 5 == 2
+                                  ? 'profile-header bg-b-orange'
+                                  : i % 5 == 3
+                                  ? 'profile-header bg-b-danger'
+                                  : i % 5 == 4
+                                  ? 'profile-header bg-b-green'
+                                  : 'profile-header bg-b-purple'
+                              "
+                            >
+                              <div
+                                class="user-name"
+                                title="{{ item.fullName }}"
+                              >
+                                {{
+                                  item.fullName.length >= 23
+                                    ? (item.fullName | slice: 0:23) + "..."
+                                    : item.fullName
+                                }}
+                                <!-- {{ item.fullName }} -->
+                                <i
+                                  *ngIf="item.active == 1"
+                                  style="color: #08a94b"
+                                  class="fa fa-circle"
+                                  aria-hidden="true"
+                                  title="Active"
+                                ></i>
+                                <i
+                                  *ngIf="item.active == 0"
+                                  style="color: #ff0000"
+                                  class="fa fa-circle"
+                                  aria-hidden="true"
+                                  title="In-Active"
+                                ></i>
+                              </div>
+                              <div
+                                class="name-center"
+                                title="{{ item.roleName }}"
+                              >
+                                {{
+                                  item.roleName.length >= 23
+                                    ? (item.roleName | slice: 0:23) + "..."
+                                    : item.roleName
+                                }}
+                                <!-- {{ item.roleName }} -->
+                              </div>
+                            </div>
+                            <img
+                              *ngIf="item.image != null"
+                              src="{{ item.image }}"
+                              class="user-img"
+                              alt=""
+                            />
+                            <img
+                              *ngIf="item.sex == 0 && item.image == ''"
+                              src="/assets/img/femaleimg.png"
+                              class="user-img"
+                              alt=""
+                            />
+                            <img
+                              *ngIf="item.sex == 1 && item.image == ''"
+                              src="/assets/img/maleimg.jpg"
+                              class="user-img"
+                              alt=""
+                            />
+                            <div class="row col-md-12 col-sm-12 col-lg-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-landmark badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="Business Unit"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ item.businessUnitName }}"
+                                >
+                                  {{
+                                    item.businessUnitName.length >= 23
+                                      ? (item.businessUnitName | slice: 0:23) +
+                                        "..."
+                                      : item.businessUnitName
+                                  }}
+                                  <!-- {{ item.businessUnitName }} -->
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-user-tie badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ item.designation }}"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ item.designation }}"
+                                >
+                                  {{
+                                    item.designation.length >= 23
+                                      ? (item.designation | slice: 0:23) + "..."
+                                      : item.designation
+                                  }}
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-map-marker-alt badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="Location"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ Location }}"
+                                >
+                                  {{
+                                    item.location.length >= 23
+                                      ? (item.location | slice: 0:23) + "..."
+                                      : item.location
+                                  }}
+                                  <!-- {{ item.location }} -->
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-folder-o badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="Skillset"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ item.skillSet }}"
+                                >
+                                  {{
+                                    item.skillSet == null || item.skillSet == ""
+                                      ? "-"
+                                      : item.skillSet.length >= 23
+                                      ? (item.skillSet | slice: 0:23) + "..."
+                                      : item.skillSet
+                                  }}
+
+                                  <!-- {{ item.skillSet | slice: 0:23 }}... -->
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="
+                                profile-userbuttons
+                                row
+                                col-md-12 col-sm-12
+                              "
+                            >
+                              <div class="col-md-6 col-sm-6 right">
+                                <a href="javascript:;" *ngIf="item.sex == 0">
+                                  <span
+                                    class="badge headerBadgeColor1"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Female"
+                                  >
+                                    F
+                                  </span>
+                                </a>
+                                <a href="javascript:;" *ngIf="item.sex == 1">
+                                  <span
+                                    class="badge headerBadgeColor2"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Male"
+                                  >
+                                    M
+                                  </span> </a
+                                >&nbsp;&nbsp;&nbsp;
+                                <a
+                                  href="javascript:;"
+                                  *ngIf="item.panelMember == 1"
+                                >
+                                  <span
+                                    class="badge headerBadgeColor3"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Panel Member"
+                                  >
+                                    P
+                                  </span>
+                                </a>
+                              </div>
+
+                              <div class="col-md-6 col-sm-6">
+                                <a
+                                  href="javascript:void(0);"
+                                  (click)="updateUserReg(item.id)"
+                                  class="btn btn-circle btn-tbl-edit btn-sm"
+                                  ><i
+                                    class="fa fa-pencil"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Edit"
+                                  ></i></a
+                                >&nbsp;&nbsp;&nbsp;
+                                <a
+                                  href="javascript:void(0);"
+                                  data-toggle="dropdown"
+                                  data-hover="dropdown"
+                                  data-close-others="true"
+                                  aria-expanded="false"
+                                  class="
+                                    dropdown-toggle
+                                    btn btn-circle btn-tbl-delete btn-sm
+                                  "
+                                  ><i
+                                    class="fa fa-trash-o"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Delete"
+                                  ></i
+                                ></a>
+                                <ul
+                                  class="
+                                    dropdown-menu dropdown-menu-default
+                                    jello
+                                  "
+                                  style="left: -200px"
+                                >
+                                  <li>
+                                    <div class="card-body delete-card">
+                                      <label
+                                        >Sure You Want to Delete this User? </label
+                                      ><br />
+                                      <button
+                                        (click)="deleteUser(item.id)"
+                                        type="button"
+                                        class="btn btn-circle btn-danger"
+                                      >
+                                        Yes
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn btn-circle btn-info"
+                                      >
+                                        No
+                                      </button>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select
+                      (change)="handlePageSizeChange($event.target.value)"
+                    >
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ userReglist.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane active show" id="tab2" *ngIf="enableNewReg == 1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-md-12 col-sm-12 card-head bg-pan-left">
+                    <header>New User</header>
+                  </div>
+                  <!--
+                  <div class="col-sm-4 col-md-4" style="font-size: 16px"></div>
+                  <div class="col-sm-4 col-md-4">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          style="font-size: 12px"
+                          ><i
+                            class="fa fa-angle-double-left"
+                            style="font-size: 16px"
+                            aria-hidden="true"
+                          ></i
+                          >Back to User List
+                        </a>
+                      </li>
+                    </ul>
+                  </div> -->
+                </div>
+
+                <div class="card-body" id="bar-parent10">
+                  <form
+                    #f="ngForm"
+                    name="form"
+                    (ngSubmit)="saveNewUser(f)"
+                    novalidate
+                  >
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >User Name (Email)&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-envelope"></i
+                          ></span>
+                          <input
+                            name="email"
+                            [(ngModel)]="userReg.email"
+                            type="email"
+                            class="form-control"
+                            required="required"
+                            #email="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && email.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && email.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="email.errors.required">
+                              Email is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Gender&nbsp;<span style="color: red">*</span></label
+                        >
+                        <div class="input-group mb-3 radiodiv">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-transgender-alt"></i></span
+                          >&nbsp;&nbsp;&nbsp;&nbsp;
+                          <div class="form-check form-check-inline">
+                            <input
+                              name="sex"
+                              required
+                              [(ngModel)]="userReg.sex"
+                              class="form-check-input"
+                              type="radio"
+                              id="inlineRadio1"
+                              value="1"
+                              #sex="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && sex.invalid
+                              }"
+                            />
+                            <label class="form-check-label" for="inlineRadio1"
+                              >Male</label
+                            >
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              required
+                              name="sex"
+                              [(ngModel)]="userReg.sex"
+                              class="form-check-input"
+                              type="radio"
+                              id="inlineRadio2"
+                              value="0"
+                              #sex="ngModel"
+                              [ngClass]="{
+                                'is-invalid': f.submitted && sex.invalid
+                              }"
+                            />
+                            <label class="form-check-label" for="inlineRadio2"
+                              >Female</label
+                            >
+                          </div>
+                          <div
+                            *ngIf="f.submitted && sex.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="sex.errors.required">
+                              Gender is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >First Name&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-book"></i
+                          ></span>
+                          <input
+                            name="firstName"
+                            [(ngModel)]="userReg.firstName"
+                            type="text"
+                            maxlength="25"
+                            class="form-control"
+                            required="required"
+                            #firstName="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && firstName.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && firstName.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="firstName.errors.required">
+                              First Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Last Name&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-book"></i
+                          ></span>
+                          <input
+                            name="lastName"
+                            [(ngModel)]="userReg.lastName"
+                            type="text"
+                            maxlength="25"
+                            class="form-control"
+                            required="required"
+                            #lastName="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && lastName.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && lastName.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="lastName.errors.required">
+                              Last Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Contact Number&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-map-marker-alt"></i
+                          ></span>
+                          <input
+                            type="text"
+                            maxlength="25"
+                            name="contactNumber"
+                            [(ngModel)]="userReg.contactNumber"
+                            class="form-control"
+                            required
+                            #contactNumber="ngModel"
+                            (keypress)="onlyNumber($event)"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && contactNumber.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && contactNumber.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="contactNumber.errors.required">
+                              Contact Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Designation&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-user-tie"></i
+                          ></span>
+                          <input
+                            type="text"
+                            name="designation"
+                            [(ngModel)]="userReg.designation"
+                            required
+                            class="form-control"
+                            #designation="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && designation.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && designation.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="designation.errors.required">
+                              Designation is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Business Unit&nbsp;<span style="color: red">*</span>
+                        </label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">
+                            <i class="fa fa-landmark"></i
+                          ></span>
+                          <select
+                            class="form-select"
+                            required
+                            name="businessUnitId"
+                            (change)="onchangeBu(userReg.businessUnitId)"
+                            [(ngModel)]="userReg.businessUnitId"
+                            #businessUnitId="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && businessUnitId.invalid
+                            }"
+                          >
+                            <option
+                              class="dropdown-item"
+                              selected
+                              disabled
+                              value="undefined"
+                            >
+                              Select Business Unit
+                            </option>
+                            <option
+                              *ngFor="let item of bulist"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.businessUnitName }}
+                            </option>
+                          </select>
+                          <!-- <ng-select
+                            style="z-index: 9999 !important"
+                            [multiple]="true"
+                            [items]="bulist"
+                            bindLabel="businessUnitName"
+                            placeholder="Select Business Unit"
+                            [(ngModel)]="selectedBUForAdd"
+                            name="businessUnitId"
+                            maxSelectedItems="3"
+                          >
+                          </ng-select> -->
+                          <div
+                            *ngIf="f.submitted && businessUnitId.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="businessUnitId.errors.required">
+                              Business Unit is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-3">
+                        <label for="Customer"
+                            >Manager Name&nbsp;<span style="color: red">*</span>
+                        </label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                            <i class="fa fa-user"></i
+                            ></span>
+                            <input
+                            disabled
+                            value = "{{changedManagerName}}"
+                            type="text"
+                            class="form-control"
+                        />  
+                        </div>
+                        </div>
+                      <div class="col-md-3 col-sm-3">
+                        <label for="Customer">
+                          Role&nbsp;<span style="color: red">*</span></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fas fa-user-check"></i
+                          ></span>
+
+                          <select
+                            class="form-select"
+                            name="roleId"
+                            [(ngModel)]="userReg.roleId"
+                            required
+                            #roleId="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && roleId.invalid
+                            }"
+                          >
+                            <option
+                              class="dropdown-item"
+                              disabled
+                              selected
+                              value="undefined"
+                            >
+                              Select Role
+                            </option>
+                            <option
+                              *ngFor="let item of rolelist"
+                              value="{{ item.id }}"
+                            >
+                              {{ item.roleName }}
+                            </option>
+                          </select>
+                          <div
+                            *ngIf="f.submitted && roleId.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="roleId.errors.required">
+                              Role is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer">Skill Set </label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-list"></i
+                          ></span>
+                          <textarea
+                            name="skillSet"
+                            [(ngModel)]="userReg.skillSet"
+                            class="form-control"
+                            rows="2"
+                          >
+                          </textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-6">
+                        <label for="Customer"
+                          >Location&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-map-marker-alt"></i
+                          ></span>
+                          <input
+                            type="text"
+                            name="location"
+                            [(ngModel)]="userReg.location"
+                            class="form-control"
+                            required
+                            #location="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && location.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && location.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="location.errors.required">
+                              Location is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-2 col-sm-2">
+                        <input
+                          type="submit"
+                          class="form-control btn btn-primary"
+                          value="register"
+                        />
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <input
+                          (click)="showRegList()"
+                          type="button"
+                          class="form-control btn btn-secondary"
+                          value="Cancel"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane active show" id="tab3" *ngIf="enableRegList == 1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-3 col-md-3 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Configurations / Users List
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <input
+                      id="listview"
+                      type="button"
+                      class="btn btn-xs searchbtn btn-primary"
+                      value="List View"
+                      (click)="showRegList()"
+                      style="
+                        border-top-left-radius: 12px;
+                        border-bottom-left-radius: 12px;
+                        height: 34px;
+                      "
+                    />
+                    <input
+                      id="gridview"
+                      type="button"
+                      class="btn btn-xs searchbtn btn-primary"
+                      value="Grid View"
+                      (click)="showRegGrid()"
+                      style="
+                        border-top-right-radius: 12px;
+                        border-bottom-right-radius: 12px;
+                        height: 34px;
+                        background-color: white !important;
+                        color: #188ae2 !important;
+                      "
+                    />
+                  </div>
+
+                  <div class="col-sm-2 col-md-2 pull-right">
+                    <div class="input-group mb-3">
+                      <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                          <a
+                            style="
+                              background-color: #706e6e !important;
+                              font-size: 12px;
+                              color: white;
+                            "
+                            class="dropdown-toggle btn btn-sm"
+                            data-toggle="modal"
+                            data-target="#searchModal"
+                            (click)="loadddl()"
+                          >
+                            Search
+                          </a>
+                        </li>
+                      </ul>
+                      &nbsp;&nbsp;
+                      <input
+                        type="button"
+                        class="btn btn-xs searchbtn"
+                        style="
+                          background-color: #706e6e !important;
+                          color: white;
+                          width: 44%;
+                        "
+                        (click)="resetAll()"
+                        value="Reset"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          (click)="showNewReg()"
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          style="font-size: 12px"
+                          ><i class="fa fa-plus" aria-hidden="true"></i>New User
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <div class="row">
+                    <table class="table table-hover table-checkable full-width">
+                      <thead class="bg-listHeader">
+                        <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Gender</th>
+                          <th>Status</th>
+                          <th>Role</th>
+                          <th>Business Unit | Designation</th>
+                          <th>Location</th>
+                          <th>Interviewer</th>
+                          <th>Updated On</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          class="odd gradeX"
+                          *ngFor="
+                            let item of userReglist
+                              | paginate
+                                : {
+                                    itemsPerPage: pageSizeList,
+                                    currentPage: page,
+                                    totalItems: count
+                                  };
+                            let i = index
+                          "
+                        >
+                          <td>{{ (page - 1) * pageSizeList + i + 1 }}</td>
+                          <td>
+                            {{ item.fullName }}
+                          </td>
+                          <td>
+                            <span
+                              *ngIf="item.sex == 1"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Male"
+                              class="badge headerBadgeColor2"
+                            >
+                              M
+                            </span>
+                            <span
+                              *ngIf="item.sex == 0"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Female"
+                              class="badge headerBadgeColor1"
+                            >
+                              F
+                            </span>
+                          </td>
+                          <td *ngIf="item.active == 1">
+                            <span class="badge activeColor">Active</span>
+                          </td>
+                          <td *ngIf="item.active == 0">
+                            <span class="badge inActiveColor">In-Active</span>
+                          </td>
+                          <td>{{ item.roleName }}</td>
+                          <td>
+                            {{ item.businessUnitName }} |
+                            {{ item.designation }}
+                          </td>
+                          <td>{{ item.location }}</td>
+                          <td *ngIf="item.panelMember == 0">❌</td>
+                          <td *ngIf="item.panelMember == 1">✔️</td>
+                          <td>
+                            {{ item.updatedDateTime + "Z" | date: "short" }}
+                          </td>
+                          <td>
+                            <ul class="nav navbar-nav pull-left">
+                              <li class="dropdown dropdown-user">
+                                <a
+                                  class="
+                                    dropdown-toggle
+                                    btn btn-tbl-edit btn-xs
+                                  "
+                                  href="javascript:void(0);"
+                                  (click)="updateUserReg(item.id)"
+                                >
+                                  <i
+                                    class="fa fa-pencil"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Edit"
+                                  ></i>
+                                </a>
+                              </li>
+                            </ul>
+                            <ul class="nav navbar-nav pull-left">
+                              <li
+                                _ngcontent-wri-c52=""
+                                class="dropdown dropdown-user"
+                              >
+                                <a
+                                  href="javascript:;"
+                                  data-toggle="dropdown"
+                                  data-hover="dropdown"
+                                  data-close-others="true"
+                                  class="
+                                    dropdown-toggle
+                                    btn btn-tbl-delete btn-xs
+                                  "
+                                  aria-expanded="false"
+                                  ><i
+                                    class="fa fa-trash-o"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="Delete"
+                                  ></i
+                                ></a>
+                                <ul
+                                  class="
+                                    dropdown-menu dropdown-menu-default
+                                    jello
+                                  "
+                                >
+                                  <li>
+                                    <div class="card-body">
+                                      <label
+                                        >Sure You Want to Delete this
+                                        User?</label
+                                      ><br />
+                                      <button
+                                        (click)="deleteUser(item.id)"
+                                        type="button"
+                                        class="btn btn-circle btn-danger"
+                                      >
+                                        Yes
+                                      </button>
+                                      <button
+                                        type="button"
+                                        class="btn btn-circle btn-info"
+                                      >
+                                        No
+                                      </button>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select
+                      (change)="handlePageSizeChangeList($event.target.value)"
+                    >
+                      <option
+                        *ngFor="let size of pageSizesList"
+                        [ngValue]="size"
+                      >
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ userReglist.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- searchModal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="searchModal"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">Search User</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <br />
+            <div class="container">
+              <form #sf="ngForm" novalidate name="form" (ngSubmit)="search(sf)">
+                <div class="row col-sm-12 col-md-12">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Business Unit</span
+                      >
+                      <select
+                        class="form-select"
+                        required
+                        name="buId"
+                        [(ngModel)]="searchUser.buId"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Business Unit
+                        </option>
+                        <option
+                          *ngFor="let item of bulist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.businessUnitName }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Role
+                      </span>
+                      <select
+                        class="form-select"
+                        name="roleId"
+                        [(ngModel)]="searchUser.roleId"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Role
+                        </option>
+                        <option
+                          *ngFor="let item of rolelist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.roleName }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <br />
+                <div class="row col-sm-12 col-md-12">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Panel User
+                      </span>
+                      <select
+                        class="form-select"
+                        name="panelMember"
+                        [(ngModel)]="searchUser.panelMember"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Panel
+                        </option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Gender
+                      </span>
+                      <select
+                        class="form-select"
+                        name="sex"
+                        [(ngModel)]="searchUser.sex"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Gender
+                        </option>
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="row col-sm-12 col-md-12">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Name
+                      </span>
+                      <input
+                        type="text"
+                        maxlength="35"
+                        class="form-control"
+                        name="keyword"
+                        [(ngModel)]="searchUser.name"
+                        placeholder="Search by Name..."
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Email
+                      </span>
+                      <input
+                        type="text"
+                        maxlength="35"
+                        class="form-control"
+                        name="keyword"
+                        [(ngModel)]="searchUser.email"
+                        placeholder="Search by Email..."
+                      />
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="row col-sm-12 col-md-12">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2"
+                        >Location
+                      </span>
+                      <input
+                        type="text"
+                        maxlength="35"
+                        class="form-control"
+                        name="keyword"
+                        [(ngModel)]="searchUser.location"
+                        placeholder="Search by Location..."
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 pull-right">
+                    <input
+                      style="float: right"
+                      type="submit"
+                      value="Search"
+                      class="btn btn-circle btn-primary"
+                    />
+                  </div>
+                </div>
+                <br />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="preloader" *ngIf="loader == 1">
+    <div id="loader"></div>
+  </div>
+</div>

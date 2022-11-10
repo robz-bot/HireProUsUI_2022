@@ -1,0 +1,179 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb"></div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-md-4 col-md-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Recruitment / Bench Resource
+                  </div>
+
+                  <div class="col-sm-2 col-md-2"></div>
+
+                  <div class="col-sm-2 col-md-2">
+                    <select
+                      class="form-select"
+                      name="businessUnitId"
+                      [(ngModel)]="searchModel.buId"
+                    >
+                      <option disabled selected value="undefined">
+                        Select Business Unit
+                      </option>
+                      <option *ngFor="let item of bulist" value="{{ item.id }}">
+                        {{ item.businessUnitName }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <input
+                      (click)="searchByBU()"
+                      type="button"
+                      value="Search"
+                      class="btn btn-primary"
+                    />&nbsp;
+                    <input
+                      (click)="resetSearch()"
+                      type="button"
+                      value="Reset"
+                      class="btn btn-secondary"
+                    />
+                  </div>
+                </div>
+                <br />
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Employee ID</th>
+                      <th
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="Work Order Number "
+                      >
+                        WO Number
+                      </th>
+                      <th>Employee Details</th>
+                      <th>Business Unit | Customer | Project</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of allResources
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr>
+                        <td (click)="item.expanded = !item.expanded">
+                          {{ item.expanded ? "&ndash;" : "+" }}
+                        </td>
+                        <td>{{ item.employeeId }}</td>
+                        <td>{{ item.workOrderNumber }}</td>
+                        <td>{{ item.fullName }}</td>
+                        <td
+                          *ngIf="
+                            item.customerName != null &&
+                            item.projectName != null
+                          "
+                        >
+                          {{ item.buName }} | {{ item.customerName }} |
+                          {{ item.projectName }}
+                        </td>
+                        <td
+                          *ngIf="
+                            item.customerName == null &&
+                            item.projectName == null
+                          "
+                        >
+                          {{ item.buName }} | - | -
+                        </td>
+                        <td>
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user delete">
+                              <a
+                                class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                                (click)="gotoAddBenchCandidate(item.id)"
+                              >
+                                <i class="fa fa-check"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <ng-container *ngIf="item.expanded">
+                        <tr *ngFor="let details of findDetails(item)">
+                          <td style="padding-left: 12px"></td>
+                          <td style="padding-left: 12px"></td>
+                          <td style="padding-left: 12px"></td>
+                          <td
+                            colspan="6"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="{{ details.skillSet }} "
+                          >
+                            {{ details.email }} | {{ details.contactNumber }} |
+                            {{ item.designation }} | {{ details.skillSet }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                    <br />
+                  </tbody>
+                </table>
+
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12 paginate"
+                  style="height: 29px"
+                >
+                  <br />
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ allResourcesCount }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

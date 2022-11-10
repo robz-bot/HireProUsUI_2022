@@ -1,0 +1,272 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="row">
+                <div class="row col-md-12 col-sm-12 list-header">
+                  <div class="col-md-5 col-sm-5">
+                    <span class="text-muted" style="font-size: 14px"
+                      >Configurations / Interview Panel</span
+                    >
+                  </div>
+
+                  <div class="col-sm-3 col-md-3">
+                    <div class="input-group mb-3">
+                      <ng-select
+                        [(ngModel)]="buUser.id"
+                        placeholder="Select Business Unit"
+                      >
+                        <ng-option *ngFor="let item of BUs" [value]="item.id">{{
+                          item.businessUnitName
+                        }}</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <input
+                      style="width: 45%; height: 33px"
+                      type="submit"
+                      style="background-color: #706e6e !important; color: white"
+                      class="btn btn-xs searchbtn"
+                      value="Search"
+                      (click)="getPanelsByBuId()"
+                    />&nbsp;
+                    <input
+                      type="button"
+                      (click)="getallBUWithPanel()"
+                      style="background-color: #706e6e !important; color: white"
+                      class="btn btn-xs searchbtn"
+                      value="Reset"
+                    />
+                  </div>
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                </div>
+
+                <div
+                  class="col-lg-3 col-md-6 col-12 col-sm-6"
+                  *ngFor="
+                    let item of BUPanel
+                      | paginate
+                        : {
+                            itemsPerPage: pageSize,
+                            currentPage: page,
+                            totalItems: count
+                          };
+                    let i = index
+                  "
+                >
+                  <br />
+                  <div class="blogThumb" id="element_Outside_div">
+                    <div
+                      [className]="
+                        i % 5 == 0
+                          ? 'vehicle-name bg-b-purple'
+                          : i % 5 == 1
+                          ? 'vehicle-name cyan-bgcolor'
+                          : i % 5 == 2
+                          ? 'vehicle-name bg-b-orange'
+                          : i % 5 == 3
+                          ? 'vehicle-name bg-b-danger'
+                          : i % 5 == 4
+                          ? 'vehicle-name bg-b-green'
+                          : 'vehicle-name bg-b-purple'
+                      "
+                    >
+                      <div class="user-name">
+                        {{ item.businessUnitName }}&nbsp;&nbsp;
+                        <a
+                          class="dropdown-toggle btn-sm"
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                          href="javascript:void(0);"
+                          (click)="loadbuById(item.businessUnitId)"
+                          ><i
+                            class="fa fa-pencil"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Edit"
+                          ></i
+                        ></a>
+                      </div>
+                    </div>
+                    <div id="element_within_div">
+                      <br />
+                      <ul
+                        type="none"
+                        *ngFor="
+                          let item1 of BUPanel[
+                            (page - 1) * pageSize + i
+                          ].interviewPanelList.split(',')
+                        "
+                      >
+                        <li *ngIf="item1 != ''">
+                          <i class="fa fa-user" aria-hidden="true"></i
+                          >&nbsp;&nbsp;{{ item1 }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChangeList($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ BUPanel.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        "
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">
+              Edit Interview Panel
+            </h4>
+            <button
+              (click)="clearPanelFields()"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              #f="ngForm"
+              name="form"
+              novalidate
+              (ngSubmit)="saveInterviewPanel(f)"
+            >
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 prof">
+                  <label for="Customer"
+                    >Business Unit&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-landmark"></i
+                    ></span>
+                    <input
+                      type="text"
+                      disabled
+                      class="form-control"
+                      value="{{ buUser.businessUnitName }}"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-9 prof">
+                  <div
+                    class="card-body card-box"
+                    style="height: auto; width: 100%"
+                  >
+                    <label for="Customer"
+                      >Interview Panel&nbsp;<span style="color: red"
+                        >*</span
+                      ></label
+                    >
+
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-4 col-sm-4 form-check"
+                        *ngFor="let item of userlist; let i = index"
+                      >
+                        <input
+                          *ngIf="item.panelMember == '1'"
+                          (change)="onUserChange($event, item.id)"
+                          [checked]="item.panelMember"
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                          [attr.checked]="item.panelMember == '1' ? '1' : '0'"
+                        />
+                        <input
+                          *ngIf="item.panelMember == '0'"
+                          (change)="onUserChange($event, item.id)"
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                        />
+
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          value=""
+                          >&nbsp;{{ item.fullName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+                    <input
+                      type="submit"
+                      class="btn btn-circle btn-primary"
+                      value="save"
+                    />
+                  </div>
+                </div>
+              </div>
+              <br />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

@@ -1,0 +1,49 @@
+<div id="login">
+  <div class="divGroup glass">
+    <form #f="ngForm" name="form" novalidate (ngSubmit)="loginuser(f)">
+      <div class="welcomeHeader"></div>
+      <div class="col-md-6 col-sm-6">
+        <img id="hirepro" src="assets/img/Hireprous.png" />
+      </div>
+      <br />
+      <div>
+        <input
+          placeholder="Email"
+          type="text"
+          maxlength="35"
+          class="form-control"
+          name="email"
+          [(ngModel)]="logindata.email"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <input
+          placeholder="Password"
+          type="password"
+          maxlength="35"
+          class="form-control"
+          name="password"
+          [(ngModel)]="logindata.password"
+          required
+        /><br />
+        <a routerLink="/forget-password" target="_blank" style="float: right"
+          >Forgot Password?</a
+        >
+      </div>
+      <br />
+
+      <div class="GlassButtons">
+        <button class="btn btn-primary form-control">Login</button>
+      </div>
+      <br />
+    </form>
+    <div class="col-md-6 col-sm-6 center max">
+      <img id="promantus" src="assets/img/promantus-new-logo.png" />
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

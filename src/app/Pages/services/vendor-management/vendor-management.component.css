@@ -1,0 +1,198 @@
+.head {
+  color: rgb(9, 44, 121);
+}
+label {
+  font-size: 12px;
+  color: gray;
+}
+input.form-control.btn.btn-circle.btn-primary {
+  position: inherit;
+  float: left;
+}
+tbody {
+  font-size: 12px;
+}
+/* .card-head.bg-pan-left {
+  background: #188ae2 !important;
+  color: white;
+  box-shadow: 0 5px 20px 0 rgb(0 0 0 / 20%), 0 13px 24px -11px #aff5fc;
+} */
+
+i.fa.fa-transgender-alt {
+  height: 18px;
+  margin-top: 2px;
+}
+input#inlineRadio1,
+input#inlineRadio2 {
+  height: 20px;
+  width: 20px;
+  margin-top: 6px;
+  margin-left: -24px;
+  margin-bottom: -21px;
+  margin-right: 54px;
+}
+label.form-check-label {
+  margin-top: 7px;
+}
+.input-group.mb-3.radiodiv {
+  border: 1px solid silver;
+  border-radius: 4px;
+}
+.table thead tr th {
+  font-size: 14px;
+  font-weight: 500;
+}
+a.btn.btn-circle.btn-tbl-edit.btn-sm,
+a.btn.btn-circle.btn-tbl-delete.btn-sm {
+  width: fit-content;
+}
+.col-md-6.col-sm-6.right {
+  border-right: 2px solid silver;
+}
+.badge.headerBadgeColor3 {
+  background-color: #2196f3;
+}
+.badge.BadgeColor {
+  border: 1px solid silver;
+  color: black;
+  height: 26px;
+  width: 30px;
+  padding-top: 7px;
+  background-color: white;
+}
+img.user-img {
+  height: 88px;
+}
+.row.col-md-12.col-sm-12.list-header {
+  border-bottom: 2px dotted silver;
+  margin-left: -1px;
+  top: 7px;
+}
+
+/* select.form-control.form-select,
+input.form-control {
+  border-color: #3c8dbc;
+} */
+.input-group > .custom-select:not(:last-child),
+.input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+#searchModal .modal-dialog {
+  -webkit-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  margin: 0 auto;
+}
+li.nav-item.dropdown {
+  border: 1px solid #167ccb !important;
+  height: 43px;
+  background-color: #167ccb !important;
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+}
+li.nav-item {
+  border: 1px solid #167ccb !important;
+  height: 43px;
+}
+li.nav-item.dropdown a {
+  color: white;
+}
+li.nav-item.dropdown a:hover {
+  color: white;
+}
+li.nav-item a {
+  color: black;
+}
+li.nav-item.hr {
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+}
+span#basic-addon2 {
+  width: 113px;
+  justify-content: center;
+  background-color: #706e6e !important;
+}
+.card-body .delete-card {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+  margin-left: -78px;
+}
+ul.dropdown-menu.dropdown-menu-default.jello.show {
+  position: absolute;
+  transform: translate3d(-80px, 32px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
+.activeColor {
+  background-color: #007bff;
+}
+.inActiveColor {
+  background-color: #ce2121;
+}
+i.fa.fa-circle {
+  float: right;
+}
+.alert.alert-light {
+  border: 1px solid #0d6efd;
+}
+.primaryPriorityColor {
+  background-color: #0c9445;
+}
+.secondaryPriorityColor {
+  background-color: #94490c;
+}
+/* advanced ddl */
+.dropdown.dropdown-lg .dropdown-menu {
+  margin-top: -1px;
+  padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+  display: flex !important;
+}
+.btn-group .btn {
+  border-radius: 0;
+  margin-left: -1px;
+}
+.btn-group .btn:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+.form-group .form-control:last-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+  #adv-search {
+    margin: 0 auto;
+  }
+  .dropdown.dropdown-lg {
+    position: static !important;
+  }
+  .dropdown.dropdown-lg .dropdown-menu {
+    min-width: 350px;
+  }
+}

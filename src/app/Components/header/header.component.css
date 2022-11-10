@@ -1,0 +1,76 @@
+img#hirepro {
+  height: 50px;
+  margin-left: -28px;
+  margin-top: -20px;
+  cursor: default;
+}
+.Head {
+  /* position: relative; */
+  padding: 0px;
+  margin: 18px;
+  float: left;
+  left: -758px;
+}
+#prologo {
+  margin-top: -13px;
+  float: left;
+  margin-left: -307px;
+  height: 100% !important;
+}
+span.label.label-sm.label-successs {
+  background-color: #28a745 !important;
+}
+.label.label-sm {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 6px;
+  margin-right: 5px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+.name {
+  margin: auto;
+  width: 100%;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  float: right;
+  margin: 12px;
+  margin-left: 27px;
+  margin-top: 11px;
+}
+
+.settings {
+  margin: 0px;
+  margin-top: -32px;
+  padding-left: 1186px;
+}
+#promantus {
+  margin-top: -14px;
+  height: 2.5em;
+}
+/* a.btn.btn-xs {
+  margin-top: 12px; 
+} */
+ul.dropdown-menu.dropdown-menu-default.animated.jello.show {
+  background-color: #c4d9fc;
+}
+.col-md-6.col-sm-6.col-lg-6 {
+  margin: 0px;
+  margin-top: 4px;
+}
+a.nav-link {
+  color: #959292;
+}
+ul.nav.nav-pills {
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+}
+ul.nav.nav-pills {
+  justify-content: center;
+}
+li.nav-item:hover {
+  background-color: silver;
+}
+ul.dropdown-menu.show {
+  width: fit-content;
+}

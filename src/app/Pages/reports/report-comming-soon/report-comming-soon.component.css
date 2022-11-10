@@ -1,0 +1,64 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 35vh 20px 20px 20px;
+}
+
+.logo {
+  max-width: 300px;
+}
+
+p {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.message {
+  margin-top: 40px;
+}
+a {
+  font-size: 14px;
+}
+.object-shape {
+  margin: 0px auto;
+  margin-left: 456px;
+}
+.wrapper {
+  height: 100vh;
+  /*This part is important for centering*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: absolute;
+  right: 560px;
+  top: -68px;
+}
+
+.typing-demo {
+  width: 15ch;
+  animation: typing 2s steps(16), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-bottom: 3px solid;
+  border-top: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+  font-weight: 700;
+  color: #1254a1 !important;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}

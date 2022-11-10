@@ -1,0 +1,470 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-4 col-md-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Configurations / Customers
+                  </div>
+                  <div class="col-sm-2 col-md-2"></div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form
+                      #sf="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="searchCustomer(sf)"
+                    >
+                      <div class="input-group mb-3">
+                        <input
+                          type="text"
+                          maxlength="35"
+                          [(ngModel)]="customer.keyword"
+                          class="form-control"
+                          name="keyword"
+                          placeholder="Search Customer..."
+                        />
+
+                        &nbsp;
+                        <input
+                          type="submit"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs searchbtn"
+                          value="Search"
+                        />
+                        &nbsp; &nbsp;
+
+                        <input
+                          (click)="loadCustomer()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addModal"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-plus"></i>New Customer
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Customer Name</th>
+                      <th>Location</th>
+                      <th>Region</th>
+                      <th>Updated By</th>
+                      <th>Updated On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of cusList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+                      <td>{{ item.customerName }}</td>
+                      <td>{{ item.location }}</td>
+                      <td>{{ item.region }}</td>
+                      <td>{{ item.updatedByName }}</td>
+                      <td>
+                        {{ item.updatedDateTime + "Z" | date: "short" }}
+                      </td>
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user">
+                            <a
+                              (click)="getId(item.id)"
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user">
+                            <a
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li>
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Customer? </label
+                                  ><br />
+                                  <button
+                                    (click)="
+                                      deleteCustomer(item.id, item.customerName)
+                                    "
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ cusList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- update Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form
+            #uf="ngForm"
+            name="form"
+            novalidate
+            (ngSubmit)="updateCustomer(uf)"
+          >
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">Edit Customer</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(uf)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <label for="Customer"
+                >Customer Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.customerName"
+                  class="form-control"
+                  name="customerName"
+                  required
+                  #customerName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && customerName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && customerName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="customerName.errors.required">
+                    Customer Name is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <label for="Customer"
+                >Customer Location&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-map-marker-alt"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.location"
+                  class="form-control"
+                  name="location"
+                  required
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && location.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && location.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="location.errors.required">
+                    Location is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Region&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-globe-asia"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.region"
+                  class="form-control"
+                  name="region"
+                  required
+                  #region="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && region.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && region.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="region.errors.required">Region is required</div>
+                </div>
+                <br />
+              </div>
+              <br />
+
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="update"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- add Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <form #f="ngForm" name="form" novalidate (ngSubmit)="addNewCustomer(f)">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">Add Customer</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(f)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <label for="Customer"
+                >Customer Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.customerName"
+                  class="form-control"
+                  name="customerName"
+                  required
+                  #customerName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && customerName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && customerName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="customerName.errors.required">
+                    Customer Name is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <label for="Customer"
+                >Customer Location&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-map-marker-alt"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.location"
+                  class="form-control"
+                  name="location"
+                  required
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && location.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && location.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="location.errors.required">
+                    Location is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Region&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-globe-asia"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="customer.region"
+                  class="form-control"
+                  name="region"
+                  required
+                  #region="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && region.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && region.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="region.errors.required">Region is required</div>
+                </div>
+                <br />
+              </div>
+              <br />
+
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="save"
+              />
+
+              <br />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

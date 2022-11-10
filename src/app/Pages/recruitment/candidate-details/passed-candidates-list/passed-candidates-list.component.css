@@ -1,0 +1,10 @@
+ul.dropdown-menu.dropdown-menu-default.jello.show {
+  position: absolute;
+  transform: translate3d(1017px, 5px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
+* {
+  font-size: 12px;
+}

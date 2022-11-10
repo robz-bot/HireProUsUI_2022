@@ -1,0 +1,59 @@
+export class JRStatusDashboard {
+  recStatusCount: string;
+  recStatusUploaded: string;
+  recStatusShortListed: string;
+  recStatusHolded: string;
+  recStatusRejected: string;
+  recStatusScheduledR1: string;
+  recStatusPassedR1: string;
+
+  recStatusHoldedR1: string;
+  recStatusRejectedR1: string;
+  recStatusScheduledR2: string;
+  recStatusPassedR2: string;
+  recStatusHoldedR2: string;
+  recStatusRejectedR2: string;
+  recStatusScheduledCR3: string;
+  recStatusPassedCR3: string;
+  recStatusHoldedCR3: string;
+  recStatusRejectedCR3: string;
+  recStatusScheduledHR4: string;
+  recStatusPassedHR4: string;
+  recStatusHoldedHR4: string;
+  recStatusRejectedHR4: string;
+  recStatusScheduledBU: string;
+  recStatusAprrovedBU: string;
+  recStatusHoldedBU: string;
+  recStatusRejectedBU: string;
+  recStatusSelected: string;
+  recStatusOnBoarded: string;
+
+  recStatusCountRecent: string;
+  recStatusUploadedRecent: string;
+  recStatusShortListedRecent: string;
+  recStatusHoldedRecent: string;
+  recStatusRejectedRecent: string;
+  recStatusScheduledR1Recent: string;
+  recStatusPassedR1Recent: string;
+
+  recStatusHoldedR1Recent: string;
+  recStatusRejectedR1Recent: string;
+  recStatusScheduledR2Recent: string;
+  recStatusPassedR2Recent: string;
+  recStatusHoldedR2Recent: string;
+  recStatusRejectedR2Recent: string;
+  recStatusScheduledCR3Recent: string;
+  recStatusPassedCR3Recent: string;
+  recStatusHoldedCR3Recent: string;
+  recStatusRejectedCR3Recent: string;
+  recStatusScheduledHR4Recent: string;
+  recStatusPassedHR4Recent: string;
+  recStatusHoldedHR4Recent: string;
+  recStatusRejectedHR4Recent: string;
+  recStatusScheduledBURecent: string;
+  recStatusAprrovedBURecent: string;
+  recStatusHoldedBURecent: string;
+  recStatusRejectedBURecent: string;
+  recStatusSelectedRecent: string;
+  recStatusOnBoardedRecent: string;
+}

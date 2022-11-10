@@ -1,0 +1,20 @@
+.page {
+  background-image: linear-gradient(
+      to bottom,
+      rgb(73 71 71 / 86%),
+      rgb(12 11 11 / 54%)
+    ),
+    url(https://demos.creative-tim.com/light-bootstrap-dashboard-react/static/media/sidebar-4.b7eb4d1b.jpg);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  /* align-items: center; */
+}
+.btn-tab {
+  border: 2px solid #1254a1 !important;
+}

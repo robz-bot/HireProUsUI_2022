@@ -1,0 +1,475 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+  <div class="tab-pane">
+    <div class="col-md-12 col-sm-12">
+      <div class="card card-box">
+        <div class="card-head bg-pan-left">
+          <header>Clone Candidate</header>
+        </div>
+        <div class="card-body" id="bar-parent10">
+          <form
+            #f="ngForm"
+            name="form"
+            novalidate
+            enctype="multipart/form-data"
+          >
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Job Request Reference</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">#</span>
+                  <select
+                  class="form-select"
+                  required
+                  [(ngModel)]="candidate.refId"
+                  #refId="ngModel"
+                >
+                  <option class="dropdown-item" disabled selected value="undefined">
+                    Select Job Request
+                  </option>
+                  <option
+                    *ngFor="let item of JobRequestNumbersList"
+                    value="{{ item.referenceNumber }}"
+                  >
+                    {{ item.referenceNumber }}
+                  </option>
+                </select>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">First Name</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-address-book"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.firstName"
+                    name="firstName"
+                    type="text"
+                    maxlength="14"
+                    class="form-control"
+                    required
+                    #firstName="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && firstName.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && firstName.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="firstName.errors.required">
+                      First Name is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Last Name</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-address-book"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.lastName"
+                    name="lastName"
+                    type="text"
+                    maxlength="14"
+                    class="form-control"
+                    required
+                    #lastName="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && lastName.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && lastName.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="lastName.errors.required">
+                      Last Name is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Contact Number</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-phone" aria-hidden="true"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.contactNumber"
+                    name="contactNumber"
+                    type="text"
+                    (keypress)="onlyNumber($event)"
+                    maxlength="14"
+                    class="form-control"
+                    required
+                    #contactNumber="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && contactNumber.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && contactNumber.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="contactNumber.errors.required">
+                      Contact Number is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Email</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o" aria-hidden="true"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.email"
+                    name="email"
+                    type="text"
+                    maxlength="50"
+                    class="form-control"
+                    required
+                    #email="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && email.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && email.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="email.errors.required">Email is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer"
+                  >Gender&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3 radiodiv">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-transgender-alt"></i></span
+                  >&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div class="form-check form-check-inline">
+                    <input
+                    disabled
+                      [(ngModel)]="candidate.sex"
+                      name="sex"
+                      required
+                      #sex="ngModel"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && sex.invalid
+                      }"
+                      class="form-check-input"
+                      type="radio"
+                      id="inlineRadio1"
+                      value="Male"
+                    />
+                    <label class="form-check-label" for="inlineRadio1"
+                      >Male</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                    disabled
+                      [(ngModel)]="candidate.sex"
+                      name="sex"
+                      required
+                      #sex="ngModel"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && sex.invalid
+                      }"
+                      name="sex"
+                      class="form-check-input"
+                      type="radio"
+                      id="inlineRadio2"
+                      value="Female"
+                    />
+                    <label class="form-check-label" for="inlineRadio1"
+                      >Female</label
+                    >
+                  </div>
+                </div>
+                <div
+                  *ngIf="f.submitted && sex.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="sex.errors.required">Gender is required</div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Years of Experience(in years)</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-clock-o"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.experience"
+                    name="experience"
+                    type="text"
+                    maxlength="25"
+                    class="form-control"
+                    required
+                    #experience="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && experience.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && experience.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="experience.errors.required">
+                      Years Of Experience is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Current Company Name</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-building-o"></i
+                  ></span>
+                  <input
+                  disabled
+                    [(ngModel)]="candidate.currentCompany"
+                    name="currentCompany"
+                    type="text"
+                    maxlength="50"
+                    class="form-control"
+                    required
+                    #currentCompany="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && currentCompany.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && currentCompany.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="currentCompany.errors.required">
+                      Current Company Name is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Candidate Type</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-file-o"></i
+                  ></span>
+                  <select
+                    disabled
+                    [(ngModel)]="candidate.candidateType"
+                    name="candidateType"
+                    required
+                    #candidateType="ngModel"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && candidateType.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Candidate Type
+                    </option>
+                    <option value="Internal">Internal</option>
+                    <option value="External">External</option>
+                  </select>
+
+                  <div
+                    *ngIf="f.submitted && candidateType.invalid"
+                    class="help-block"
+                  >
+                    <div
+                      *ngIf="candidateType.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Candidate Type is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-4 col-sm-4">
+                <label for="Customer">Recruitment Role</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fas fa-user-check"></i
+                  ></span>
+                  <input
+                    type="text"
+                    value="{{ RecRole }}"
+                    disabled
+                    class="form-control"
+                  />
+                </div>
+              </div> -->
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-4 col-sm-4">
+                <label for="Customer">Skill Set </label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-list"></i
+                  ></span>
+                  <textarea
+                  disabled
+                    [(ngModel)]="candidate.skillSet"
+                    name="skillSet"
+                    class="form-control"
+                    required
+                    #skillSet="ngModel"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && skillSet.invalid
+                    }"
+                  ></textarea>
+                  <div
+                    *ngIf="f.submitted && skillSet.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="skillSet.errors.required">
+                      Skill Set is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-4 col-sm-4">
+                <label for="Customer">Resume Upload</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-file-o"></i
+                  ></span>
+                  <input
+                    accept="/*"
+                    type="file"
+                    class="form-control"
+                    (change)="onResumeChanged($event)"
+                  /><span style="color: silver; font-size: 14px">
+                    * Please upload the file with maximum size of 256 KB.
+                  </span>
+                </div>
+              </div> -->
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-2 col-sm-2">
+                <input
+                  type="submit"
+                  class="form-control btn btn-primary"
+                  value="Clone"
+                />
+              </div>
+              <div class="col-md-2 col-sm-2">
+                <input
+                  (click)="gotoback()"
+                  type="button"
+                  class="form-control btn btn-secondary"
+                  value="Cancel"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <!-- <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h4 class="modal-title" id="exampleModalLabel">
+            Do you want to upload Image for this candidate?
+          </h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="gotoCandidateList()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data">
+            <br />
+            <label for="Customer"
+              >Image Upload&nbsp;<span style="color: red">*</span></label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="fa fa-user-tie"></i
+              ></span>
+              <input
+                type="file"
+                (change)="onImgChanged($event)"
+                accept="/*"
+                type="file"
+                class="form-control"
+              /><br /><span style="color: silver; font-size: 14px">
+                * Please upload the image with maximum size of 256 KB.
+              </span>
+            </div>
+
+            <br />
+
+            <input
+              (click)="gotoCandidateList()"
+              type="button"
+              class="btn btn-circle btn-info"
+              value="cancel"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

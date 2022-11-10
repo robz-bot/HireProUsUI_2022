@@ -1,0 +1,641 @@
+<div class="container-fluid">
+  <br />
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1" *ngIf="showAddVendor">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-md-12 col-sm-12 card-head bg-pan-left">
+                    <header>New Vendor</header>
+                  </div>
+                </div>
+
+                <div class="card-body" id="bar-parent10">
+                  <form
+                    #addVendorForm="ngForm"
+                    name="form"
+                    novalidate
+                    (ngSubmit)="addNewVendor(addVendorForm)"
+                  >
+                    <!--  Name, Email, Contact, Location -->
+                    <div class="row cols-12">
+                      <div class="col-3">
+                        <label for="Vendor Name"
+                          >Vendor Name&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-book"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="addVendor.vendorName"
+                            type="text"
+                            name="vendorName"
+                            id=""
+                            class="form-control"
+                            required
+                            #vendorName="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                addVendorForm.submitted && vendorName.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              addVendorForm.submitted && vendorName.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="vendorName.errors.required">
+                              Vendor Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label for="Vendor Name"
+                          >Email&nbsp;<span style="color: red">*</span></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-envelope-o"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="addVendor.email"
+                            type="tel"
+                            name="email"
+                            id=""
+                            class="form-control"
+                            required
+                            #email="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                addVendorForm.submitted && email.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="addVendorForm.submitted && email.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="email.errors.required">
+                              Email is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Contact Number&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-volume-control-phone"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="addVendor.contactNumber"
+                            type="tel"
+                            name="contactNumber"
+                            id=""
+                            class="form-control"
+                            required
+                            #contactNumber="ngModel"
+                            (keypress)="onlyNumber($event)"
+                            [ngClass]="{
+                              'is-invalid':
+                                addVendorForm.submitted && contactNumber.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              addVendorForm.submitted && contactNumber.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="contactNumber.errors.required">
+                              Contact Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Location&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-map-marker"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="addVendor.location"
+                            type="text"
+                            name="location"
+                            id=""
+                            class="form-control"
+                            required
+                            #location="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                addVendorForm.submitted && location.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="addVendorForm.submitted && location.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="location.errors.required">
+                              Location is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Vendor Priority&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-exclamation-circle"></i
+                          ></span>
+                          <select
+                            class="form-select"
+                            name="vendorPriority"
+                            [(ngModel)]="addVendor.vendorPriority"
+                          >
+                            <option
+                              class="dropdown-item"
+                              disabled
+                              selected
+                              value="undefined"
+                            >
+                              Select Vendor Priority
+                            </option>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                          </select>
+                          <div
+                            *ngIf="
+                              addVendorForm.submitted && vendorPriority.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="vendorPriority.errors.required">
+                              Vendor Priority is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <!-- Address, CC Email -->
+                    <div class="row cols-12">
+                      <div class="col-6">
+                        <label for="Vendor Name">Address</label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-card-o"></i
+                          ></span>
+                          <textarea
+                            [(ngModel)]="addVendor.address"
+                            cols="2"
+                            name="address"
+                            id=""
+                            class="form-control"
+                          ></textarea>
+                          <!-- <div
+                            *ngIf="
+                              addVendorForm.submitted && address.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="address.errors.required">
+                              Address is required
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="Vendor Name"
+                          >CC Email IDs&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-envelope"></i
+                          ></span>
+                          <textarea
+                            [(ngModel)]="addVendor.ccEmailIds"
+                            cols="2"
+                            name="ccEmailIds"
+                            id=""
+                            class="form-control"
+                            required
+                            #ccEmailIds="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                addVendorForm.submitted && ccEmailIds.invalid
+                            }"
+                          ></textarea>
+                          <div
+                            *ngIf="
+                              addVendorForm.submitted && ccEmailIds.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="ccEmailIds.errors.required">
+                              CC Email Ids is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <!-- Save and Cancel Button -->
+                    <div class="row cols-12">
+                      <div class="col-2">
+                        <input
+                          type="submit"
+                          class="form-control btn btn-primary"
+                          value="Save"
+                        />
+                      </div>
+                      <div class="col-2">
+                        <input
+                          (click)="cancel(addVendorForm)"
+                          type="button"
+                          class="form-control btn btn-secondary"
+                          value="Cancel"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane active show" id="tab2" *ngIf="showListVendor">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-3 col-md-3 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Services / Vendor List
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                    <div
+                      style="font-size: 14px"
+                      class="col-md-12 col-md-12 text-muted"
+                    >
+                      <div class="input-group" id="adv-search">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="vendorNameSearch"
+                          [(ngModel)]="searchModal.vendorNameSearch"
+                          required
+                          placeholder="Search by Vendor Name"
+                        />
+                        <div class="input-group-btn">
+                          <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                              <button
+                                type="button"
+                                class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i
+                                  class="fa fa-angle-down"
+                                  aria-hidden="true"
+                                ></i>
+                              </button>
+                              <form>
+                                <div
+                                  class="dropdown-menu dropdown-menu-right"
+                                  role="menu"
+                                  id="MenuCard"
+                                  syle="    position: absolute;
+                                top: 39px;
+                                left: -282px;"
+                                >
+                                  <div class="form-group">
+                                    <label for="filter">Filter by</label>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="vendorName"
+                                      [(ngModel)]="searchModal.vendorName"
+                                      required
+                                      placeholder="Search by Vendor Name"
+                                    />
+                                  </div>
+                                  <div class="form-group">
+                                    <select
+                                      class="form-select"
+                                      name="vendorId"
+                                      [(ngModel)]="searchModal.vendorId"
+                                    >
+                                      <option
+                                        disabled
+                                        selected
+                                        value="undefined"
+                                      >
+                                        Select Vendor ID
+                                      </option>
+                                      <option
+                                        *ngFor="let item of vendorIdsList"
+                                        value="{{ item }}"
+                                      >
+                                        {{ item }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="location"
+                                      [(ngModel)]="searchModal.location"
+                                      required
+                                      placeholder="Search by location"
+                                    />
+                                  </div>
+                                  <div class="form-group">
+                                    <select
+                                      class="form-select"
+                                      name="vendorPriority"
+                                      [(ngModel)]="searchModal.vendorPriority"
+                                    >
+                                      <option
+                                        class="dropdown-item"
+                                        disabled
+                                        selected
+                                        value="undefined"
+                                      >
+                                        Select Vendor Priority
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Primary"
+                                      >
+                                        Primary Vendor
+                                      </option>
+                                      <option
+                                        class="dropdown-item"
+                                        value="Secondary"
+                                      >
+                                        Secondary Vendor
+                                      </option>
+                                    </select>
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    (click)="searchVendorAdv()"
+                                    class="btn btn-primary"
+                                  >
+                                    <i
+                                      class="fa fa-search"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              (click)="searchVendor()"
+                            >
+                              <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 col-md-2 pull-right">
+                    <a
+                      *ngIf="restBtn"
+                      href="javascript:void(0)"
+                      (click)="clearSearchModal()"
+                      style="font-size: 14px; margin: 11px"
+                    >
+                      Reset All</a
+                    >
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <a
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                      (click)="newVendorTab()"
+                      ><i class="fa fa-plus" aria-hidden="true"></i>New Vendor
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <div class="row">
+                    <table class="table table-hover table-checkable full-width">
+                      <thead class="bg-listHeader">
+                        <tr>
+                          <th>#</th>
+                          <th>Vendor ID</th>
+                          <th>Vendor Name</th>
+                          <th>Email</th>
+                          <th>Contact Number</th>
+                          <th>Location</th>
+                          <th>Status</th>
+                          <th>Priority</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <ng-container
+                          *ngFor="
+                            let item of vendorList
+                              | paginate
+                                : {
+                                    itemsPerPage: pageSize,
+                                    currentPage: page,
+                                    totalItems: count
+                                  };
+                            let i = index
+                          "
+                        >
+                          <tr>
+                            <td (click)="item.expanded = !item.expanded">
+                              {{ item.expanded ? "&ndash;" : "+" }}
+                            </td>
+                            <td>
+                              {{ item.vendorId }}
+                            </td>
+                            <td>{{ item.vendorName }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.contactNumber }}</td>
+                            <td>{{ item.location }}</td>
+                            <td *ngIf="item.active == 1">
+                              <span class="badge activeColor">Active</span>
+                            </td>
+                            <td *ngIf="item.active == 0">
+                              <span class="badge inActiveColor">In-Active</span>
+                            </td>
+                            <td *ngIf="item.vendorPriority == 'Primary'">
+                              <span class="badge primaryPriorityColor">{{
+                                item.vendorPriority
+                              }}</span>
+                            </td>
+                            <td *ngIf="item.vendorPriority == 'Secondary'">
+                              <span class="badge secondaryPriorityColor">{{
+                                item.vendorPriority
+                              }}</span>
+                            </td>
+
+                            <td>
+                              <ul class="nav navbar-nav pull-left">
+                                <li class="dropdown dropdown-user delete">
+                                  <a
+                                    class="
+                                      dropdown-toggle
+                                      btn btn-tbl-edit btn-xs
+                                    "
+                                    (click)="updateVendor(item.id)"
+                                    title="Edit Vendor"
+                                  >
+                                    <i class="fa fa-pencil"></i>
+                                  </a>
+                                </li>
+                              </ul>
+
+                              <ul class="nav navbar-nav pull-left">
+                                <li class="dropdown dropdown-user edit">
+                                  <a
+                                    title="Delete Vendor"
+                                    href="javascript:;"
+                                    data-toggle="dropdown"
+                                    data-hover="dropdown"
+                                    data-close-others="true"
+                                    class="
+                                      dropdown-toggle
+                                      btn btn-tbl-delete btn-xs
+                                    "
+                                    aria-expanded="false"
+                                    ><i class="fa fa-trash-o"></i
+                                  ></a>
+                                  <ul
+                                    class="
+                                      dropdown-menu dropdown-menu-default
+                                      jello
+                                    "
+                                  >
+                                    <li>
+                                      <div class="card-body">
+                                        <label
+                                          >Sure You Want to Delete this Vendor ? </label
+                                        ><br />
+                                        <button
+                                          type="button"
+                                          class="btn btn-circle btn-danger"
+                                          (click)="
+                                            deleteVendor(
+                                              item.id,
+                                              item.vendorName
+                                            )
+                                          "
+                                        >
+                                          Yes
+                                        </button>
+                                        <button
+                                          type="button"
+                                          class="btn btn-circle btn-info"
+                                        >
+                                          No
+                                        </button>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                          <ng-container *ngIf="item.expanded">
+                            <tr *ngFor="let details of findDetails(item)">
+                              <td style="padding-left: 12px"></td>
+                              <td style="padding-left: 12px">
+                                {{
+                                  details.address == null ||
+                                  details.address == ""
+                                    ? "-"
+                                    : details.address
+                                }}
+                                | {{ details.ccEmailIds }}
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                        <br />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select
+                      (change)="handlePageSizeChange($event.target.value)"
+                    >
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ vendorListCount }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="preloader" *ngIf="loader == 1">
+    <div id="loader"></div>
+  </div>
+</div>

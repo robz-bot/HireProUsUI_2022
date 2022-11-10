@@ -1,0 +1,169 @@
+<!-- start header -->
+<div class="page-header navbar navbar-fixed-top">
+  <div class="page-header-inner">
+    <div class="row col-md-12 col-sm-12 col-lg-12" *ngIf="isVendor == '0'">
+      <div class="col-md-1 col-sm-1 col-lg-1 page-logo">
+        <a href="javascript:void(0)" class="col-md-4 col-sm-4">
+          <img id="hirepro" alt="" src="assets/img/Hireprous.png" />
+        </a>
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-6">
+        <ul class="nav nav-pills">
+          <li class="nav-item" *ngIf="mainMenuAccess('Dashboard')">
+            <a
+              id="dashboard"
+              class="nav-link active"
+              routerLink="/hirepros/dashboard"
+            >
+              <i class="fa fa-th" aria-hidden="true"></i>&nbsp;Dashboard</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="mainMenuAccess('Configurations')">
+            <a id="masters" routerLink="/hirepros/master-menus" class="nav-link"
+              ><i class="fas fa-cog" aria-hidden="true"></i
+              >&nbsp;Configurations</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="mainMenuAccess('Services')">
+            <a
+              id="services"
+              href="javascript:void(0)"
+              routerLink="/hirepros/services-menu"
+              class="nav-link"
+            >
+              <i class="fa fa-handshake-o" aria-hidden="true"></i
+              >&nbsp;Services</a
+            >
+          </li>
+          <li class="nav-item dropdown" *ngIf="mainMenuAccess('Recruitment')">
+            <a
+              id="recruitment"
+              class="nav-link"
+              routerLink="/hirepros/recruitment-menus"
+              ><i class="fa fa-users-cog"></i>&nbsp;Recruitment</a
+            >
+          </li>
+          <li class="nav-item dropdown" *ngIf="mainMenuAccess('Reports')">
+            <a id="reports" class="nav-link" (click)="gotoSelectReport()"
+              ><i class="fa fa-line-chart"></i>&nbsp;Reports</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="col-md-5 col-sm-5 col-lg-5 name"
+        style="margin: auto; padding: 0px"
+      >
+        <span
+          style="color: #1254a1 !important; font-weight: 500; font-size: 14px"
+          ><strong>{{ cUser }}</strong
+          >, {{ loggedInUserRole }}</span
+        >&nbsp;&nbsp;&nbsp;
+        <a
+          data-toggle="dropdown"
+          data-hover="dropdown"
+          data-close-others="true"
+          class="btn btn-xs pull-right"
+          style="background-color: #1254a1 !important"
+          ><i class="fa fa-user-cog" style="color: white"></i
+        ></a>
+        <ul class="dropdown-menu dropdown-menu-default animated jello">
+          <li *ngIf="!subMenuAccess('All')">
+            <a href="javascript:void(0)" (click)="gotoProfile()">
+              <i class="fa fa-user" aria-hidden="true"></i> Profile
+            </a>
+          </li>
+          <li *ngIf="!subMenuAccess('All')">
+            <a href="javascript:void(0)" (click)="gotoChangePass()">
+              <i class="fa fa-key"></i> Change Password
+            </a>
+          </li>
+          <li *ngIf="!subMenuAccess('All')">
+            <a
+              href="javascript:void(0)"
+              routerLink="/hirepros/hirepros-feedback"
+            >
+              <i class="fa fa-commenting-o" aria-hidden="true"></i> Suggestions
+              / Issues
+            </a>
+          </li>
+          <li class="divider"></li>
+
+          <li>
+            <a href="javascript:void(0)" (click)="gotoLogin()">
+              <i class="fa fa-power-off" aria-hidden="true"></i> Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-lg-12" *ngIf="isVendor == '1'">
+      <div class="col-md-1 col-sm-1 col-lg-1 page-logo">
+        <a href="javascript:void(0)" class="col-md-4 col-sm-4">
+          <img id="hirepro" alt="" src="assets/img/Hireprous.png" />
+        </a>
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-6">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a
+              id="dashboard"
+              class="nav-link active"
+              routerLink="/hirepros/vendor-dashboard"
+            >
+              <i class="fa fa-th" aria-hidden="true"></i>&nbsp;Dashboard</a
+            >
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              id="recruitment"
+              class="nav-link"
+              routerLink="/hirepros/recruitment-menus"
+              ><i class="fa fa-users-cog"></i>&nbsp;Recruitment</a
+            >
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a id="reports" class="nav-link" (click)="gotoSelectReport()"
+              ><i class="fa fa-line-chart"></i>&nbsp;Reports</a
+            >
+          </li> -->
+        </ul>
+      </div>
+      <div
+        class="col-md-5 col-sm-5 col-lg-5 name"
+        style="margin: auto; padding: 0px"
+      >
+        <span
+          style="color: #1254a1 !important; font-weight: 500; font-size: 14px"
+          ><strong>{{ cVendor }}</strong></span
+        >&nbsp;&nbsp;&nbsp;
+        <a
+          data-toggle="dropdown"
+          data-hover="dropdown"
+          data-close-others="true"
+          class="btn btn-xs pull-right"
+          style="background-color: #1254a1 !important"
+          ><i class="fa fa-user-cog" style="color: white"></i
+        ></a>
+        <ul class="dropdown-menu dropdown-menu-default animated jello">
+          <li>
+            <a
+              href="javascript:void(0)"
+              routerLink="/hirepros/vendor-change-password"
+            >
+              <i class="fa fa-key"></i> Change Password
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="javascript:void(0)" (click)="gotoVendorLogin()">
+              <i class="fa fa-power-off" aria-hidden="true"></i> Log Out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end header -->

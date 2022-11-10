@@ -1,0 +1,272 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <!-- BEGIN PROFILE CONTENT -->
+    <div class="profile-content">
+      <div class="row">
+        <div class="profile-tab-box">
+          <div class="p-l-20 row col-sm-12 col-md-12">
+            <div class="col-md-4 col-sm-4">
+              <a href="javascript:void(0)" (click)="goback()">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="margin-top: -5px"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="fas fa-backward"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Click To Back"
+                  ></i></button></a
+              >&nbsp;&nbsp;&nbsp;<b style="color: #69696a">{{
+                jobReq.referenceNumber
+              }}</b>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <!-- <strong style="color: #074baf">Progress</strong> -->
+
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    [style.width.%]="jobReq.progress"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+
+              <p id="progress-bar" class="text-muted">
+                <span class="text-muted center" style="font-size: 14px">
+                  {{ jobReq.closedOpenings }} / {{ jobReq.noOfOpenings }} ({{
+                    jobReq.progress
+                  }}%)
+                </span>
+              </p>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <!-- <strong style="color: #074baf">Status</strong> -->
+              <span
+                class="label label-warning label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Yet to Start'"
+                >Open</span
+              >
+              <span
+                class="label label-info label-mini"
+                *ngIf="jobReq.jobReqStatus == 'In Progress'"
+                >In Progress</span
+              >
+              <span
+                class="label label-success label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Completed'"
+                >Completed</span
+              >
+              <span
+                class="label label-danger label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Terminated'"
+                >Terminated</span
+              >
+              <span
+                class="label label-success label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Closed'"
+                >Closed</span
+              >
+              <span
+                class="label label-warning label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Hold'"
+                >Hold</span
+              >
+            </div>
+            <div
+              class="col-md-1 col-sm-1"
+              *ngIf="enableSubMenu('Candidate_Add')"
+            >
+              <a
+                *ngIf="
+                  jobReq.jobReqStatus == 'Yet to Start' ||
+                  jobReq.jobReqStatus == 'In Progress'
+                "
+                class="btn btn-tbl-add btn-xs"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Add External Candidate"
+                (click)="
+                  gotoAddCandidate(jobReq.referenceNumber, jobReq.placementFor)
+                "
+              >
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+              </a>
+              <a
+                *ngIf="
+                  jobReq.jobReqStatus == 'Terminated' ||
+                  jobReq.jobReqStatus == 'Closed' ||
+                  jobReq.jobReqStatus == 'Hold' ||
+                  jobReq.jobReqStatus == 'Completed'
+                "
+                class="btn btn-tbl-add btn-xs disabled"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Cannot Add Candidate"
+              >
+                <i class="fa fa-ban" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div
+              class="col-md-1 col-sm-1"
+              *ngIf="enableSubMenu('Candidate_Add')"
+            >
+              <a
+                *ngIf="
+                  (jobReq.jobReqStatus == 'Yet to Start' ||
+                    jobReq.jobReqStatus == 'In Progress') &&
+                  jobReq.placementFor == 'Customer'
+                "
+                class="btn btn-tbl-add-bench btn-xs"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Add Bench Candidate"
+                (click)="gotoBenchCandidateList(jobReq.referenceNumber)"
+              >
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-box tab-pane active show">
+          <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active fontawesome-demo" id="tab1">
+                <div id="biography">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Customer </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.customerName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Business Unit </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.buName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Recruitment Role </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.roleName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>No. of Openings / Location</strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.noOfOpenings }} / {{ jobReq.location }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Requester </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.requesterName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Pay Range </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.payRange }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Currency Type / Pay Frequency </strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.currency }} / {{ jobReq.payFrequency }}
+                      </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Employment Type</strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.employmentType }}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Contract Duration</strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.contractDuration }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Placement For </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.placementFor }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Project Start Date </strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.projectStartDate | date }}
+                      </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Remote Working Option </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.remoteOption }}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Recruiter </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.recruiterName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Created By </strong>
+                      <br />
+                      <p class="text-muted">{{ jobReq.createdByName }}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">
+                      <strong>Created On </strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.createdDateTime | date }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-4 col-6 b-r">
+                      <strong>Job Description</strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.jobDescription }}
+                      </p>
+                    </div>
+
+                    <div class="col-md-4 col-6 b-r">
+                      <strong>Mandatory Skills</strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.mandatorySkills }}
+                      </p>
+                    </div>
+                    <div class="col-md-4 col-6">
+                      <strong>Optional Skills </strong>
+                      <br />
+                      <p class="text-muted">
+                        {{ jobReq.optionalSkills }}
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PROFILE CONTENT -->
+  </div>
+</div>

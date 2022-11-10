@@ -1,0 +1,38 @@
+span.label.label-success.label-mini {
+  float: right;
+  margin-right: 82px;
+}
+
+strong {
+  font-size: 14px;
+}
+
+.label-info {
+  background-color: #659be0 !important;
+  float: right;
+  margin-right: 70px;
+}
+.card-body {
+  width: 1200px;
+}
+img#candidate {
+  height: 99px;
+  width: 102px;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+.btn-tbl-image {
+  background: linear-gradient(45deg, #150d86, #66a0ebab);
+  border-radius: 50% !important;
+  padding: 5px !important;
+  color: #fff;
+  box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 20%);
+}

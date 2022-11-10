@@ -1,0 +1,125 @@
+#login {
+  /* background: linear-gradient(to top, #0f0c29, #302b63, #24243e); */
+  /* background: url("https://cutewallpaper.org/21/protein-wallpapers/Biochemistry-Wallpaper-67-images-.jpg"); */
+  background: url("src/assets/img/Hirepros.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.divGroup {
+  display: inline-block;
+  text-align: center;
+}
+
+.inputCustomStyle {
+  outline: 0;
+  background-color: #00000047;
+  color: white;
+  width: 100%;
+  border: 1px solid #00000073;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.glass {
+  position: relative;
+  box-sizing: border-box;
+  padding: 40px;
+  width: min-content;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 25px 25px 25px 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25), inset 0 0 2px 0px white;
+  background: white;
+  overflow: hidden;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.glassBtn {
+  position: relative;
+  /* box-sizing: border-box; */
+  padding: 15px;
+  margin: 5px;
+  width: 100px;
+  /* border: 2px solid rgba(0, 0, 0, 0.15); */
+  border-radius: 25px 25px 25px 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25), inset 0 0 2px 0px white;
+  background-color: #00000082;
+  color: white;
+  overflow: hidden;
+}
+
+.GlassButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.welcomeHeader {
+  color: whitesmoke;
+}
+img#promantus {
+  height: 35px;
+  text-align: center;
+  background: white;
+  margin-bottom: 30px;
+  margin-left: -20px;
+}
+img#hirepro {
+  margin-left: -10px;
+  height: 57px;
+  text-align: center;
+}
+h1 {
+  font-style: italic;
+  font-size: 50px;
+  margin-left: -10px;
+  text-align: center;
+}
+p {
+  font-size: 12px;
+  padding-top: 10px;
+}
+.col-md-6.col-sm-6.center.max {
+  background: white;
+  margin-left: -39px;
+  /* margin-right: 1px; */
+  margin-top: 9px;
+  width: 136%;
+  /* max-width: 0%; */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-bottom: -40px;
+}
+
+.col-sm-6 {
+  flex: 0 0 50%;
+  max-width: unset;
+}
+.invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #f51212;
+}
+.label-successs {
+  font-size: 11px;
+}
+
+#epm {
+  height: 82px;
+  width: 180px;
+}

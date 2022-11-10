@@ -1,0 +1,727 @@
+<div class="container-fluid">
+  <br />
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12">
+                    <div
+                      class="col-sm-4 col-md-4 text-muted"
+                      style="font-size: 14px"
+                    >
+                      Recruitment / New Scheduled Candidate (All Rounds)
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                      <form
+                        (submit)="getAllSearchForSchedule()"
+                        class="form-horizontal"
+                        role="form"
+                        #kf="ngForm"
+                        name="form"
+                        novalidate
+                      >
+                        <div class="input-group" id="adv-search">
+                          <input
+                            [(ngModel)]="scheduleDto.jrNumber"
+                            type="text"
+                            placeholder="Search for Job Request"
+                            name="jrNumber"
+                            class="form-control"
+                          />
+                          <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                              <div class="dropdown dropdown-lg">
+                                <button
+                                  type="button"
+                                  class="btn btn-default dropdown-toggle"
+                                  data-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  <i
+                                    class="fa fa-angle-down"
+                                    aria-hidden="true"
+                                  ></i>
+                                </button>
+                                <div
+                                  class="dropdown-menu dropdown-menu-right"
+                                  role="menu"
+                                  id="MenuCard"
+                                  syle="    position: absolute;
+                              top: 39px;
+                              left: -282px;"
+                                >
+                                  <form
+                                    class="form-horizontal"
+                                    role="form"
+                                    #kf="ngForm"
+                                    name="form"
+                                    novalidate
+                                    (submit)="getAllSearchForSchedule()"
+                                  >
+                                    <div class="form-group">
+                                      <label for="filter">Filter by</label>
+                                      <input
+                                        [(ngModel)]="scheduleDto.jrNumber"
+                                        type="text"
+                                        placeholder="Search for Job Request"
+                                        name="jrNumber"
+                                        class="form-control"
+                                      />
+                                    </div>
+                                    <div class="form-group">
+                                      <input
+                                        [(ngModel)]="scheduleDto.candidateName"
+                                        type="text"
+                                        placeholder="Search for Candidate Name"
+                                        name="candidateName"
+                                        class="form-control"
+                                      />
+                                    </div>
+                                    <!-- <div class="form-group">
+                                      <select
+                                        class="form-select"
+                                        name="interviewerIdList"
+                                        [(ngModel)]="
+                                          scheduleDto.interviewerIdList
+                                        "
+                                      >
+                                        <option
+                                          class="dropdown-item"
+                                          disabled
+                                          selected
+                                          value="undefined"
+                                        >
+                                          Select Interviewer
+                                        </option>
+                                        <option
+                                          *ngFor="let item of interviewers"
+                                          [value]="item.id"
+                                        >
+                                          {{ item.fullName }}
+                                        </option>
+                                      </select>
+                                    </div> -->
+                                    <div class="form-group">
+                                      <select
+                                        class="form-select"
+                                        name="round"
+                                        [(ngModel)]="scheduleDto.round"
+                                      >
+                                        <option
+                                          class="dropdown-item"
+                                          disabled
+                                          selected
+                                          value="undefined"
+                                        >
+                                          Select Round
+                                        </option>
+                                        <option value="1">
+                                          Internal Round 1
+                                        </option>
+                                        <option value="2">
+                                          Internal Round 2
+                                        </option>
+                                        <option value="3">
+                                          Customer Round
+                                        </option>
+                                        <option value="4">HR Round</option>
+                                      </select>
+                                    </div>
+                                    <button
+                                      type="submit"
+                                      class="btn btn-primary"
+                                    >
+                                      <i
+                                        class="fa fa-search"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </button>
+                                  </form>
+                                </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                      <a
+                        *ngIf="resetBtn"
+                        href="javascript:void(0)"
+                        style="font-size: 14px; margin: 11px"
+                        (click)="reset()"
+                      >
+                        Reset All</a
+                      >
+                    </div>
+                    <div class="col-sm-4 col-md-4"></div>
+                  </div>
+                  <br />
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Job Request Reference</th>
+                        <th>Candidate Details</th>
+                        <th>Completed Round</th>
+                        <th>Shortlisted By | On</th>
+                        <th>View</th>
+                        <th *ngIf="enableSubMenu('ScheduleInterview_Add')">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let item of allScheduleList
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+                        <td>
+                          <a
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.jrNumber }}</a
+                          >
+                          | {{ item.roleName }} |
+
+                          {{ item.employmentType }} |
+                          {{ item.placementFor }}
+                        </td>
+                        <td>
+                          <a
+                            (click)="gotoCandidateView(item.candidateId)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.candidateName }}</a
+                          >
+                          |
+                          <a href="tel:{{ item.contactNumber }}">{{
+                            item.contactNumber
+                          }}</a>
+                        </td>
+                        <td>
+                          <span
+                            class="feedLblStyle lblShorlist"
+                            *ngIf="item.round == 0"
+                            >Resume Shortlisted</span
+                          >
+                          <span
+                            class="feedLblStyle lblOpen"
+                            *ngIf="item.round == 1"
+                            >Internal Round 1</span
+                          >
+                          <span
+                            class="feedLblStyle lblCommentStyle"
+                            *ngIf="item.round == 2"
+                            >Internal Round 2</span
+                          >
+                          <span
+                            class="feedLblStyle lblHold"
+                            *ngIf="item.round == 3"
+                            >Customer Round</span
+                          >
+                          <span
+                            class="feedLblStyle lblClosed"
+                            *ngIf="item.round == 4"
+                            >HR Round</span
+                          >
+                        </td>
+
+                        <td>
+                          {{ item.updatedByName }} |
+                          {{ item.updatedDateTime + "Z" | date: "short" }}
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-plus btn-xs"
+                            (click)="
+                              gotoViewHistory(item.jrNumber, item.candidateId)
+                            "
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="View History"
+                            ><i class="fa fa-history" aria-hidden="true"></i>
+                          </a>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-resume btn-xs"
+                            (click)="getResume(item.candidateId)"
+                          >
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            *ngIf="enableSubMenu('ScheduleInterview_Add')"
+                            href="javascript:void(0)"
+                            class="dropdown-toggle btn btn-tbl-add btn-xs"
+                            data-toggle="modal"
+                            data-target="#scheduleModel"
+                            (click)="
+                              getInterviewersByBuId(
+                                item.buId,
+                                item.candidateId,
+                                item.jrNumber,
+                                item.round,
+                                item.recStatus
+                              )
+                            "
+                          >
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s): {{ allScheduleListCount }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- scheduleModel -->
+<div
+  class="modal fade"
+  data-backdrop="static"
+  data-keyboard="false"
+  id="scheduleModel"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <form #f="ngForm" novalidate (ngSubmit)="addInterviewSchedule(f)">
+        <div class="modal-header bg-primary">
+          <h4 class="modal-title" id="exampleModalLabel">Interview Schedule</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="resetForm(f)"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding: 0rem">
+          <br />
+          <div class="row col-md-12 col-sm-12">
+            <div class="col-md-6 col-sm-6" style="margin-left: 18px">
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-8 col-sm-8" *ngIf="toScheduleOther">
+                  <label for="Customer"
+                    >Interviewer&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <ng-select
+                      [(ngModel)]="interviewSchedule.interviewerId"
+                      placeholder="Select Interviewer"
+                      name="interviewerId"
+                      required
+                      #interviewerId="ngModel"
+                      class="custom"
+                      style="width: 88%"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && interviewerId.invalid
+                      }"
+                    >
+                      <ng-option
+                        *ngFor="let item of interviewers"
+                        [value]="item.id"
+                      >
+                        {{ item.fullName }}</ng-option
+                      >
+                    </ng-select>
+
+                    <div
+                      *ngIf="f.submitted && interviewerId.invalid"
+                      class="help-block"
+                    >
+                      <div
+                        *ngIf="interviewerId.errors.required"
+                        style="color: #dc3545; font-size: 90%"
+                      >
+                        Interviewer is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 col-sm-8" *ngIf="toScheduleHR">
+                  <label for="Customer"
+                    >Interviewer&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-tie"></i
+                    ></span>
+                    <ng-select
+                      [(ngModel)]="interviewSchedule.interviewerId"
+                      placeholder="Select Interviewer"
+                      name="interviewerId"
+                      required
+                      #interviewerId="ngModel"
+                      class="custom"
+                      style="width: 88%"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && interviewerId.invalid
+                      }"
+                    >
+                      <ng-option
+                        *ngFor="let item of Recinterviewers"
+                        [value]="item.id"
+                      >
+                        {{ item.fullName }}</ng-option
+                      >
+                    </ng-select>
+
+                    <div
+                      *ngIf="f.submitted && interviewerId.invalid"
+                      class="help-block"
+                    >
+                      <div
+                        *ngIf="interviewerId.errors.required"
+                        style="color: #dc3545; font-size: 90%"
+                      >
+                        Interviewer is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <label
+                    >Mode Of Interview&nbsp;<span style="color: red"
+                      >*</span
+                    ></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-question-circle"></i
+                    ></span>
+                    <select
+                      class="form-select"
+                      required
+                      [(ngModel)]="interviewSchedule.mode"
+                      name="mode"
+                      #mode="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && mode.invalid
+                      }"
+                    >
+                      <option disabled value="undefined">Select</option>
+                      <option>Direct</option>
+                      <option>Online</option>
+                    </select>
+                    <div
+                      *ngIf="f.submitted && mode.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="mode.errors.required">
+                        Mode Of Interview is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <label for="scheduleDateTime"
+                    >Schedule Date&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-calendar"></i
+                    ></span>
+                    <input
+                      (keydown)="noManualType($event)"
+                      min="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      [(ngModel)]="interviewSchedule.scheduleDateTime"
+                      type="date"
+                      name="scheduleDateTime"
+                      class="form-control"
+                      #scheduleDateTime="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && scheduleDateTime.invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="f.submitted && scheduleDateTime.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="scheduleDateTime.errors.required">
+                        Schedule Date is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <label for="startsFrom"
+                    >Starts From&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-clock-o"></i
+                    ></span>
+                    <input
+                      min="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      [(ngModel)]="interviewSchedule.startsFrom"
+                      type="time"
+                      name="startsFrom"
+                      class="form-control"
+                      #startsFrom="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && startsFrom.invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="f.submitted && startsFrom.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="startsFrom.errors.required">
+                        Starts from is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3">
+                  <label for="Customer"
+                    >Duration&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <select
+                      class="form-select"
+                      required
+                      [(ngModel)]="interviewSchedule.duration"
+                      name="duration"
+                      #duration="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && duration.invalid
+                      }"
+                    >
+                      <option disabled value="undefined">Select</option>
+                      <option value="30 mins">30 mins</option>
+                      <option value="45 mins">45 mins</option>
+                      <option value="1 hour">1 hour</option>
+                      <option value="1h 30m">1h 30m</option>
+                      <option value="2 hours">2 hours</option>
+                    </select>
+                    <div
+                      *ngIf="f.submitted && duration.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="duration.errors.required">
+                        Duration is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-9">
+                  <label for="Customer"
+                    >Time Zone&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-clock-o"></i
+                    ></span>
+                    <ng-select
+                      [(ngModel)]="interviewSchedule.timeZone"
+                      placeholder="Select TimeZone"
+                      name="timeZone"
+                      required
+                      #timeZone="ngModel"
+                      class="custom"
+                      style="width: 88%"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && timeZone.invalid
+                      }"
+                    >
+                      <ng-option
+                        *ngFor="let item of timeZoneList"
+                        [value]="item.id"
+                      >
+                        {{ item.name }}</ng-option
+                      >
+                    </ng-select>
+                    <!-- <select
+                      class="form-select"
+                      required
+                      [(ngModel)]="interviewSchedule.timeZone"
+                      name="timeZone"
+                      #timeZone="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-invalid': f.submitted && timeZone.invalid
+                      }"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select
+                      </option>
+                      <option
+                        *ngFor="let item of timeZoneList"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.name }}
+                      </option>
+                    </select> -->
+                    <div
+                      *ngIf="f.submitted && timeZone.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="timeZone.errors.required">
+                        Timezone is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-1 col-sm-1"
+              style="border-right: 1px solid grey; margin-left: -58px"
+            ></div>
+            <div class="col-md-5 col-sm-5" style="margin-left: 40px">
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                  <label for="venue">Venue</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-map-marker"></i
+                    ></span>
+                    <input
+                      class="form-control"
+                      [(ngModel)]="interviewSchedule.venue"
+                      type="text"
+                      name="venue"
+                    />
+
+                    <!-- <div
+                  *ngIf="f.submitted && duration.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="duration.errors.required">
+                    Duration is required
+                  </div>
+                </div> -->
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                  <label for="scheduleRemarks"
+                    >Remarks&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa fa-user-edit"></i
+                    ></span>
+                    <textarea
+                      [(ngModel)]="interviewSchedule.scheduleRemarks"
+                      class="form-control"
+                      #scheduleRemarks="ngModel"
+                      required
+                      name="scheduleRemarks"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && scheduleRemarks.invalid
+                      }"
+                    ></textarea>
+                    <div
+                      *ngIf="f.submitted && scheduleRemarks.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="scheduleRemarks.errors.required">
+                        Remarks is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <input
+                    type="submit"
+                    value="Save"
+                    style="width: 100%"
+                    class="btn btn-primary"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

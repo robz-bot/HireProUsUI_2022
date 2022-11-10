@@ -1,0 +1,582 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Configurations / User Permissions
+                  </div>
+                  <div class="col-sm-1 col-md-1" style="font-size: 12px"></div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form name="form" novalidate>
+                      <div class="input-group mb-3">
+                        <select
+                          class="form-select"
+                          name="id"
+                          [(ngModel)]="selected.id"
+                          (change)="onChangeRole($event.target.value)"
+                        >
+                          <option
+                            class="dropdown-item"
+                            selected
+                            disabled
+                            value="undefined"
+                          >
+                            Select Role
+                          </option>
+                          <option
+                            *ngFor="let item of rolelist"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.roleName }}
+                          </option>
+                        </select>
+
+                        <input
+                          (click)="menuTableList()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addRoleMenuMappingModal"
+                          style="font-size: 12px"
+                          (click)="loadAllMenus()"
+                        >
+                          <i class="fa fa-plus"></i>New User Permissions
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Role</th>
+                      <th>Main Menus</th>
+                      <th>Sub Menus</th>
+                      <th>Updated By</th>
+                      <th>Updated On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of menuList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td>{{ (page - 1) * pageSize + i + 1 }}</td>
+                      <td>{{ item.roleName }}</td>
+                      <td>{{ item.mainMenuNames }}</td>
+                      <td>{{ item.subMenuNames }}</td>
+                      <td>{{ item.updatedByName }}</td>
+                      <td>
+                        {{ item.updatedDateTime + "Z" | date: "short" }}
+                      </td>
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user">
+                            <a
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              (click)="getId(item.id)"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+                        <!-- <ul class="nav navbar-nav pull-left">
+                          <li
+                            _ngcontent-wri-c52=""
+                            class="dropdown dropdown-user"
+                          >
+                            <a
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li>
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Menu? </label
+                                  ><br />
+                                  <button
+                                    (click)="deleteMenu(item.id)"
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ menuList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- editRoleMenuMapping -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        "
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">
+              Edit User Permissions
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form #f="ngForm" name="form" novalidate (ngSubmit)="updateRole(f)">
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 prof">
+                  <label for="Customer" style="font-size: 14px">
+                    Role&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-check"></i
+                    ></span>
+
+                    <select
+                      disabled
+                      class="form-select"
+                      name="id"
+                      [(ngModel)]="roleMenuMapping.id"
+                      required
+                      #id="ngModel"
+                      [ngClass]="{
+                        'is-invalid': f.submitted && id.invalid
+                      }"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select Role
+                      </option>
+                      <option
+                        *ngFor="let item of rolelist"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.roleName }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="f.submitted && id.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="id.errors.required">Role is required</div>
+                    </div>
+                  </div>
+                  <div class="card-body card-box" style="height: auto">
+                    <label for="Customer" style="font-size: 14px"
+                      >Main Menus&nbsp;<span style="color: red">*</span></label
+                    >
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-12 col-sm-12 form-check"
+                        *ngFor="
+                          let item of roleMenuMapping.menuDtoList;
+                          let i = index
+                        "
+                      >
+                        <input
+                          *ngIf="item.selected == '1'"
+                          (change)="
+                            onmainMenuIdsChange($event, item.mainMenuId)
+                          "
+                          [checked]="item.selected"
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                          [attr.checked]="item.selected == '1' ? '1' : '0'"
+                        />
+                        <input
+                          *ngIf="item.selected == '0'"
+                          (change)="
+                            onmainMenuIdsChange($event, item.mainMenuId)
+                          "
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          value=""
+                          >&nbsp;{{ item.mainMenuName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-3 col-sm-3 prof">
+                  <div class="card-body card-box" style="height: auto">
+                    <label for="Customer" style="font-size: 14px"
+                      >Main Menus&nbsp;<span style="color: red">*</span></label
+                    >
+                    <br />
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-12 col-sm-12 form-check"
+                        *ngFor="
+                          let item of roleMenuMapping.menuDtoList;
+                          let i = index
+                        "
+                      >
+                        <br />
+                        &nbsp;&nbsp;
+                        <input
+                          *ngIf="item.selected == '1'"
+                          (change)="
+                            onmainMenuIdsChange($event, item.mainMenuId)
+                          "
+                          [checked]="item.selected"
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                          [attr.checked]="item.selected == '1' ? '1' : '0'"
+                        />
+                        <input
+                          *ngIf="item.selected == '0'"
+                          (change)="
+                            onmainMenuIdsChange($event, item.mainMenuId)
+                          "
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          value=""
+                          >&nbsp;{{ item.mainMenuName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-md-9 col-sm-9">
+                  <div class="card-body card-box" style="height: auto">
+                    <label for="Customer" style="font-size: 14px"
+                      >Sub Menus&nbsp;<span style="color: red">*</span></label
+                    >
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-6 col-sm-6 form-check"
+                        *ngFor="
+                          let item of roleMenuMapping.subMenuDtoList;
+                          let i = index
+                        "
+                      >
+                        <input
+                          *ngIf="item.selected == '1'"
+                          class="form-check-input"
+                          type="checkbox"
+                          [checked]="item.selected"
+                          style="height: 14px; width: 14px"
+                          (change)="onSubMenuIdsChange($event, item.id)"
+                        />
+                        <input
+                          *ngIf="item.selected == '0'"
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                          (change)="onSubMenuIdsChange($event, item.id)"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          >&nbsp;{{ item.menuName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+
+                    <br />
+                    <input
+                      style="float: right"
+                      type="submit"
+                      class="btn btn-circle btn-primary"
+                      value="update"
+                    />
+                  </div>
+                </div>
+                <br />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- addRoleMenuMapping -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="addRoleMenuMappingModal"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="z-index:9999 !important"
+    >
+      <form
+        #addf="ngForm"
+        name="form"
+        novalidate
+        (ngSubmit)="addNewMenuMapping(addf)"
+      >
+        <div
+          class="
+            modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+          "
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                Add User Permissions
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(addf)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row col-md-12 col-sm-12" *ngIf="errStatus">
+                <span style="color: red">Error: {{ errMsg }}</span>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 prof">
+                  <label for="Customer" style="font-size: 14px">
+                    Role&nbsp;<span style="color: red">*</span></label
+                  >
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fas fa-user-check"></i
+                    ></span>
+
+                    <select
+                      class="form-select"
+                      name="id"
+                      [(ngModel)]="roleMenuMapping.id"
+                      required
+                      #id="ngModel"
+                      [ngClass]="{
+                        'is-invalid': addf.submitted && id.invalid
+                      }"
+                    >
+                      <option
+                        class="dropdown-item"
+                        disabled
+                        selected
+                        value="undefined"
+                      >
+                        Select Role
+                      </option>
+                      <option
+                        *ngFor="let item of rolelist"
+                        value="{{ item.id }}"
+                      >
+                        {{ item.roleName }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="addf.submitted && id.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="id.errors.required">Role is required</div>
+                    </div>
+                  </div>
+                  <div class="card-body card-box" style="height: auto">
+                    <label for="Customer" style="font-size: 14px"
+                      >Main Menus&nbsp;<span style="color: red">*</span></label
+                    >
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-12 col-sm-12 form-check"
+                        *ngFor="let item of mainMenuList; let i = index"
+                      >
+                        <input
+                          (change)="
+                            onmainMenuIdsChange($event, item.mainMenuId)
+                          "
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          value=""
+                          >&nbsp;{{ item.mainMenuName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-9 col-sm-9">
+                  <div class="card-body card-box" style="height: auto">
+                    <label for="Customer" style="font-size: 14px"
+                      >Sub Menus&nbsp;<span style="color: red">*</span></label
+                    >
+                    <div class="input-group mb-3 row col-md-12 col-sm-12">
+                      <div
+                        class="col-md-6 col-sm-6 form-check"
+                        *ngFor="let item of submenuList; let i = index"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          style="height: 14px; width: 14px"
+                          (change)="onSubMenuIdsChange($event, item.id)"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="checkboxSuccess1"
+                          style="font-size: 14px"
+                          >&nbsp;{{ item.menuName }} <br
+                        /></label>
+                      </div>
+                      <br />
+                    </div>
+
+                    <br />
+                    <input
+                      style="float: right"
+                      type="submit"
+                      class="btn btn-circle btn-primary"
+                      value="save"
+                    />
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

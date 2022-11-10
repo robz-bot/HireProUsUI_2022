@@ -1,0 +1,354 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Configurations / Roles
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form
+                      #f="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="searchRole(f)"
+                    >
+                      <div class="input-group mb-3">
+                        <!-- <span class="input-group-text" id="basic-addon1"
+                          >Search</span
+                        > -->
+                        <input
+                          type="text"
+                          maxlength="35"
+                          [(ngModel)]="role.keyword"
+                          class="form-control"
+                          placeholder="Search Role..."
+                          name="keyword"
+                        />
+
+                        &nbsp;
+                        <input
+                          type="submit"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs searchbtn"
+                          value="Search"
+                        />
+                        &nbsp; &nbsp;
+
+                        <input
+                          (click)="loadRoles()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <!-- <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addModal"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-plus"></i>New Role
+                        </a>
+                      </li>
+                    </ul> -->
+                  </div>
+                </div>
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Role</th>
+                      <th>Updated By</th>
+                      <th>Updated On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of roleList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+                      <td>{{ item.roleName }}</td>
+
+                      <td>{{ item.updatedByName }}</td>
+                      <td>
+                        {{ item.updatedDateTime + "Z" | date: "short" }}
+                      </td>
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user delete">
+                            <a
+                              (click)="getId(item.id)"
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+
+                        <!-- <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user edit">
+                            <a
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li>
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Role? </label
+                                  ><br />
+                                  <button
+                                    (click)="deleteRole(item.id, item.roleName)"
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul> -->
+                      </td>
+                    </tr>
+                    <br />
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ roleList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- update Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">Edit Role</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="clearRolesFiled()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              #uf="ngForm"
+              name="form"
+              novalidate
+              (ngSubmit)="updateRole(uf)"
+            >
+              <br />
+              <label for="Customer">
+                Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tie"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="role.roleName"
+                  class="form-control"
+                  name="roleName"
+                  required
+                  #roleName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && roleName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && roleName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="roleName.errors.required">
+                    Role Name is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="update"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form
+            #addf="ngForm"
+            name="form"
+            novalidate
+            (ngSubmit)="addNewRole(addf)"
+          >
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">Add Role</h4>
+
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(addf)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <label for="Customer">
+                Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tie"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  [(ngModel)]="role.roleName"
+                  class="form-control"
+                  name="roleName"
+                  required
+                  #roleName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': addf.submitted && roleName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="addf.submitted && roleName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="roleName.errors.required">
+                    Role Name is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="save"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

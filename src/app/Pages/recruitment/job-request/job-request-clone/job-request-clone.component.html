@@ -1,0 +1,814 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+  <div class="tab-pane">
+    <div class="col-md-12 col-sm-12">
+      <div class="card card-box">
+        <div class="card-head bg-pan-left">
+          <header>Clone Job Request</header>
+        </div>
+        <div class="card-body" id="bar-parent10">
+          <form #f="ngForm" name="form" novalidate (ngSubmit)="cloneJobReq(f)">
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Customer&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-user-edit"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="customerId"
+                    [(ngModel)]="jobReq.customerId"
+                    required
+                    #customerId="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && customerId.invalid
+                    }"
+                    (change)="onChangeCustomer(jobReq.customerId)"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Customer
+                    </option>
+                    <option *ngFor="let item of cuslist" value="{{ item.id }}">
+                      {{ item.customerName | orderBy: "item.customerName" }},
+                      {{ item.location }}
+                    </option>
+                  </select>
+
+                  <div
+                    *ngIf="f.submitted && customerId.invalid"
+                    class="help-block"
+                  >
+                    <div
+                      *ngIf="customerId.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Customer is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Recruitment Role&nbsp;<span style="color: red">*</span
+                  ><a
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Add Role"
+                    class="addRole"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    style="color: #188ae2 !important"
+                    ><i class="fa fa-plus-circle" aria-hidden="true"></i></a
+                ></label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fas fa-user-tie"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="roleId"
+                    [(ngModel)]="jobReq.roleId"
+                    required
+                    #roleId="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && roleId.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Role
+                    </option>
+                    <option
+                      *ngFor="let item of recRoleDdl"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.recruitmentRoleName }}
+                    </option>
+                  </select>
+
+                  <div
+                    *ngIf="f.submitted && roleId.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="roleId.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Recruitment Role is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Business Unit&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-landmark"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="buId"
+                    [(ngModel)]="jobReq.buId"
+                    required
+                    #buId="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && buId.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Business Unit
+                    </option>
+                    <option *ngFor="let item of bulist" value="{{ item.id }}">
+                      {{ item.businessUnitName }}
+                    </option>
+                  </select>
+
+                  <div *ngIf="f.submitted && buId.invalid" class="help-block">
+                    <div
+                      *ngIf="buId.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Business Unit is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >No.of Openings&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">#</span>
+                  <input
+                    (keypress)="isNumberKey($event)"
+                    type="text"
+                    name="noOfOpenings"
+                    class="form-control"
+                    required
+                    [(ngModel)]="jobReq.noOfOpenings"
+                    #noOfOpenings="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && noOfOpenings.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && noOfOpenings.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="noOfOpenings.errors.required">
+                      No Of Openings is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer">Location</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-map-marker-alt"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="location"
+                    [(ngModel)]="jobReq.location"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Currency Type&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-briefcase"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="currency"
+                    [(ngModel)]="jobReq.currency"
+                    required
+                    #currency="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && currency.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Currency
+                    </option>
+                    <option
+                      *ngFor="let item of currencyList"
+                      value="{{ item.name }}"
+                    >
+                      {{ item.name }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="f.submitted && currency.invalid"
+                    class="help-block"
+                  >
+                    <div
+                      *ngIf="currency.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Currency is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Pay Range&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-money"></i
+                  ></span>
+                  <input
+                    type="text"
+                    name="payRange"
+                    class="form-control"
+                    required
+                    [(ngModel)]="jobReq.payRange"
+                    #payRange="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && payRange.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && payRange.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="payRange.errors.required">
+                      Pay Range is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Pay Frequency&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-briefcase"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="payFrequency"
+                    [(ngModel)]="jobReq.payFrequency"
+                    required
+                    #payFrequency="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && payFrequency.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Pay Frequency
+                    </option>
+
+                    <option
+                      *ngFor="let item of payFrequencyList"
+                      value="{{ item.name }}"
+                    >
+                      {{ item.name | orderBy: "name" }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="f.submitted && currency.invalid"
+                    class="help-block"
+                  >
+                    <div
+                      *ngIf="currency.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Currency is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Employment Type&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-briefcase"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="employmentType"
+                    [(ngModel)]="jobReq.employmentType"
+                    required
+                    #employmentType="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && employmentType.invalid
+                    }"
+                    (change)="onChangeEmpType(jobReq.employmentType)"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Employment Type
+                    </option>
+                    <option value="Contract">Contract</option>
+                    <option value="Full Time">Full Time</option>
+                  </select>
+                  <div
+                    *ngIf="f.submitted && employmentType.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="employmentType.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Employment Type is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer">Contract Duration</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-clock-o" aria-hidden="true"></i
+                  ></span>
+                  <input
+                    [disabled]="!disableContract"
+                    type="text"
+                    name="contractDuration"
+                    class="form-control"
+                    [(ngModel)]="jobReq.contractDuration"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Requester&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                  <input
+                    disabled
+                    type="text"
+                    class="form-control"
+                    value="{{ loggedInUserName }}"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Project Start Date&nbsp;<span style="color: red">*</span>
+                </label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-calendar-plus"></i
+                  ></span>
+                  <input
+                    (keydown)="noManualType($event)"
+                    min="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                    type="date"
+                    name="projectStartDate"
+                    class="form-control"
+                    [(ngModel)]="jobReq.projectStartDate"
+                    required
+                    #projectStartDate="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && projectStartDate.invalid
+                    }"
+                  />
+                  <div
+                    *ngIf="f.submitted && projectStartDate.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="projectStartDate.errors.required">
+                      Project Start Date is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer"
+                  >Placement For&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-briefcase"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="placementFor"
+                    [(ngModel)]="jobReq.placementFor"
+                    required
+                    #placementFor="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && placementFor.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Placement For
+                    </option>
+                    <option value="Customer">Customer</option>
+                    <option value="Internal">Internal</option>
+                  </select>
+
+                  <div
+                    *ngIf="f.submitted && placementFor.invalid"
+                    class="help-block"
+                  >
+                    <div
+                      *ngIf="placementFor.errors.required"
+                      style="color: #dc3545; font-size: 90%"
+                    >
+                      Placement For is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer">Remote Working</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-laptop-code"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="remoteOption"
+                    [(ngModel)]="jobReq.remoteOption"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Remote Option
+                    </option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer">Recruiter</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-user-edit"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="recruiterId"
+                    [(ngModel)]="jobReq.recruiterId"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Recruiter
+                    </option>
+                    <option
+                      *ngFor="let item of recruitersList"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.fullName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <!-- <label for="Customer">Vendor</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-user-edit"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="vendorId"
+                    [(ngModel)]="jobReq.vendorId"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Vendor
+                    </option>
+                    <option
+                      *ngFor="let item of activeVendors"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.vendorName }}
+                    </option>
+                  </select>
+                </div> -->
+              </div>
+              <!-- <div class="col-md-3 col-sm-3 col-lg-3">
+                <label for="Customer">Status</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-user-edit"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="status"
+                    [(ngModel)]="jobReq.jobReqStatus"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Status
+                    </option>
+                    <option class="dropdown-item" value="In Progress">
+                      In Progress
+                    </option>
+                    <option class="dropdown-item" value="Closed">Closed</option>
+                    <option class="dropdown-item" value="Yet to Start">
+                      Open
+                    </option>
+                    <option class="dropdown-item" value="Hold">Hold</option>
+                    <option class="dropdown-item" value="Terminated">
+                      Terminated
+                    </option>
+                  </select>
+                </div>
+              </div> -->
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-12 col-sm-12">
+                <label for="Customer"
+                  >Job Description&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-align-center"></i
+                  ></span>
+                  <textarea
+                    name="jobDescription"
+                    [(ngModel)]="jobReq.jobDescription"
+                    type="textarea"
+                    rows="5"
+                    class="form-control"
+                    required
+                    #jobDescription="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && jobDescription.invalid
+                    }"
+                  ></textarea>
+                  <div
+                    *ngIf="f.submitted && jobDescription.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="jobDescription.errors.required">
+                      Job Description is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-6 col-sm-6">
+                <label for="Customer"
+                  >Mandatory Skills&nbsp;<span style="color: red"
+                    >*</span
+                  ></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-align-left"></i
+                  ></span>
+                  <textarea
+                    name="mandatorySkills"
+                    [(ngModel)]="jobReq.mandatorySkills"
+                    type="textarea"
+                    rows="5"
+                    class="form-control"
+                    required
+                    #mandatorySkills="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && mandatorySkills.invalid
+                    }"
+                  ></textarea>
+                  <div
+                    *ngIf="f.submitted && mandatorySkills.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="mandatorySkills.errors.required">
+                      Mandatory Skills is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <label for="Customer">Optional Skills</label>
+                <div class="input-group mb-12">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-align-left"></i
+                  ></span>
+                  <textarea
+                    name="optionalSkills"
+                    [(ngModel)]="jobReq.optionalSkills"
+                    type="textarea"
+                    rows="5"
+                    class="form-control"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row col-md-12 col-sm-12">
+              <div class="col-md-2 col-sm-2">
+                <input
+                  type="submit"
+                  class="form-control btn btn-primary"
+                  value="Clone"
+                />
+              </div>
+              <div class="col-md-2 col-sm-2">
+                <input
+                  routerLink="/hirepros/job-request"
+                  type="button"
+                  class="form-control btn btn-secondary"
+                  value="Cancel"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <br />
+      </div>
+    </div>
+    <!-- Add Rec Role Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">
+              Add / Select Recruitment Role
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="tab">
+              <input
+                type="button"
+                value="Select from Existing"
+                class="btn btn-xs searchbtn btn-primary"
+                style="
+                  border-top-left-radius: 12px;
+                  border-bottom-left-radius: 12px;
+                  height: 34px;
+                "
+                (click)="showAvailableRecRole()"
+              />
+              <input
+                (click)="showNewRecRole()"
+                type="button"
+                value="Add New"
+                class="btn btn-xs searchbtn btn-primary"
+                style="
+                  border-top-right-radius: 12px;
+                  border-bottom-right-radius: 12px;
+                  height: 34px;
+                  background-color: white !important;
+                  color: #188ae2 !important;
+                "
+              />
+            </div>
+
+            <div class="tab-pane" *ngIf="availableRecRoleTab == 1">
+              <div class="row col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                  <br />
+                  <select name="Cars" size="10" class="form-control">
+                    <option
+                      *ngFor="let item of rolelist"
+                      value="{{ item.id }}"
+                      (click)="getSelectedId(item.id)"
+                    >
+                      {{ item.recruitmentRoleName }}
+                    </option></select
+                  ><br />
+
+                  <input
+                    type="button"
+                    class="form-control btn btn-primary"
+                    value="Select"
+                    (click)="selectRecRole()"
+                  />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+              </div>
+            </div>
+            <div class="tab-pane" *ngIf="newRecRoleTab == 1">
+              <div class="row col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                  <br />
+
+                  <input
+                    placeholder="New Recruitment Role"
+                    type="text"
+                    [(ngModel)]="newRoleText"
+                    name="RecRole"
+                    class="form-control"
+                  />
+                  <br />
+
+                  <input
+                    type="button"
+                    class="form-control btn btn-primary"
+                    value="Save"
+                    (click)="mapNewRecRoleWithCustomer()"
+                  />
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

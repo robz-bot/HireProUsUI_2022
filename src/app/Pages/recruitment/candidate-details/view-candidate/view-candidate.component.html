@@ -1,0 +1,345 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <!-- BEGIN PROFILE CONTENT -->
+    <div class="profile-content">
+      <div class="row">
+        <div class="profile-tab-box">
+          <div class="p-l-20 row col-sm-12 col-md-12">
+            <div class="col-md-4 col-sm-4">
+              <a href="javascript:void(0)" (click)="goback()">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="margin-top: -5px"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="fas fa-backward"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Click To Back"
+                  ></i></button></a
+              >&nbsp;&nbsp;&nbsp;<b style="color: #69696a">
+                Candidate Details</b
+              >
+            </div>
+            <div class="col-md-4 col-sm-pull-4">
+              <span
+                style="color: silver; font-size: 13px"
+                *ngIf="enableEditCandidate('Candidate_Edit')"
+              >
+                * Please upload the file with maximum size of 256 KB.
+              </span>
+            </div>
+            <div
+              class="col-md-1 col-sm-1"
+              *ngIf="enableEditCandidate('Candidate_Edit')"
+            >
+              <a
+                id="OpenResumeUpdate"
+                (click)="OpenResumeUpdate()"
+                href="javascript:;"
+                class="btn btn-tbl-resume btn-xs"
+                aria-expanded="false"
+                ><i
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Candidate Resume Update"
+                  class="fa fa-file"
+                  aria-hidden="true"
+                ></i
+              ></a>
+
+              <form enctype="multipart/form-data">
+                <input
+                  style="display: none"
+                  accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  type="file"
+                  (change)="onResumeChanged($event)"
+                  id="CandidateResumeUpdate"
+                  class="form-control"
+                />
+              </form>
+            </div>
+            <div
+              class="col-md-1 col-sm-1"
+              *ngIf="enableEditCandidate('Candidate_Edit')"
+            >
+              <a
+                id="OpenImageUpdate"
+                (click)="OpenImageUpdate()"
+                href="javascript:;"
+                class="btn btn-tbl-image btn-xs"
+                aria-expanded="false"
+                ><i
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Candidate Image Update"
+                  class="fa fa-picture-o"
+                  aria-hidden="true"
+                ></i
+              ></a>
+
+              <form enctype="multipart/form-data">
+                <input
+                  style="display: none"
+                  accept="image/*"
+                  type="file"
+                  id="CandidateImage"
+                  (change)="onImgChanged($event)"
+                  class="form-control"
+                />
+              </form>
+            </div>
+            <div class="col-md-2 col-sm-2"></div>
+          </div>
+        </div>
+        <div class="card-box tab-pane active show">
+          <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active fontawesome-demo" id="tab1">
+                <div id="biography">
+                  <div class="row">
+                    <div class="col-md-3 col-6" *ngIf="candidate.image != ''">
+                      <img
+                        id="candidate"
+                        src="{{ candidate.image }}"
+                        alt="candidate Image"
+                      />
+                    </div>
+                    <div
+                      class="col-md-3 col-6"
+                      *ngIf="candidate.image == '' && candidate.sex == 'Male'"
+                    >
+                      <img
+                        id="candidate"
+                        src="/assets/img/maleimg.jpg"
+                        alt="candidate Image"
+                      />
+                    </div>
+                    <div
+                      class="col-md-3 col-6"
+                      *ngIf="candidate.image == '' && candidate.sex == 'Female'"
+                    >
+                      <img
+                        id="candidate"
+                        src="/assets/img/femaleimg.png"
+                        alt="candidate Image"
+                      />
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Full Name </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.fullName }}</p>
+                      <!-- <p *ngIf="candidate.sex == 'Female'" class="text-muted">
+                        {{ candidate.fullName }} |
+                        <span
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          title="Female"
+                          class="badge headerBadgeColor1"
+                        >
+                          F
+                        </span>
+                      </p> -->
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Contact Number </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.contactNumber }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Email </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.email }}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Years Of Experience</strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.experience }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Current Company </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.currentCompany }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Skill Set </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.skillSet }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Initated By </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.createdByName }}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-6">
+                      <strong>Job Request Number </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.jrNumber }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Business Unit</strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.buName }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Customer Name </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.customerName }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Placement For</strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.placementFor }}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-3 col-6">
+                      <strong>Employment Type </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.employmentType }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Candidate Type</strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.candidateType }}</p>
+                    </div>
+                    <div class="col-md-3 col-6 b-r">
+                      <strong>Recruitment Role </strong>
+                      <br />
+                      <p class="text-muted">{{ candidate.roleName }}</p>
+                    </div>
+                    <div
+                      class="col-md-3 col-6 b-r"
+                      *ngIf="candidate.recStatusDisplay == null"
+                    >
+                      <strong>Status</strong>
+                      <br />
+                      <p
+                        *ngIf="
+                          candidate.recStatus == '00' ||
+                          candidate.recStatus == '04' ||
+                          candidate.recStatus == '08' ||
+                          candidate.recStatus == '12' ||
+                          candidate.recStatus == '16' ||
+                          candidate.recStatus == '20'
+                        "
+                      >
+                        <span
+                          class="label label-info label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                      <p
+                        *ngIf="
+                          candidate.recStatus == '01' ||
+                          candidate.recStatus == '05' ||
+                          candidate.recStatus == '09' ||
+                          candidate.recStatus == '13' ||
+                          candidate.recStatus == '17' ||
+                          candidate.recStatus == '21'
+                        "
+                      >
+                        <span
+                          class="label label-success label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                      <p
+                        *ngIf="
+                          candidate.recStatus == '02' ||
+                          candidate.recStatus == '06' ||
+                          candidate.recStatus == '10' ||
+                          candidate.recStatus == '14' ||
+                          candidate.recStatus == '18' ||
+                          candidate.recStatus == '22'
+                        "
+                      >
+                        <span
+                          class="label label-warning label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                      <p
+                        *ngIf="
+                          candidate.recStatus == '03' ||
+                          candidate.recStatus == '07' ||
+                          candidate.recStatus == '11' ||
+                          candidate.recStatus == '15' ||
+                          candidate.recStatus == '19' ||
+                          candidate.recStatus == '23'
+                        "
+                      >
+                        <span
+                          class="label label-danger label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                      <p
+                        *ngIf="
+                          candidate.recStatus == '24' ||
+                          candidate.recStatus == '25'
+                        "
+                      >
+                        <span
+                          class="label label-primary label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                      <p *ngIf="candidate.recStatus == '26'">
+                        <span
+                          class="label label-dropped label-mini"
+                          style="float: left"
+                        >
+                          {{ setRecStatus(candidate.recStatus) }}</span
+                        >
+                      </p>
+                    </div>
+                    <div
+                      class="col-md-3 col-6 b-r"
+                      *ngIf="candidate.recStatusDisplay != null"
+                    >
+                      <strong>Status</strong>
+                      <br />
+                      <p>
+                        <span
+                          class="label label-success label-mini"
+                          style="float: left"
+                        >
+                          {{ candidate.recStatusDisplay }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PROFILE CONTENT -->
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

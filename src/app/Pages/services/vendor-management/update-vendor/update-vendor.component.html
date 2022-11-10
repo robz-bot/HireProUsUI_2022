@@ -1,0 +1,358 @@
+<div class="container-fluid">
+  <br />
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-md-12 col-sm-12 card-head bg-pan-left">
+                    <header>Update Vendor - {{ updateVendor.vendorId }}</header>
+                  </div>
+                </div>
+
+                <div class="card-body" id="bar-parent10">
+                  <form
+                    #updateVendorForm="ngForm"
+                    name="form"
+                    novalidate
+                    (ngSubmit)="updateExsitingVendor(updateVendorForm)"
+                  >
+                    <!-- Vendor ID, Name, City, Landline -->
+                    <div class="row cols-12">
+                      <!-- <div class="col-3">
+                        <label for="Vendor Name"
+                          >Vendor ID&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-book"></i
+                          ></span>
+                          <input
+                            disabled
+                            [(ngModel)]="updateVendor.vendorId"
+                            type="text"
+                            name="vendorId"
+                            class="form-control"
+                            required
+                            #vendorId="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted && vendorId.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              updateVendorForm.submitted && vendorId.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="vendorId.errors.required">
+                              Vendor Id is required
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="col-3">
+                        <label for="Vendor Name"
+                          >Vendor Name&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-book"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="updateVendor.vendorName"
+                            type="text"
+                            name="vendorName"
+                            id=""
+                            class="form-control"
+                            required
+                            #vendorName="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted && vendorName.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              updateVendorForm.submitted && vendorName.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="vendorName.errors.required">
+                              Vendor Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label for="Vendor Name"
+                          >Email&nbsp;<span style="color: red">*</span></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-envelope-o"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="updateVendor.email"
+                            type="tel"
+                            name="email"
+                            id=""
+                            class="form-control"
+                            required
+                            #email="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted && email.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="updateVendorForm.submitted && email.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="email.errors.required">
+                              Email is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Contact Number&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-volume-control-phone"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="updateVendor.contactNumber"
+                            type="tel"
+                            name="contactNumber"
+                            id=""
+                            class="form-control"
+                            required
+                            #contactNumber="ngModel"
+                            (keypress)="onlyNumber($event)"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted &&
+                                contactNumber.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              updateVendorForm.submitted &&
+                              contactNumber.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="contactNumber.errors.required">
+                              Contact Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Location&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-map-marker"></i
+                          ></span>
+                          <input
+                            [(ngModel)]="updateVendor.location"
+                            type="text"
+                            name="location"
+                            id=""
+                            class="form-control"
+                            required
+                            #location="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted && location.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              updateVendorForm.submitted && location.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="location.errors.required">
+                              Location is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name"
+                          >Vendor Priority&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-exclamation-circle"></i
+                          ></span>
+                          <select
+                            class="form-select"
+                            name="vendorPriority"
+                            [(ngModel)]="updateVendor.vendorPriority"
+                          >
+                            <option
+                              class="dropdown-item"
+                              disabled
+                              selected
+                              value="undefined"
+                            >
+                              Select Vendor Priority
+                            </option>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                          </select>
+                          <!-- <div
+                            *ngIf="
+                            updateVendorForm.submitted && vendorPriority.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="vendorPriority.errors.required">
+                              Vendor Priority is required
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <!-- Address, CC Email -->
+                    <div class="row cols-12">
+                      <div class="col-5">
+                        <label for="Vendor Name">Address</label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-address-card-o"></i
+                          ></span>
+                          <textarea
+                            [(ngModel)]="updateVendor.address"
+                            cols="2"
+                            name="address"
+                            id=""
+                            class="form-control"
+                          ></textarea>
+                          <!-- <div
+                            *ngIf="
+                              updateVendorForm.submitted && address.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="address.errors.required">
+                              Address is required
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="col-5">
+                        <label for="Vendor Name"
+                          >CC Email IDs&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-envelope"></i
+                          ></span>
+                          <textarea
+                            [(ngModel)]="updateVendor.ccEmailIds"
+                            cols="2"
+                            name="ccEmailIds"
+                            id=""
+                            class="form-control"
+                            required
+                            #ccEmailIds="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                updateVendorForm.submitted && ccEmailIds.invalid
+                            }"
+                          ></textarea>
+                          <div
+                            *ngIf="
+                              updateVendorForm.submitted && ccEmailIds.invalid
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="ccEmailIds.errors.required">
+                              CC Email Ids is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <label for="Vendor Name">Status </label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-check"></i
+                          ></span>
+                          <select
+                            class="form-select"
+                            name="active"
+                            id=""
+                            [(ngModel)]="updateVendor.active"
+                          >
+                            <option
+                              class="dropdown-item"
+                              disabled
+                              selected
+                              value="undefined"
+                            >
+                              Select Status
+                            </option>
+                            <option value="1">Active</option>
+                            <option value="0">InActive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <!-- Save and Cancel Button -->
+                    <div class="row cols-12">
+                      <div class="col-2">
+                        <input
+                          type="submit"
+                          class="form-control btn btn-primary"
+                          value="update"
+                        />
+                      </div>
+                      <div class="col-2">
+                        <input
+                          (click)="goBack()"
+                          type="button"
+                          class="form-control btn btn-secondary"
+                          value="Cancel"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="preloader" *ngIf="loader == 1">
+    <div id="loader"></div>
+  </div>
+</div>

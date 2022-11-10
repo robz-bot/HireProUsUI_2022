@@ -1,0 +1,197 @@
+.head {
+  color: rgb(9, 44, 121);
+}
+label {
+  font-size: 12px;
+  color: gray;
+}
+input.form-control.btn.btn-circle.btn-primary {
+  position: inherit;
+  float: left;
+}
+tbody {
+  font-size: 12px;
+}
+
+i.fa.fa-transgender-alt {
+  height: 18px;
+  margin-top: 2px;
+}
+input#inlineRadio1,
+input#inlineRadio2 {
+  height: 16px;
+  width: 28px;
+}
+.input-group.mb-3.radiodiv {
+  border: 1px solid silver;
+  border-radius: 4px;
+}
+.table thead tr th {
+  font-size: 14px;
+  font-weight: 500;
+}
+a.btn.btn-circle.btn-tbl-edit.btn-sm,
+a.btn.btn-circle.btn-tbl-delete.btn-sm {
+  width: fit-content;
+}
+.col-md-6.col-sm-6.right {
+  border-right: 2px solid silver;
+}
+.badge.headerBadgeColor3 {
+  background-color: #2196f3;
+}
+.badge.BadgeColor {
+  border: 1px solid silver;
+  color: black;
+  height: 26px;
+  width: 30px;
+  padding-top: 7px;
+  background-color: white;
+}
+input.form-control.btn.btn-primary.col-sm-6.col-md-6 {
+  height: 40px;
+}
+i.fa.fa-info {
+  font-size: 15px;
+  width: 10px;
+}
+.col-sm-4.col-md-4 {
+  font-size: 14px;
+}
+
+ng-select {
+  width: 80%;
+  color: black;
+}
+tbody {
+  font-size: 12px;
+}
+ul.dropdown-menu.dropdown-menu-default.jello.show {
+  width: max-content;
+}
+a.dropdown-toggle.btn.btn-tbl-edit.btn-xs {
+  color: white;
+}
+
+/* label {
+  font-size: 12px;
+  color: gray;
+} */
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+#exampleModal .modal-dialog {
+  -webkit-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  margin: 0 auto;
+}
+.card-body.card-box {
+  height: 310px;
+}
+img#buImg {
+  margin-left: 13px;
+  height: 366px;
+  width: 470px;
+}
+.card-body.card-box {
+  box-shadow: 0 0 25px -5px #9e9c9e;
+  border: 1px solid silver;
+}
+input.btn.btn-circle.btn-xs.searchbtn {
+  color: black;
+}
+input.btn.btn-circle.btn-xs.clearbtn {
+  color: black;
+}
+.col-sm-4.col-md-4 {
+  font-size: 14px;
+}
+select.form-control.form-select {
+  max-width: max-content;
+}
+.input-group.mb-3.row.col-md-12.col-sm-12 {
+  padding-right: 0px;
+  border-top: 2px solid silver;
+  margin-left: -4px;
+}
+span#basic-addon2 {
+  width: 123px;
+  justify-content: center;
+  background-color: #706e6e !important;
+}
+/* advanced ddl */
+.dropdown.dropdown-lg .dropdown-menu {
+  margin-top: -1px;
+  padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+  display: flex !important;
+}
+.btn-group .btn {
+  border-radius: 0;
+  margin-left: -1px;
+}
+.btn-group .btn:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+.form-group .form-control:last-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+  #adv-search {
+    margin: 0 auto;
+  }
+  .dropdown.dropdown-lg {
+    position: static !important;
+  }
+  .dropdown.dropdown-lg .dropdown-menu {
+    min-width: 350px;
+  }
+}
+.btn.btn-sm{
+  padding: 6px 3px;
+}
+/* ---- */
+
+
+p#progress-bar {
+  float: right;
+  margin-right: 58px;
+}
+strong {
+  font-size: 14px;
+}
+a.btn.btn-tbl-add.btn-xs {
+  float: right;
+  right: 53px;
+  font-size: medium;
+}
+.progress {
+  display: flex;
+  height: 0.5rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #b8b9b9;
+  border-radius: 0.25rem;
+  width: 200px;
+}

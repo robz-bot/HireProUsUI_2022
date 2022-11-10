@@ -1,0 +1,361 @@
+
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-3 col-md-3 text-muted">
+                    Reports / Candidate Report
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                  <div class="col-sm-2 col-md-2" id="search">
+                    <a
+                      (click)="showFilter()"
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 text-muted"></div>
+                  <div class="col-sm-2 col-md-2">
+                    <a
+                      (click)="downloadCandidateDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </a>
+                  </div>
+                </div>
+                <br />
+                <div *ngIf="ShowFilterDiv">
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- Job Request No -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Id">Job Request No.</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="jrNumber"
+                        [(ngModel)]="searchModal.jrNumber"
+                        required
+                        placeholder="Search by Job Request"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Candidate Name -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Vendor Name">Candidate Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="fullName"
+                        [(ngModel)]="searchModal.fullName"
+                        required
+                        placeholder="Search by Candidate Name"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Rec status -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Rec status">Recruitment Status</label>
+                      <select
+                        class="form-select"
+                        name="recStatus"
+                        [(ngModel)]="searchModal.recStatus"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Recruitment Status
+                        </option>
+                        <option
+                          value="02,06,10,14,18,22"
+                        >
+                          Holded
+                        </option>
+                        <option
+                          value="03,07,11,15,19,23"
+                        >
+                          Rejected
+                        </option>
+                        <option
+                          value="26"
+                        >
+                          Dropped
+                        </option>
+                        <option
+                          value="21"
+                        >
+                          Selected
+                        </option>
+                        <option
+                          value="25"
+                        >
+                          Onboarded
+                        </option>
+                      </select>
+                    </div>
+                    <!-- Candidate Type -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="Candidate Type">Candidate Type</label>
+                      <select
+                        [(ngModel)]="searchModal.candidateType"
+                        name="candidateType"
+                        class="form-select"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Candidate Type
+                        </option>
+                        <option
+                          value="Internal"
+                          *ngIf="placementFor != 'Internal'"
+                        >
+                          Internal
+                        </option>
+                        <option value="External">External</option>
+                      </select>
+                    </div>
+                    <!-- From Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="From Date">From Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.fromDateTime"
+                        type="date"
+                        name="fromDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                    <!-- To Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="To Date">To Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.toDateTime"
+                        type="date"
+                        name="toDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <a
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                        (click)="searchCandidateForDownload()"
+                      >
+                        <i class="fa fa-search"></i>Search
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        class="dropdown-toggle btn btn-secondary btn-sm"
+                        style="font-size: 12px"
+                        (click)="resetFilter()"
+                      >
+                        <i class="fa fa-refresh" style="color: white"></i
+                        ><span style="color: white">Reset</span>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        (click)="closeFilter()"
+                        class="dropdown-toggle btn btn-danger btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-times" style="color: white"></i
+                        ><span style="color: white">close</span>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4"></div>
+                  </div>
+                  <br />
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Job Request #</th>
+                      <th>Business Unit | Recruitment Role</th>
+                      <th>Candidate Details</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of CandidateList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr>
+                        <td (click)="item.expanded = !item.expanded">
+                          {{ item.expanded ? "&ndash;" : "+" }}
+                        </td>
+                        <td>
+                          <a
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.jrNumber }}</a
+                          >
+                        </td>
+                        <td>{{ item.buName }} | {{ item.roleName }}</td>
+                        <td>
+                          <a
+                            (click)="gotoCandidateView(item.id)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.fullName }}</a
+                          >
+                          |
+                          <a
+                            title="Click to call"
+                            href="tel:{{ item.contactNumber }}"
+                            >{{ item.contactNumber }}</a
+                          >
+                          | {{ item.candidateType }}
+                        </td>
+                        <td>
+                          <!-- <a
+                              href="javascript:void(0)"
+                              class="btn btn-tbl-plus btn-xs"
+                              (click)="
+                                gotoViewHistory(item.jrNumber, item.id)
+                              "
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="View History"
+                              ><i
+                                class="fa fa-history"
+                                aria-hidden="true"
+                              ></i>
+                            </a> -->
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-resume btn-xs"
+                            (click)="getResume(item.id)"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="View Resume"
+                          >
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngIf="item.expanded">
+                        <tr
+                          *ngFor="
+                            let details of findDetailsForCandidates(
+                              item
+                            )
+                          "
+                        >
+                          <td style="padding-left: 12px"></td>
+                          <td>
+                            {{ details.buName }}
+                            | {{ details.roleName }} |
+
+                            {{ details.employmentType }} |
+                            {{ details.placementFor }}
+                          </td>
+
+                          <td>
+                            <span
+                              *ngIf="details.sex == 'Male'"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Male"
+                              class="badge headerBadgeColor2"
+                            >
+                              M
+                            </span>
+                            <span
+                              *ngIf="details.sex == 'Female'"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Female"
+                              class="badge headerBadgeColor1"
+                            >
+                              F
+                            </span>
+                            | {{ details.roleName }} |
+                            {{ details.experience }} yrs
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ CandidatesCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChangeForSelCandi($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>
+

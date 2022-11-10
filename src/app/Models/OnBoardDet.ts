@@ -1,0 +1,29 @@
+export class OnboardDet {
+  buId: string;
+  candidateId: string;
+  candidateName: string;
+  createdBy: string;
+  createdByName: string;
+  createdDateTime: string;
+  docsVerified: string;
+  employeeId: string;
+  id: string;
+  joined: string;
+  joiningDate: string;
+  jrNumber: string;
+  message: string;
+  recStatus: string;
+  recruiterId: string;
+  recruiterName: string;
+  status: string;
+  updatedBy: string;
+  updatedByName: string;
+  updatedDateTime: string;
+  workOrderNumber: string;
+  projectId: string;
+  resourceId: string;
+  candidateType: string;
+  employeeIdByHR: string;
+  email: string;
+  contactNumber: string;
+}

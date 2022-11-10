@@ -1,0 +1,116 @@
+.candibg1 {
+  background: linear-gradient(45deg, #72c2ff, #86f0ff) !important;
+}
+.candibg2 {
+  background: linear-gradient(45deg, #9ce89d, #cdfa7e) !important;
+}
+.candibg3 {
+  background: linear-gradient(45deg, #ff5370, #ff869a) !important;
+}
+.candibg4 {
+  background: linear-gradient(45deg, #ffb64d, #ffcb80) !important;
+}
+.head {
+  color: rgb(9, 44, 121);
+}
+label {
+  font-size: 12px;
+  color: gray;
+}
+input.form-control.btn.btn-circle.btn-primary {
+  position: inherit;
+  float: left;
+}
+tbody {
+  font-size: 12px;
+}
+
+i.fa.fa-transgender-alt {
+  height: 18px;
+  margin-top: 2px;
+}
+input#inlineRadio1,
+input#inlineRadio2 {
+  height: 16px;
+  width: 28px;
+}
+.input-group.mb-3.radiodiv {
+  border: 1px solid silver;
+  border-radius: 4px;
+}
+.table thead tr th {
+  font-size: 14px;
+  font-weight: 500;
+}
+a.btn.btn-circle.btn-tbl-edit.btn-sm,
+a.btn.btn-circle.btn-tbl-delete.btn-sm {
+  width: fit-content;
+}
+.col-md-6.col-sm-6.right {
+  border-right: 2px solid silver;
+}
+.badge.headerBadgeColor3 {
+  background-color: #2196f3;
+}
+.badge.BadgeColor {
+  border: 1px solid silver;
+  color: black;
+  height: 26px;
+  width: 30px;
+  padding-top: 7px;
+  background-color: white;
+}
+a#innerNav {
+  /* background-color: #db6c97; */
+  color: black;
+}
+input.form-control.btn.btn-primary.col-sm-6.col-md-6 {
+  height: 40px;
+}
+
+ng-select {
+  width: 100%;
+  color: black;
+}
+
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+.page-bar {
+  padding: 0;
+  background-color: #f1f4f7;
+  margin-bottom: 25px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.btn-tbl-image {
+  background: linear-gradient(45deg, #150d86, #66a0ebab);
+  border-radius: 50% !important;
+  padding: 5px !important;
+  color: #fff;
+  box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 20%);
+}
+ul.dropdown-menu.dropdown-menu-default.jello.show {
+  position: absolute;
+  transform: translate3d(-80px, 32px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 155px;
+  margin-bottom: 0;
+  list-style: none;
+}

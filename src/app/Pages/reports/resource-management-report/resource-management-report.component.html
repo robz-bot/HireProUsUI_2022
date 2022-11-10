@@ -1,0 +1,403 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-3 col-md-3 text-muted">
+                    Reports / Resource Management Report
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                  <div class="col-sm-2 col-md-2" id="search">
+                    <a
+                      (click)="showFilter()"
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-1 col-md-1 text-muted"></div>
+                  <div class="col-sm-2 col-md-2">
+                    <!-- <img
+                      (click)="downloadResourceDetails()"
+                      id="excelImg"
+                      src="https://icon-library.com/images/download-to-excel-icon/download-to-excel-icon-0.jpg"
+                      alt=""
+                      srcset=""
+                    /> -->
+                    <a
+                      (click)="downloadResourceDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </a>
+                    <!-- <button
+                      (click)="downloadResourceDetails()"
+                      class="btn btn-success btn-sm"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </button> -->
+                    <!-- <img
+                      (click)="downloadResourceDetails()"
+                      title="Download Excel"
+                      id="excelImg"
+                      style="cursor: pointer"
+                      src="https://img.icons8.com/color/96/000000/microsoft-excel-2019--v1.png"
+                    /> -->
+                    <!-- <a
+                      (click)="downloadResourceDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel
+                    </a> -->
+                  </div>
+                </div>
+                <br />
+                <div *ngIf="ShowFilterDiv">
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- Full Name -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="FullName">Full Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="fullName"
+                        [(ngModel)]="searchModal.fullName"
+                        required
+                        placeholder="Search by Full Name"
+                        (keyup)="handleKeyUp($event)"
+                      />
+                    </div>
+                    <!-- Business Unit -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="Business Unit">Business Unit</label>
+                      <select
+                        class="form-select"
+                        name="buId"
+                        [(ngModel)]="searchModal.buId"
+                      >
+                        <option disabled selected value="undefined">
+                          Select Business Unit
+                        </option>
+                        <option
+                          *ngFor="let item of bulist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.businessUnitName }}
+                        </option>
+                      </select>
+                    </div>
+                    <!-- Resource Status -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="Resource Status">Resource Status</label>
+                      <select
+                        class="form-select"
+                        name="projectAllocation"
+                        [(ngModel)]="searchModal.resourceStatus"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Resource Status
+                        </option>
+                        <option class="dropdown-item" value="Active">
+                          Active
+                        </option>
+                        <option class="dropdown-item" value="In-Active">
+                          In-Active
+                        </option>
+                        <option class="dropdown-item" value="Hold">Hold</option>
+                        <option class="dropdown-item" value="Resigned">
+                          Resigned
+                        </option>
+                        <option class="dropdown-item" value="Terminated">
+                          Terminated
+                        </option>
+                      </select>
+                    </div>
+                    <!-- Project Allocation -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="Business Unit">Project Allocation</label>
+                      <select
+                        class="form-select"
+                        name="projectAllocation"
+                        [(ngModel)]="searchModal.projectAllocation"
+                      >
+                        <option disabled selected value="undefined">
+                          Select Project Allocation
+                        </option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- Employee ID -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="Employee ID">Employee ID</label>
+                      <select
+                        class="form-select"
+                        name="sugStatus"
+                        required
+                        name="employeeId"
+                        [(ngModel)]="searchModal.employeeId"
+                      >
+                        <option disabled selected value="undefined">
+                          Select Employee ID
+                        </option>
+                        <option
+                          *ngFor="let item of allEmpIds"
+                          value="{{ item }}"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </div>
+                    <!-- Work Order Number -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="WO Number">Work Order Number</label>
+                      <select
+                        class="form-select"
+                        name="sugStatus"
+                        required
+                        name="workOrderNumber"
+                        [(ngModel)]="searchModal.workOrderNumber"
+                      >
+                        <option disabled selected value="undefined">
+                          Select WO Number
+                        </option>
+                        <option
+                          *ngFor="let item of allWONum"
+                          value="{{ item }}"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </div>
+                    <!-- From Date -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="From Date">From Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.fromDateTime"
+                        type="date"
+                        name="fromDateTime"
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                        id=""
+                      />
+                    </div>
+                    <!-- To Date -->
+                    <div class="col-md-3 col-sm-3">
+                      <label for="To Date">To Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.toDateTime"
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                        type="date"
+                        name="toDateTime"
+                        id=""
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <a
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                        (click)="searchResourceMgmt()"
+                      >
+                        <i class="fa fa-search"></i>Search
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        class="dropdown-toggle btn btn-secondary btn-sm"
+                        style="font-size: 12px"
+                        (click)="resetFilter()"
+                      >
+                        <i class="fa fa-refresh" style="color: white"></i
+                        ><span style="color: white">Reset</span>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        (click)="closeFilter()"
+                        class="dropdown-toggle btn btn-danger btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-times" style="color: white"></i
+                        ><span style="color: white">close</span>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4"></div>
+                  </div>
+                  <br />
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th title="Employee Id | Employee Id By HR">
+                        Employee ID | By HR
+                      </th>
+                      <th>WO Number</th>
+
+                      <th>Employee Name</th>
+                      <th>Status</th>
+                      <th>
+                        Project
+                        <br />
+                        Allocation
+                      </th>
+                      <th title="Effective From">Eff. From</th>
+                      <th>Business Unit | Customer | Project</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of allResources
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr>
+                        <td (click)="item.expanded = !item.expanded">
+                          {{ item.expanded ? "&ndash;" : "+" }}
+                        </td>
+                        <td>
+                          {{ item.employeeId }} | {{ item.employeeIdByHR }}
+                        </td>
+                        <td>{{ item.workOrderNumber }}</td>
+                        <td>{{ item.fullName }}</td>
+                        <td>
+                          <span
+                            class="feedLblStyle lblOpen"
+                            *ngIf="item.resourceStatus == 'Active'"
+                            >Active</span
+                          >
+                          <span
+                            class="feedLblStyle lblCommentStyle"
+                            *ngIf="item.resourceStatus == 'In-Active'"
+                            >In-Active</span
+                          >
+
+                          <span
+                            class="feedLblStyle lblTerminated"
+                            *ngIf="item.resourceStatus == 'Terminated'"
+                            >Terminated</span
+                          >
+                          <span
+                            class="feedLblStyle lblClosed"
+                            *ngIf="item.resourceStatus == 'Resigned'"
+                            >Resigned</span
+                          >
+                          <span
+                            class="feedLblStyle lblHold"
+                            *ngIf="item.resourceStatus == 'Hold'"
+                            >Hold</span
+                          >
+                        </td>
+                        <td *ngIf="item.projectAllocation == 'Yes'">✔️</td>
+                        <td *ngIf="item.projectAllocation == 'No'">❌</td>
+                        <td>{{ item.effectiveDate }}</td>
+                        <td
+                          *ngIf="
+                            item.customerName != null &&
+                            item.projectName != null
+                          "
+                        >
+                          {{ item.buName }} | {{ item.customerName }} |
+                          {{ item.projectName }}
+                        </td>
+                        <td
+                          *ngIf="
+                            item.customerName == null &&
+                            item.projectName == null
+                          "
+                        >
+                          {{ item.buName }} | - | -
+                        </td>
+                      </tr>
+                      <ng-container *ngIf="item.expanded">
+                        <tr *ngFor="let details of findDetails(item)">
+                          <td style="padding-left: 12px"></td>
+                          <td style="padding-left: 12px"></td>
+                          <td style="padding-left: 12px"></td>
+                          <td
+                            colspan="6"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="{{ details.skillSet }} "
+                          >
+                            {{ details.email }} | {{ details.contactNumber }} |
+                            {{ item.designation }} | {{ details.skillSet }}
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                    <br />
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ allResourcesCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

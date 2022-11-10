@@ -1,0 +1,127 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show">
+      <div class="row">
+        <div class="col-md-4 col-sm-4"></div>
+
+        <div class="col-md-4 col-sm-4">
+          <div class="card-body card-box">
+            <form #f="ngForm" name="form" novalidate (ngSubmit)="resetPass(f)">
+              <br />
+              <label for="Customer"
+                >Current Password&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-key" aria-hidden="true"></i
+                ></span>
+                <input
+                  type="password"
+                  maxlength="35"
+                  [(ngModel)]="user.password"
+                  class="form-control"
+                  name="password"
+                  required
+                  #password="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && password.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && password.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="password.errors.required">
+                    Current Password is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <label for="Customer"
+                >New Password&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-lock" aria-hidden="true"></i
+                ></span>
+                <input
+                  type="password"
+                  maxlength="35"
+                  [(ngModel)]="user.newPassword"
+                  class="form-control"
+                  name="newPassword"
+                  required
+                  #newPassword="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && newPassword.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && newPassword.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="newPassword.errors.required">
+                    New Password is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Confirm Password&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-lock" aria-hidden="true"></i
+                ></span>
+                <input
+                  type="password"
+                  maxlength="35"
+                  [(ngModel)]="user.cpass"
+                  class="form-control"
+                  name="cpass"
+                  required
+                  #cpass="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && cpass.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && cpass.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="cpass.errors.required">
+                    Confirm Password is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="reset"
+              />&nbsp;&nbsp;
+              <input
+                routerLink="/hirepros/dashboard"
+                type="submit"
+                class="btn btn-circle btn-secondary"
+                value="cancel"
+              />
+            </form>
+            <br />
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

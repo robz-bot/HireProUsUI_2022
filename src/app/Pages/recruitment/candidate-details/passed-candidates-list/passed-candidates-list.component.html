@@ -1,0 +1,361 @@
+<div class="tab-pane">
+  <div class="col-md-12 col-sm-12">
+    <div class="table-scrollable">
+      <div class="row col-md-12 col-sm-12">
+        <div class="col-sm-4 col-md-4 text-muted">
+          Recruitment / Candidate Details / Passed Candidates
+        </div>
+
+        <div class="col-sm-2 col-md-2">
+          <select
+            class="form-select"
+            required
+            [(ngModel)]="candidate.refId"
+            #refId="ngModel"
+          >
+            <option class="dropdown-item" disabled selected value="undefined">
+              Select Job Request
+            </option>
+            <option
+              *ngFor="let item of JobRequestNumbersList"
+              value="{{ item.referenceNumber }}"
+            >
+              {{ item.referenceNumber }}
+            </option>
+          </select>
+        </div>
+        <!-- <div class="col-sm-2 col-md-2" *ngIf="isVendor == '0'">
+          <select
+            class="form-select"
+            required
+            [(ngModel)]="candidate.vendorId"
+            name="vendorId"
+          >
+            <option class="dropdown-item" disabled selected value="undefined">
+              Select Vendor Name
+            </option>
+            <option *ngFor="let item of activeVendors" value="{{ item.id }}">
+              {{ item.vendorName }}
+            </option>
+          </select>
+        </div> -->
+        <div class="col-sm-4 col-md-4" id="search">
+          <form
+            #psf="ngForm"
+            name="form"
+            novalidate
+            (ngSubmit)="searchPassedCandidates(psf)"
+          >
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                (keypress)="onlyAlphaSpace($event)"
+                maxlength="35"
+                class="form-control"
+                name="keyword"
+                placeholder="Candidate Name"
+                [(ngModel)]="candidate.keyword"
+              />
+
+              &nbsp;
+              <input
+                type="submit"
+                class="btn btn-xs searchbtn"
+                style="background-color: #706e6e !important; color: white"
+                value="Search"
+              />
+              &nbsp; &nbsp;
+
+              <input
+                type="button"
+                class="btn btn-xs searchbtn"
+                style="background-color: #706e6e !important; color: white"
+                value="Reset"
+                (click)="resetPassedCandidates()"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <table class="table table-hover table-checkable full-width">
+        <thead class="bg-listHeader">
+          <tr>
+            <th>#</th>
+            <th>Job Request #</th>
+            <th>Busines Unit | Recruitment Role</th>
+            <th>Candidate Details</th>
+            <th>Status</th>
+            <th>View</th>
+            <!-- <th *ngIf="enableEditCandidate('Candidate_Edit')">Clone</th> -->
+            <th
+              *ngIf="
+                enableDeleteIcon('Candidate_Delete') ||
+                enableEditCandidate('Candidate_Edit')
+              "
+            >
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="
+              let item of passedCandidateList
+                | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <tr>
+              <td (click)="item.expanded = !item.expanded">
+                {{ item.expanded ? "&ndash;" : "+" }}
+              </td>
+              <td>
+                <a
+                  (click)="gotoJobReqView(item.jrNumber)"
+                  href="javascript:void(0)"
+                  style="text-decoration: underline"
+                  >{{ item.jrNumber }}</a
+                >
+              </td>
+              <td>{{ item.buName }} | {{ item.roleName }}</td>
+              <td>
+                <a
+                  (click)="gotoCandidateView(item.id)"
+                  href="javascript:void(0)"
+                  style="text-decoration: underline"
+                  >{{ item.fullName }}</a
+                >
+                |
+                <a title="Click to call" href="tel:{{ item.contactNumber }}">{{
+                  item.contactNumber
+                }}</a>
+                | {{ item.candidateType }}
+              </td>
+              <td>
+                <span class="label label-success label-mini">{{
+                  item.recStatusDisplay
+                }}</span>
+              </td>
+
+              <!-- <td
+                *ngIf="
+                  item.recStatus == '00' ||
+                  item.recStatus == '04' ||
+                  item.recStatus == '08' ||
+                  item.recStatus == '12' ||
+                  item.recStatus == '16' ||
+                  item.recStatus == '20'
+                "
+              >
+                <span class="label label-info label-mini">
+                  {{ setRecStatus(item.recStatus) }}</span
+                >
+              </td>
+              <td
+                *ngIf="
+                  item.recStatus == '01' ||
+                  item.recStatus == '05' ||
+                  item.recStatus == '09' ||
+                  item.recStatus == '13' ||
+                  item.recStatus == '17' ||
+                  item.recStatus == '21'
+                "
+              >
+                <span class="label label-success label-mini">
+                  {{ setRecStatus(item.recStatus) }}</span
+                >
+              </td>
+              <td
+                *ngIf="
+                  item.recStatus == '02' ||
+                  item.recStatus == '06' ||
+                  item.recStatus == '10' ||
+                  item.recStatus == '14' ||
+                  item.recStatus == '18' ||
+                  item.recStatus == '22'
+                "
+              >
+                <span class="label label-warning label-mini">
+                  {{ setRecStatus(item.recStatus) }}</span
+                >
+              </td>
+              <td
+                *ngIf="
+                  item.recStatus == '03' ||
+                  item.recStatus == '07' ||
+                  item.recStatus == '11' ||
+                  item.recStatus == '15' ||
+                  item.recStatus == '19' ||
+                  item.recStatus == '23'
+                "
+              >
+                <span class="label label-danger label-mini">
+                  {{ setRecStatus(item.recStatus) }}</span
+                >
+              </td>
+              <td *ngIf="item.recStatus == '24' || item.recStatus == '25'">
+                <span class="label label-primary label-mini">
+                  {{ setRecStatus(item.recStatus) }}</span
+                >
+              </td> -->
+              <td>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-tbl-plus btn-xs"
+                  (click)="gotoViewHistory(item.jrNumber, item.id)"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="View History"
+                  ><i class="fa fa-history" aria-hidden="true"></i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-tbl-resume btn-xs"
+                  (click)="getResume(item.id)"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="View Resume"
+                >
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                </a>
+              </td>
+              <!-- <td *ngIf="enableEditCandidate('Candidate_Edit')">
+                <a
+                  class="btn btn-tbl-clone btn-xs"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Clone Candidate"
+                  (click)="cloneCandidate(item.id)"
+                >
+                  <i class="fa fa-clone" aria-hidden="true"></i>
+                </a>
+              </td> -->
+              <td *ngIf="enableEditCandidate('Candidate_Edit')">
+                <a
+                *ngIf="
+                (enableEditCandidate('Candidate_Edit') ||
+                  isVendor == '1') &&
+                item.candidateType == 'External'
+              "
+                  href="javascript:void(0)"
+                  class="btn btn-tbl-edit btn-xs"
+                  (click)="gotoUpdateCandidate(item.id)"
+                >
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a
+                *ngIf="
+                  (enableEditCandidate('Candidate_Edit') ||
+                    isVendor == '1') &&
+                  item.candidateType == 'Internal'
+                "
+                href="javascript:void(0)"
+                title="Internal Candidate Cannot Edit"
+                class="btn btn-tbl-edit btn-xs disabled"
+              >
+                <i class="fa fa-pencil"></i>
+              </a>
+
+                <a
+                  *ngIf="enableDeleteIcon('Candidate_Delete')"
+                  class="btn btn-tbl-delete btn-xs"
+                  data-toggle="tooltip"
+                  data-placement="left"
+                  title="Delete"
+                  data-toggle="dropdown"
+                  data-hover="dropdown"
+                  data-close-others="true"
+                >
+                  <i class="fa fa-trash-o"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default jello">
+                  <li>
+                    <div class="card-body">
+                      <label>Sure You Want to Delete the Candidate? </label
+                      ><br />
+                      <button
+                        type="button"
+                        class="btn btn-circle btn-danger"
+                        (click)="deleteCandidate(item.id)"
+                      >
+                        Yes
+                      </button>
+                      <button type="button" class="btn btn-circle btn-info">
+                        No
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="item.expanded">
+              <tr *ngFor="let details of findDetails(item)">
+                <td style="padding-left: 12px"></td>
+                <td>
+                  {{ details.buName }}
+                  | {{ details.roleName }} |
+
+                  {{ details.employmentType }} |
+                  {{ details.placementFor }}
+                </td>
+
+                <td>
+                  <span
+                    *ngIf="details.sex == 'Male'"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Male"
+                    class="badge headerBadgeColor2"
+                  >
+                    M
+                  </span>
+                  <span
+                    *ngIf="details.sex == 'Female'"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Female"
+                    class="badge headerBadgeColor1"
+                  >
+                    F
+                  </span>
+                  | {{ details.roleName }} | {{ details.experience }} yrs
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-lg-12" style="height: 32px">
+      <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+        Items per Page:
+        <select (change)="handlePageSizeChangeForPassed($event)">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="col-md-4 col-sm-4 col-lg-4 text-muted"
+        style="font-size: 14px"
+      >
+        Total No.of Record(s):
+        {{ passedCandidatesCount > 0 ? passedCandidatesCount : 0 }}
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          responsive="true"
+          (pageChange)="handlePageChangeForPassed($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

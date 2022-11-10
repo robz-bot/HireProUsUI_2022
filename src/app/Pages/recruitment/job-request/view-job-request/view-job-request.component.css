@@ -1,0 +1,48 @@
+span.label.label-success.label-mini {
+  float: right;
+  margin-right: 82px;
+}
+
+p#progress-bar {
+  float: right;
+  margin-right: 58px;
+}
+strong {
+  font-size: 14px;
+}
+a.btn.btn-tbl-add.btn-xs {
+  float: right;
+  right: 53px;
+  font-size: medium;
+}
+.progress {
+  display: flex;
+  height: 0.5rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #b8b9b9;
+  border-radius: 0.25rem;
+  width: 200px;
+}
+.label-info {
+  background-color: #659be0 !important;
+  float: right;
+  margin-right: 70px;
+}
+.card-body {
+  width: 1200px;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+a.btn.btn-tbl-add-bench.btn-xs {
+  font-size: 16px;
+  width: 34px;
+}

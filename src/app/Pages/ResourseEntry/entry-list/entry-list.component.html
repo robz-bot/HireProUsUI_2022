@@ -1,0 +1,231 @@
+<!-- <div class="my-2 text-center bd-highlight">
+  <img id="epm" style="height: 100px" src="assets/img/EPM1.png" />
+</div> -->
+<div class="container text-center my-3">
+  <div class="d-flex justify-content-center">
+    <div class="p-2 bd-highlight">
+      <button class="btn btn-outline-primary btn-tab" routerLink="/add-entry">
+        Add Entry
+      </button>
+    </div>
+    <div class="p-2 bd-highlight">
+      <button class="btn btn-primary btn-tab" routerLink="/entry-list">
+        Entry List
+      </button>
+    </div>
+    <ng-container *ngIf="SS_loginType == 'rating'">
+      <div class="p-2 bd-highlight" >
+        <button class="btn btn-outline-primary btn-tab" routerLink="/reviewlist">
+          Review Teams Perfomance
+        </button>
+      </div>
+      <div class="p-2 bd-highlight">
+        <button class="btn btn-outline-primary btn-tab" routerLink="/levelupgrade-login"
+        >
+          Logout
+        </button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="SS_loginType == 'entry'">
+      <div class="p-2 bd-highlight">
+        <button class="btn btn-outline-primary btn-tab" routerLink="/entryLogin"
+       >
+          Logout
+        </button>
+        </div>
+    </ng-container>
+  </div>
+  <div class="row-12 my-2 text-center">
+    Welcome, {{ SS_currentUserName }} - {{ SS_Designation }}
+  </div>
+</div>
+<div class="container">
+  <div class="card my-3">
+    <div class="row-12">
+      <div class="col-2">
+        <select
+          name="yearSelection"
+          class="form-select my-3"
+          [(ngModel)]="yearSelection"
+          (change)="onchangeYear()"
+        >
+          <option value="undefined">All</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </div>
+    </div>
+    <table class="table table-hover table-checkable full-width my-3">
+      <thead class="bg-listHeader">
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>Achievements</th>
+          <th>Status</th>
+          <th>Reviewed By</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of achievements; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.createdDateTime + "Z" | date:"shortDate" }}</td>
+          <td title="{{ item.achievements }}" style="width: 500px">
+            {{
+              item.achievements.length >= 174
+                ? (item.achievements | slice: 0:174) + "..."
+                : item.achievements
+            }}
+          </td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.ratingByname }}</td>
+          <td>
+            <ng-container *ngIf="item.ratingByname == 'Yet To Review'">
+              <ul class="nav navbar-nav pull-left">
+                <li class="dropdown dropdown-user">
+                  <a
+                    href="javascript:void(0);"
+                    (click)="updateEntry(item.id)"
+                    class="btn btn-tbl-edit btn-sm"
+                    ><i
+                      class="fa fa-pencil"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Edit"
+                    ></i
+                  ></a>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="item.ratingByname != 'Yet To Review'">
+              <ul class="nav navbar-nav pull-left">
+                <li class="dropdown dropdown-user">
+                  <a
+                    class="dropdown-toggle btn btn-tbl-view btn-xs"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    (click)="getAchDet(item)"
+                  >
+                    <i class="fa fa-info-circle"></i>
+                  </a>
+                </li>
+              </ul>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row col-md-12 col-sm-12 col-lg-12" style="height: 32px">
+      <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+        Items per Page:
+        <select (change)="handlePageSizeChange($event)">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="col-md-4 col-sm-4 col-lg-4 text-muted"
+        style="font-size: 14px"
+      >
+        Total No.of Record(s): {{ achievementsLength }}
+      </div>
+      <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          responsive="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+
+<div
+  class="modal fade"
+  data-backdrop="static"
+  data-keyboard="false"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="exampleModalLabel">
+          Rating Result - {{ reviewedYear }}
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-2 bold">Full Name</div>
+          <div class="col-9">{{ viewDet.resourceName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Achievements</div>
+          <div class="col-9">{{ viewDet.achievements }}</div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Comments</div>
+          <div class="col-9">{{ viewDet.comments }}</div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Rating</div>
+          <div class="col-9" *ngIf="viewDet.rating == 'ME'">
+            ME - Meet Expectation
+          </div>
+          <div class="col-9" *ngIf="viewDet.rating == 'NA'">
+            NA - Not Applicable
+          </div>
+          <div class="col-9" *ngIf="viewDet.rating == 'NI'">
+            NI - Need Improvement
+          </div>
+          <div class="col-9" *ngIf="viewDet.rating == 'MA'">
+            MA - Meet All Expectation
+          </div>
+          <div class="col-9" *ngIf="viewDet.rating == 'EE'">
+            EE - Exceed Expectation
+          </div>
+          <div class="col-9" *ngIf="viewDet.rating == 'EA'">
+            EA - Exceed All Expectation
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Rated By</div>
+          <div class="col-9">{{ viewDet.ratingByname }}</div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Rated On</div>
+          <div class="col-9">
+            {{ viewDet.updatedDateTime + "Z" | date: "shortDate" }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2 bold">Status</div>
+          <div class="col-9">
+            {{ viewDet.status }}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

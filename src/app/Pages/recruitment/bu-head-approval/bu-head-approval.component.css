@@ -1,0 +1,119 @@
+.head {
+  color: rgb(9, 44, 121);
+}
+label {
+  font-size: 12px;
+  color: gray;
+}
+input.form-control.btn.btn-circle.btn-primary {
+  position: inherit;
+  float: left;
+}
+tbody {
+  font-size: 12px;
+}
+
+i.fa.fa-transgender-alt {
+  height: 18px;
+  margin-top: 2px;
+}
+input#inlineRadio1,
+input#inlineRadio2 {
+  height: 16px;
+  width: 28px;
+}
+.input-group.mb-3.radiodiv {
+  border: 1px solid silver;
+  border-radius: 4px;
+}
+.table thead tr th {
+  font-size: 14px;
+  font-weight: 500;
+}
+a.btn.btn-circle.btn-tbl-edit.btn-sm,
+a.btn.btn-circle.btn-tbl-delete.btn-sm {
+  width: fit-content;
+}
+.col-md-6.col-sm-6.right {
+  border-right: 2px solid silver;
+}
+.badge.headerBadgeColor3 {
+  background-color: #2196f3;
+}
+.badge.BadgeColor {
+  border: 1px solid silver;
+  color: black;
+  height: 26px;
+  width: 30px;
+  padding-top: 7px;
+  background-color: white;
+}
+input.form-control.btn.btn-primary.col-sm-6.col-md-6 {
+  height: 40px;
+}
+i.fa.fa-check {
+  color: white;
+}
+.card-body.col-md-12.col-sm-12 {
+  width: max-content;
+}
+.input-group-text-reject {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(45deg, #f30c41, #eb6684bf);
+  border: 2px solid linear-gradient(45deg, #f30c41, #eb66dd);
+  border-radius: 0.25rem;
+}
+.input-group-text-select {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(45deg, #8d0cf3, #666febab);
+  border: 2px solid linear-gradient(45deg, #f30c41, #eb66dd);
+  border-radius: 0.25rem;
+}
+
+.input-group-text-hold {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  background: #e5b705;
+  border: 2px solid #e5b705;
+  border-radius: 0.25rem;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+.card-body.col-md-12.col-sm-12 {
+  width: -webkit-max-content;
+  width: 500px;
+}

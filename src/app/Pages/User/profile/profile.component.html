@@ -1,0 +1,288 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="row col-md-12 col-sm-12 col-lg-12">
+      <div class="col-md-3 col-sm-3 col-lg-3"></div>
+
+      <div class="col-md-6 col-sm-6 col-lg-6">
+        <div class="card">
+          <div class="m-b-20">
+            <div class="doctor-profile">
+              <div class="profile-header bg-b-blue">
+                <div class="user-name">
+                  {{ userDet.fullName }}
+                </div>
+                <div class="name-center">
+                  {{ userDet.roleName }}
+                </div>
+              </div>
+              <div class="Img">
+                <a
+                  *ngIf="changeText"
+                  id="editImg"
+                  href="javascript:void(0);"
+                  (click)="alert()"
+                  class="btn btn-circle btn-tbl-edit btn-sm"
+                >
+                  <i
+                    class="fa fa-pencil"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Edit"
+                  ></i>
+                </a>
+              </div>
+              <img
+                *ngIf="userDet.image != null"
+                src="{{ userDet.image }}"
+                class="user-img"
+                alt=""
+              />
+              <img
+                *ngIf="userDet.sex == 1 && userDet.image == ''"
+                src="assets/img/maleimg.jpg"
+                class="user-img"
+                alt=""
+              />
+              <img
+                *ngIf="userDet.sex == 0 && userDet.image == ''"
+                src="assets/img/femaleimg.png"
+                class="user-img"
+                alt=""
+              />
+
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                  <i
+                    class="fa fa-landmark badge BadgeColor"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Business Unit"
+                  ></i>
+                </div>
+                <div class="col-md-9 col-sm-9 col-lg-9">
+                  <p
+                    style="float: left"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="{{ userDet.businessUnitName }}"
+                  >
+                    {{ userDet.businessUnitName }}
+                  </p>
+                </div>
+              </div>
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                  <i
+                    class="fa fa-user-tie badge BadgeColor"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="{{ userDet.designation }}"
+                  ></i>
+                </div>
+                <div class="col-md-9 col-sm-9 col-lg-9">
+                  <p
+                    style="float: left"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="{{ userDet.designation }}"
+                  >
+                    {{ userDet.designation | slice: 0:23 }}...
+                  </p>
+                </div>
+              </div>
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                  <i
+                    class="fa fa-map-marker-alt badge BadgeColor"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Location"
+                  ></i>
+                </div>
+                <div class="col-md-9 col-sm-9 col-lg-9">
+                  <p
+                    style="float: left"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="{{ userDet.location }}"
+                  >
+                    {{ userDet.location }}
+                  </p>
+                </div>
+              </div>
+              <div class="row col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3 col-lg-3">
+                  <i
+                    class="fa fa-folder-o badge BadgeColor"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Skillset"
+                  ></i>
+                </div>
+                <div class="col-md-9 col-sm-9 col-lg-9">
+                  <p
+                    style="float: left"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="{{ userDet.skillSet }}"
+                  >
+                    {{ userDet.skillSet | slice: 0:23 }}...
+                  </p>
+                </div>
+              </div>
+              <div class="profile-userbuttons row col-md-12 col-sm-12">
+                <div class="col-md-1 col-sm-1"></div>
+                <div class="col-md-2 col-sm-2">
+                  <a href="javascript:;" *ngIf="userDet.sex == 0">
+                    <span
+                      class="badge headerBadgeColor1"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Female"
+                    >
+                      F
+                    </span>
+                  </a>
+                  <a href="javascript:;" *ngIf="userDet.sex == 1">
+                    <span
+                      class="badge headerBadgeColor2"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Male"
+                    >
+                      M
+                    </span> </a
+                  >&nbsp;&nbsp;&nbsp;
+                  <a href="javascript:;" *ngIf="userDet.panelMember == 1">
+                    <span
+                      class="badge headerBadgeColor3"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Panel Member"
+                    >
+                      P
+                    </span>
+                  </a>
+                </div>
+                <div class="col-md-3 col-sm-3 left">
+                  <a
+                    href="javascript:void(0);"
+                    (click)="updateUserReg(userDet.id)"
+                    class="btn btn-circle btn-tbl-edit btn-sm"
+                    ><i
+                      class="fa fa-pencil"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Edit"
+                    ></i
+                  ></a>
+                </div>
+                <div class="col-md-3 col-sm-3 left">
+                  <ul class="nav navbar-nav pull-right">
+                    <li _ngcontent-wri-c52="" class="dropdown dropdown-user">
+                      <a
+                        href="javascript:;"
+                        data-toggle="dropdown"
+                        data-hover="dropdown"
+                        data-close-others="true"
+                        class="
+                          dropdown-toggle
+                          btn btn-circle btn-tbl-delete btn-sm
+                        "
+                        aria-expanded="false"
+                        ><i
+                          class="fa fa-trash-o"
+                          aria-hidden="true"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          title="Delete Image"
+                        ></i
+                      ></a>
+                      <ul class="dropdown-menu dropdown-menu-default jello">
+                        <li>
+                          <div class="card-body">
+                            <label>Sure You Want to Delete your Image? </label
+                            ><br />
+                            <button
+                              (click)="deleteImg()"
+                              type="button"
+                              class="btn btn-circle btn-danger"
+                            >
+                              Yes
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-circle btn-info"
+                            >
+                              No
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  &nbsp;
+                  <a
+                    id="OpenImgUpload"
+                    (click)="OpenImgUpload()"
+                    href="javascript:;"
+                    class="dropdown-toggle btn btn-circle btn-tbl-img btn-sm"
+                    aria-expanded="false"
+                    ><i
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Upload Image"
+                      class="fa fa-picture-o"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+
+                  <form enctype="multipart/form-data">
+                    <input
+                      style="display: none"
+                      accept="image/*"
+                      (change)="onFileChanged($event)"
+                      type="file"
+                      id="ImgUpload"
+                      class="form-control"
+                    />
+                  </form>
+                </div>
+                <div class="col-md-2 col-sm-2 left">
+                  <a
+                    href="javascript:;"
+                    class="dropdown-toggle btn btn-circle btn-tbl-back btn-sm"
+                    aria-expanded="false"
+                    routerLink="/hirepros/dashboard"
+                    ><i
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Back"
+                      class="fa fa-arrow-left"
+                      aria-hidden="true"
+                    ></i
+                  ></a>
+                </div>
+                <div class="col-md-1 col-sm-1"></div>
+              </div>
+              <br />
+              <span class="text-muted" style="font-size: 14px">
+                * Please upload the image with maximum size of 256 KB.</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3 col-lg-3"></div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

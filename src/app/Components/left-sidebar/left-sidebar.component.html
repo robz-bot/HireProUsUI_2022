@@ -1,0 +1,221 @@
+<!-- start sidebar menu -->
+<div class="sidebar-container">
+  <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+    <div id="remove-scroll">
+      <ul
+        class="sidemenu page-header-fixed p-t-20 sidemenu-closed"
+        data-keep-expanded="false"
+        data-auto-scroll="true"
+        data-slide-speed="200"
+      >
+        <li class="nav-item start">
+          <a
+            href="javascript:void(0)"
+            (click)="gotoDashboard()"
+            class="nav-link nav-toggle"
+          >
+            <i class="fa fa-th" aria-hidden="true"></i>
+            <span class="menu">Dashboard</span>
+
+            <span class="selected"></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fas fa-coins" aria-hidden="true"></i>
+            <span class="menu">Masters</span>
+            <span class="arrow"></span>
+            <!-- <span class="label label-rouded label-menu label-danger">new</span> -->
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoHireproRoles()"
+                class="nav-link nav-toggle"
+              >
+                <span class="title"> Roles</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoCustomers()"
+                class="nav-link"
+              >
+                <span class="title">Customers</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" (click)="gotoBU()" class="nav-link">
+                <span class="title">Business Units</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoProjects()"
+                class="nav-link"
+              >
+                <span class="title">Projects</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoRecRoles()"
+                class="nav-link"
+              >
+                <span class="title">Recruitment Roles</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoInterviewerPanel()"
+                class="nav-link"
+              >
+                <span class="title">Interview Panel</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoMenus()"
+                class="nav-link"
+              >
+                <span class="title">Menus</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoRoleMenuMapping()"
+                class="nav-link"
+              >
+                <span class="title">Role Menu Mapping</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a
+            href="javascript:void(0)"
+            (click)="gotoUserReg()"
+            class="nav-link nav-toggle"
+          >
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            <span class="menu">Users</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <!-- <i class="fa fa-firefox" aria-hidden="true"></i> -->
+            <i class="fa fa-users-cog"></i>
+            <span class="menu">Recruitment</span>
+          </a>
+          <ul class="sub-menu" style="display: none">
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoNewJobReq()"
+                class="nav-link"
+              >
+                <span class="title"> Job Request</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoCandiDet()"
+                class="nav-link"
+              >
+                <span class="title">Candidate Details</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoResumeShort()"
+                class="nav-link"
+              >
+                <span class="title">Resume Shortlist</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoIntShedule()"
+                class="nav-link"
+              >
+                <span class="title">Interview Process</span>
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="javascript:;" class="nav-link nav-toggle">
+                Interview Process
+                <span class="arrow"></span>
+              </a>
+              <ul class="sub-menu">
+                <li class="nav-item">
+                  <a
+                    href="javascript:;"
+                    (click)="gotoIntShedule()"
+                    class="nav-link"
+                  >
+                    Internal Round 1</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> Internal Round 2</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> Customer Round</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"> HR Round</a>
+                </li>
+              </ul>
+            </li> -->
+            <!-- <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoHRDisc()"
+                class="nav-link"
+              >
+                <span class="title">HR Discussion</span>
+              </a>
+            </li> -->
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoBUHeadApp()"
+                class="nav-link"
+              >
+                <span class="title">BU Head Approval</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="javascript:void(0)"
+                (click)="gotoOnboardDet()"
+                class="nav-link"
+              >
+                <span class="title">Onboard Details</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link nav-toggle">
+            <i class="fa fa-line-chart" aria-hidden="true"></i>
+            <span class="menu">Reports</span>
+            <span class="title"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- end sidebar menu -->

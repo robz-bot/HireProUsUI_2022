@@ -1,0 +1,422 @@
+<div class="container-fluid" *ngIf="enableTable">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Suggestions / Issues
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-2 col-md-2" id="search"></div>
+                  <div class="col-sm-2 col-md-2" id="search">
+                    <a
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      (click)="showFilter()"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <a
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      (click)="showSuggestion()"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-plus"></i>New Suggestion / Issue
+                    </a>
+                  </div>
+                </div>
+                <br />
+                <div class="row col-md-12 col-sm-12" *ngIf="suggestionFilter">
+                  <div class="col-md-3 col-sm-3">
+                    <input
+                      list="issueId"
+                      name="code"
+                      [(ngModel)]="seachModel.code"
+                      class="form-control"
+                      placeholder="Select Sugestion / Issue ID"
+                    />
+
+                    <datalist id="issueId">
+                      <option
+                        *ngFor="let item of suggestionIdsList"
+                        [value]="item"
+                      ></option>
+                    </datalist>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <select
+                      [(ngModel)]="seachModel.sugStatus"
+                      class="form-select"
+                      name="sugStatus"
+                      required
+                    >
+                      <option disabled selected value="undefined">
+                        Select Status
+                      </option>
+                      <option value="Open">Open</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Hold">Hold</option>
+                      <option value="Closed">Closed</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <select
+                      class="form-select"
+                      name="type"
+                      required
+                      [(ngModel)]="seachModel.type"
+                    >
+                      <option disabled selected value="undefined">
+                        Select Type
+                      </option>
+                      <option value="Suggestion">Suggestion</option>
+                      <option value="Issue">Issue</option>
+                    </select>
+                  </div>
+                  <div class="col-md-5 col-sm-5">
+                    <a
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      (click)="SearchSuggestion()"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-search"></i>Search
+                    </a>
+                    &nbsp;&nbsp;
+                    <a
+                      class="dropdown-toggle btn btn-secondary btn-sm"
+                      (click)="clearFields()"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-refresh" style="color: white"></i
+                      ><span style="color: white">Reset</span>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a
+                      class="dropdown-toggle btn btn-danger btn-sm"
+                      (click)="hideFilter()"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-times" style="color: white"></i
+                      ><span style="color: white">close</span>
+                    </a>
+                  </div>
+                </div>
+                <br />
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Issue ID</th>
+                      <th>Issue Type</th>
+                      <th>Sent By / On</th>
+                      <th>Replied By / On</th>
+                      <th>Status</th>
+                      <th *ngIf="enableSubMenu('Delete')">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container
+                      *ngFor="
+                        let item of suggestionList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <tr (click)="item.expanded = !item.expanded">
+                        <td>{{ item.expanded ? "&ndash;" : "+" }}</td>
+                        <td>
+                          {{ item.code }}
+                        </td>
+                        <td>{{ item.type }}</td>
+                        <td>
+                          {{ item.createdByName }} |
+                          {{ item.createdDateTime + "Z" | date: "short" }}
+                        </td>
+                        <td *ngIf="item.reply == null">Not Yet Reply</td>
+                        <td *ngIf="item.reply != null">
+                          {{ item.updatedByName }} |
+                          {{ item.updatedDateTime + "Z" | date: "short" }}
+                        </td>
+                        <td>
+                          <span
+                            class="feedLblStyle lblOpen"
+                            *ngIf="item.sugStatus == 'Open'"
+                            >Open</span
+                          >
+
+                          <span
+                            class="feedLblStyle lblCommentStyle"
+                            *ngIf="item.sugStatus == 'In Progress'"
+                            >In Progress</span
+                          >
+
+                          <span
+                            class="feedLblStyle lblHold"
+                            *ngIf="item.sugStatus == 'Hold'"
+                            >Hold</span
+                          >
+                          <span
+                            class="feedLblStyle lblClosed"
+                            *ngIf="item.sugStatus == 'Closed'"
+                            >Closed</span
+                          >
+                        </td>
+
+                        <td *ngIf="enableSubMenu('Delete')">
+                          <a
+                            *ngIf="item.sugStatus != 'Closed'"
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-edit btn-xs"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Edit"
+                            (click)="showEditSuggestion(item.id)"
+                          >
+                            <i class="fa fa-pencil"></i>
+                          </a>
+                          <a
+                            *ngIf="item.sugStatus == 'Closed'"
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-edit btn-xs disabled"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Edit"
+                          >
+                            <i class="fa fa-ban"></i>
+                          </a>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngIf="item.expanded">
+                        <tr *ngFor="let details of findDetails(item)">
+                          <td style="padding-left: 12px"></td>
+                          <td colspan="2">{{ details.suggestion }}</td>
+                          <td></td>
+                          <td colspan="2">{{ details.reply }}</td>
+                          <td></td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page :
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s) : {{ suggestionCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+<div class="row col-md-12" *ngIf="enableNewIssue">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="card card-box">
+      <div class="card-head">
+        <header>Suggestions for Improvements / Issues</header>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">Type:&nbsp;<span style="color: red">*</span></p>
+            <select
+              class="form-select"
+              name="type"
+              required
+              [(ngModel)]="newSuggestionModel.type"
+            >
+              <option disabled selected value="undefined">Select Type</option>
+              <option value="Suggestion">Suggestion</option>
+              <option value="Issue">Issue</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">
+              Comments:&nbsp;<span style="color: red">*</span>
+            </p>
+            <textarea
+              class="form-control"
+              type="textarea"
+              id="comments"
+              placeholder="✎"
+              name="suggestion"
+              maxlength="6000"
+              rows="7"
+              [(ngModel)]="newSuggestionModel.suggestion"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <button
+              type="submit"
+              class="btn btn-md btn-primary pull-right"
+              (click)="addSuggestion()"
+            >
+              <i class="fa fa-send-o" aria-hidden="true"></i> Send →
+            </button>
+            <button
+              (click)="goback()"
+              type="submit"
+              class="btn btn-md btn-secondary"
+            >
+              Cancel ←
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div class="row col-md-12" *ngIf="enableEditIssue">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="card card-box">
+      <div class="card-head">
+        <header>Suggestions for Improvements / Issues</header>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">Type:</p>
+            <select
+              disabled
+              class="form-select"
+              name="type"
+              required
+              [(ngModel)]="toUpdateSuggestion.type"
+            >
+              <option disabled selected value="undefined">Select Type</option>
+              <option value="Suggestion">Suggestion</option>
+              <option value="Issue">Issue</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">Comments:</p>
+            <textarea
+              disabled
+              class="form-control"
+              type="textarea"
+              id="comments"
+              placeholder="✎"
+              name="suggestion"
+              maxlength="6000"
+              rows="7"
+              [(ngModel)]="toUpdateSuggestion.suggestion"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">Status:&nbsp;<span style="color: red">*</span></p>
+            <select
+              class="form-select"
+              name="sugStatus"
+              required
+              [(ngModel)]="toUpdateSuggestion.sugStatus"
+            >
+              <option disabled selected value="undefined">Select Status</option>
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Hold">Hold</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <p for="comments">
+              Admin Comments:&nbsp;<span style="color: red">*</span>
+            </p>
+            <textarea
+              class="form-control"
+              type="textarea"
+              id="comments"
+              placeholder="✎"
+              name="reply"
+              maxlength="6000"
+              rows="7"
+              [(ngModel)]="toUpdateSuggestion.reply"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <button
+              type="submit"
+              class="btn btn-md btn-primary pull-right"
+              (click)="updateSuggestion()"
+            >
+              <i class="fa fa-send-o" aria-hidden="true"></i> Send →
+            </button>
+            <button
+              (click)="goback()"
+              type="submit"
+              class="btn btn-md btn-secondary"
+            >
+              Cancel ←
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

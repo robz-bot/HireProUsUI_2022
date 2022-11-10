@@ -1,0 +1,139 @@
+header {
+  color: rgb(5, 51, 104);
+  margin: 15px;
+}
+.card-box:hover {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+* {
+  font-size: 12px;
+}
+a {
+  color: rgb(4, 4, 153);
+  text-decoration: none;
+}
+
+.info-box-content {
+  margin-left: 13px;
+}
+span.info-box-number,
+.notificationtime {
+  font-size: 22px;
+}
+span.info-box-text {
+  font-size: 14px;
+}
+i.fa.fa-list,
+i.fas.fa-user-check,
+i.fa.fa-circle,
+i.fas.fa-check {
+  font-size: 22px;
+  margin: 0px;
+  margin-left: 2px;
+  margin-top: 8px;
+}
+.info-box.bg-blue,
+.info-box.bg-orange,
+.info-box.bg-purple,
+.info-box.bg-success {
+  height: 110px;
+  width: 246px;
+  margin-left: 27px;
+}
+.notification-list.mail-list a span.icon {
+  padding: 3px 10px;
+  margin-top: 8px;
+  color: white;
+}
+.notification-list.mail-list.not-list {
+  height: fit-content;
+}
+.icon {
+  background-color: #1254a1 !important;
+}
+span.notificationtime {
+  margin-top: 18px;
+}
+.noti-information .notification-list a {
+  padding: 4px 17px 10px 1px;
+}
+span.notificationtime {
+  font-size: 15px;
+}
+.info-box {
+  min-height: 100px;
+  width: 100%;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+  -webkit-box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 16px;
+}
+pagination-controls {
+  float: right;
+}
+i.fa.fa-search,
+i.fa.fa-times {
+  margin-left: -5px;
+}
+
+.lblTerminated {
+  background: red;
+  border: 1px solid red;
+  color: white;
+}
+.lblClosed {
+  background: green;
+  border: 1px solid green;
+  color: white;
+}
+.lblHold {
+  background: #aabe38;
+  color: white;
+  border: 1px solid #aabe38;
+}
+.lblOpen {
+  background: #38b6ff;
+  border: 1px solid #38b6ff;
+  color: white;
+}
+.lblCommentStyle {
+  background: #1254a1 !important;
+  border: 1px solid #1254a1 !important;
+  color: white;
+}
+ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+li {
+  padding-left: 2rem;
+  text-decoration: underline;
+}
+
+h3,
+i.fa.fa-exclamation-triangle {
+  line-height: 364px;
+  color: silver;
+  display: flex;
+  justify-content: center;
+  font-size: 23px !important;
+}
+select.form-select {
+  margin-top: 12px;
+}
+span.info-box-workitems {
+  font-size: 13px;
+}
+.underline {
+  text-decoration: underline;
+}
+
+i.fa.fa-list {
+  font-size: 22px;
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}

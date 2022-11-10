@@ -1,0 +1,69 @@
+.card-body.no-padding.height-9 {
+  height: 448px;
+}
+
+a.btn.btn-circle.btn-tbl-edit.btn-sm,
+a.btn.btn-circle.btn-tbl-delete.btn-sm {
+  width: fit-content;
+  font-size: 14px;
+}
+.col-md-4.col-sm-4.right {
+  border-right: 2px solid silver;
+}
+.col-md-5.col-sm-5.left,
+.col-md-2.col-sm-2.left,
+.col-md-3.col-sm-3.left {
+  border-left: 2px solid silver;
+}
+.badge.headerBadgeColor3 {
+  background-color: #2196f3;
+}
+.badge.BadgeColor {
+  border: 1px solid silver;
+  color: black;
+  height: 26px;
+  width: 30px;
+  padding-top: 7px;
+  background-color: white;
+}
+img#profile {
+  height: 545px;
+  width: 350px;
+}
+.prof {
+  margin-left: 140px;
+}
+a#editImg {
+  margin-top: -36px;
+  margin-left: 99px;
+}
+.user-img:hover {
+  cursor: pointer;
+}
+.btn-tbl-img {
+  background: linear-gradient(45deg, #0c55f3, #888ff8ab);
+  outline: 0px !important;
+  font-size: 14px;
+  padding: 5px !important;
+  border-radius: 7px !important;
+  color: #fff;
+  box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 20%);
+}
+.btn-tbl-img:hover {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 18%);
+}
+.btn-tbl-back {
+  background: linear-gradient(45deg, #656565, #aaaaadab);
+  outline: 0px !important;
+  font-size: 14px;
+  padding: 5px !important;
+  border-radius: 7px !important;
+  color: #fff;
+  box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 20%);
+}
+.btn-tbl-back:hover {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px rgb(0 0 0 / 18%);
+}
+.bg-b-blue {
+  background: linear-gradient(45deg, #042aff, #61ceff);
+}

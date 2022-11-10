@@ -1,0 +1,200 @@
+<section id="what-we-do">
+  <div class="container">
+    <div class="container-fluid">
+      <h2 class="section-title">Configurations</h2>
+
+      <div class="row mt-5">
+        <!-- roles -->
+        <div
+          class="col-sm-3 col-lg-3 col-md-3"
+          *ngIf="subMenuAccess('Job Request')"
+        >
+          <div class="card">
+            <div class="card-block block-1">
+              <h5 class="card-title">Roles</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/hirepros-roles"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- Bu -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-3">
+              <h5 class="card-title">Business Units</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/bu"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- customers -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-2">
+              <h5 class="card-title">Customers</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/customers"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- projects -->
+        <div
+          class="col-sm-3 col-lg-3 col-md-3"
+          *ngIf="subMenuAccess('Interview Process')"
+        >
+          <div class="card">
+            <div class="card-block block-4">
+              <h5 class="card-title">Projects</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/projects"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- users -->
+        <div
+          class="col-sm-3 col-lg-3 col-md-3"
+          *ngIf="subMenuAccess('Interview Process')"
+        >
+          <div class="card">
+            <div class="card-block block-11">
+              <h5 class="card-title">Users</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/user-reg"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- interview panel -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-7">
+              <h5 class="card-title">Interview Panel</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/interviewer-panel"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- rec Role -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-5">
+              <h5 class="card-title">Recruitment Roles</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/rec-roles"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- customer rec role -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-6">
+              <h5 class="card-title">Customer - Recruitment Role</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/cus-rec-role-mapping"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- page Access -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-10">
+              <h5 class="card-title">Page Access</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/menus"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- user permissions -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-9">
+              <h5 class="card-title">User Permissions</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/role-menu-mapping"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <!-- email config -->
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-8">
+              <h5 class="card-title">Email Configuration</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/email-config"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- resource Management -->
+        <!-- <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="card">
+            <div class="card-block block-11">
+              <h5 class="card-title">Resource Management</h5>
+              <a
+                href="javascript:void(0)"
+                routerLink="/hirepros/employee-details"
+                title="More Details"
+                class="read-more"
+                >More Details<i class="fa fa-angle-double-right ml-2"></i
+              ></a>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>

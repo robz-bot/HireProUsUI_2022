@@ -1,0 +1,66 @@
+<div class="container my-3">
+  <div class="d-flex justify-content-center">
+    <div class="p-2 bd-highlight">
+      <button class="btn btn-outline-primary btn-tab" routerLink="/add-entry">
+        Add Entry
+      </button>
+    </div>
+    <div class="p-2 bd-highlight">
+      <button class="btn btn-outline-primary btn-tab" routerLink="/entry-list">
+        Entry List
+      </button>
+    </div>
+    <ng-container *ngIf="SS_loginType == 'rating'">
+      <div class="p-2 bd-highlight" >
+        <button class="btn btn-outline-primary btn-tab" routerLink="/reviewlist">
+          Review Teams Perfomance
+        </button>
+      </div>
+      <div class="p-2 bd-highlight">
+        <button class="btn btn-outline-primary btn-tab" routerLink="/levelupgrade-login"
+        >
+          Logout
+        </button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="SS_loginType == 'entry'">
+      <div class="p-2 bd-highlight">
+        <button class="btn btn-outline-primary btn-tab" routerLink="/entryLogin"
+       >
+          Logout
+        </button>
+        </div>
+    </ng-container>
+  </div>
+
+  <form #f="ngForm" name="form" novalidate (ngSubmit)="updateAchievement(f)">
+    <div class="row my-3 form">
+      <div class="row-12 my-3">Resource Name | Role | Business Unit</div>
+      <div class="row-12">
+        <input
+          type="text"
+          class="form-control"
+          value="{{ resourceDisplay }}"
+          disabled
+        />
+      </div>
+      <div class="row-12 my-3">Achievements</div>
+      <div class="row-12">
+        <textarea
+          name="achievements"
+          [(ngModel)]="updateResourceAccomplishment.achievements"
+          required
+          #achievements="ngModel"
+          class="form-control"
+          rows="4"
+          cols="10"
+        ></textarea>
+      </div>
+      <div class="row-12 my-3">
+        <button class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
+<br><br><br>
+<app-footer></app-footer>

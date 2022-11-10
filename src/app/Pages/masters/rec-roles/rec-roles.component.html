@@ -1,0 +1,376 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Configurations / Recruitment Roles
+                  </div>
+                  <div class="col-sm-1 col-md-1" style="font-size: 12px"></div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form
+                      #sf="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="searchRecRole(sf)"
+                    >
+                      <div class="input-group mb-3">
+                        <!-- <span class="input-group-text" id="basic-addon1"
+                          >Search</span
+                        > -->
+                        <input
+                          type="text"
+                          maxlength="35"
+                          [(ngModel)]="recrole.keyword"
+                          class="form-control"
+                          name="keyword"
+                          placeholder="Search Recruitment Role..."
+                        />
+
+                        &nbsp;
+                        <input
+                          type="submit"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs searchbtn"
+                          value="Search"
+                        />
+                        &nbsp; &nbsp;
+
+                        <input
+                          (click)="loadrecroles()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addModal"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-plus"></i>New Recruitment Role
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Recruitment Role</th>
+                      <th>Updated By</th>
+                      <th>Updated On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of recroleList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+                      <td>{{ item.recruitmentRoleName }}</td>
+
+                      <td>{{ item.updatedByName }}</td>
+                      <td>
+                        {{ item.updatedDateTime + "Z" | date: "short" }}
+                      </td>
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li
+                            _ngcontent-wri-c52=""
+                            class="dropdown dropdown-user"
+                          >
+                            <a
+                              (click)="getId(item.id)"
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+                        <ul
+                          _ngcontent-wri-c52=""
+                          class="nav navbar-nav pull-left"
+                        >
+                          <li
+                            _ngcontent-wri-c52=""
+                            class="dropdown dropdown-user"
+                          >
+                            <a
+                              _ngcontent-wri-c52=""
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              _ngcontent-wri-c52=""
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li _ngcontent-wri-c52="">
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Recuitment
+                                    Role? </label
+                                  ><br />
+                                  <button
+                                    (click)="
+                                      deleterecrole(
+                                        item.id,
+                                        item.recruitmentRoleName
+                                      )
+                                    "
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ recroleList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- update Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">
+              Edit Recruitment Role
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="clearRecRoleFields()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              #uf="ngForm"
+              name="form"
+              novalidate
+              (ngSubmit)="updaterecrole(uf)"
+            >
+              <br />
+              <label for="Customer"
+                >Recruitement Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-user-check"></i
+                ></span>
+                <input
+                  maxlength="35"
+                  type="text"
+                  class="form-control"
+                  name="recruitmentRoleName"
+                  [(ngModel)]="recrole.recruitmentRoleName"
+                  required
+                  #recruitmentRoleName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && recruitmentRoleName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && recruitmentRoleName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="recruitmentRoleName.errors.required">
+                    Recruitment Role is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="update"
+              />
+            </form>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form
+            #f="ngForm"
+            name="form"
+            novalidate
+            (ngSubmit)="addNewrecrole(f)"
+          >
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                Add Recruitment Role
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(f)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <label for="Customer"
+                >Recruitement Role&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fas fa-user-check"></i
+                ></span>
+                <input
+                  maxlength="35"
+                  type="text"
+                  class="form-control"
+                  name="recruitmentRoleName"
+                  [(ngModel)]="recrole.recruitmentRoleName"
+                  required
+                  #recruitmentRoleName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && recruitmentRoleName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && recruitmentRoleName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="recruitmentRoleName.errors.required">
+                    Recruitment Role is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="save"
+              />
+
+              <br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

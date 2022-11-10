@@ -1,0 +1,93 @@
+span.label.label-success.label-mini {
+  float: right;
+  margin-right: 82px;
+}
+
+p#progress-bar {
+  float: right;
+  margin-right: 58px;
+}
+strong {
+  font-size: 14px;
+}
+a.btn.btn-tbl-add.btn-xs {
+  float: right;
+  right: 53px;
+  font-size: medium;
+}
+.progress {
+  display: flex;
+  height: 0.5rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #b8b9b9;
+  border-radius: 0.25rem;
+  width: 200px;
+}
+.label-info {
+  background-color: #659be0 !important;
+  float: right;
+  margin-right: 70px;
+}
+.card-body {
+  width: 1200px;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+a.btn.btn-tbl-add-bench.btn-xs {
+  font-size: 16px;
+  width: 34px;
+}
+
+/* File Upload  */
+.file-area {
+  width: 100%;
+  position: relative;
+}
+.file-area input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-area .file-dummy {
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  text-align: center;
+  transition: rgba(255, 255, 255, 0.2) 0.3s ease-in-out;
+}
+.file-area .file-dummy .success {
+  display: none;
+}
+.file-area:hover .file-dummy {
+  background: rgba(255, 255, 255, 0.1);
+}
+.file-area input[type="file"]:focus + .file-dummy {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.file-area input[type="file"]:valid + .file-dummy {
+  border-color: rgba(0, 255, 0, 0.4);
+  background-color: rgba(0, 255, 0, 0.3);
+}
+.file-area input[type="file"]:valid + .file-dummy .success {
+  display: inline-block;
+}
+.file-area input[type="file"]:valid + .file-dummy .default {
+  display: none;
+}

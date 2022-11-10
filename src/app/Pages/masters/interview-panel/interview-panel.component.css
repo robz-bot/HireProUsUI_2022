@@ -1,0 +1,115 @@
+tbody {
+  font-size: 12px;
+}
+ul.dropdown-menu.dropdown-menu-default.jello.show {
+  width: max-content;
+}
+a.dropdown-toggle.btn.btn-tbl-edit.btn-xs {
+  color: white;
+}
+
+label {
+  font-size: 12px;
+  color: gray;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+#exampleModal .modal-dialog {
+  -webkit-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  margin: 0 auto;
+}
+.ng-value-container {
+  width: 340px;
+}
+.ng-select.custom {
+  width: 310px;
+}
+
+ng-dropdown-panel {
+  left: 320.5px;
+  width: 310px;
+  min-width: 310px;
+  bottom: 273.333px;
+  top: auto;
+  opacity: 1;
+}
+.card-body.card-box {
+  height: 310px;
+  width: max-content;
+}
+img#buImg {
+  margin-left: 70px;
+  height: 366px;
+}
+.card-body.card-box {
+  box-shadow: 0 0 25px -5px #9e9c9e;
+  border: 1px solid silver;
+}
+.blogThumb {
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+i.fa.fa-user {
+  color: #a52dd8;
+}
+
+i.fa.fa-pencil {
+  color: white;
+  font-size: medium;
+}
+div#element_Outside_div {
+  height: 309.667px;
+}
+
+.row.col-md-12.col-sm-12.list-header {
+  border-bottom: 2px dotted silver;
+  margin-left: -1px;
+  top: 7px;
+}
+input.btn.btn-circle.btn-xs.searchbtn {
+  border: 1px solid #3c8dbc;
+  background: linear-gradient(45deg, #2ed8b6, #59e0c5) !important;
+}
+
+input.btn.btn-circle.btn-xs.resetbtn {
+  height: 34px;
+  border: 1px solid #3c8dbc;
+  background: linear-gradient(45deg, #ff5370, #ff869a) !important;
+}
+select.form-control.form-select,
+input.form-control {
+  border-color: #3c8dbc;
+}
+.input-group > .custom-select:not(:last-child),
+.input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+div#element_within_div {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 250px;
+}
+.ng-select,
+.ng-select div,
+.ng-select input,
+.ng-select span {
+  box-sizing: border-box;
+  width: 80%;
+}
+.btn.btn-xs {
+  width: 45%;
+  height: 36px;
+  font-size: 11px;
+  padding: 3px 8px;
+}

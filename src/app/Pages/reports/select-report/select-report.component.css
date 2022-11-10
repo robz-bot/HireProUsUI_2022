@@ -1,0 +1,103 @@
+span.label.label-success.label-mini {
+  float: right;
+  margin-right: 82px;
+}
+
+p#progress-bar {
+  float: right;
+  margin-right: 58px;
+}
+strong {
+  font-size: 14px;
+}
+a.btn.btn-tbl-add.btn-xs {
+  float: right;
+  right: 53px;
+  font-size: medium;
+}
+.progress {
+  display: flex;
+  height: 0.5rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #b8b9b9;
+  border-radius: 0.25rem;
+  width: 200px;
+}
+.label-info {
+  background-color: #659be0 !important;
+  float: right;
+  margin-right: 70px;
+}
+.card-body {
+  width: 1200px;
+}
+.card-body {
+  padding: 10px 24px 14px 24px;
+  position: relative;
+  background-color: white;
+}
+.card-box:hover,
+.card-topline-aqua {
+  transform: translateY(0px);
+  box-shadow: 0 0 25px -5px #9e9c9e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+h4 {
+  font-weight: 600;
+  margin-left: 33px;
+}
+.centr {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+ul {
+  text-align: left;
+}
+li {
+  border-bottom: 2px silver dotted;
+  padding: 10px;
+}
+a.sub {
+  font-size: 14px;
+}
+h4.sp {
+  margin-right: 148px;
+}
+#basic-addon1 {
+  background-color: silver !important;
+  /* rgb(95 91 91 / 39%) */
+}
+
+.ls {
+  margin-left: 70px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+h4 {
+  color: #1254a1 !important;
+}
+i.fa.fa-star-o {
+  color: royalblue;
+}

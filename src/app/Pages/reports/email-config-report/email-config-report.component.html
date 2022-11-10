@@ -1,0 +1,274 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-4 col-md-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Reports / Email Configuration Report
+                  </div>
+                  <div class="col-sm-2 col-md-2"></div>
+                  <div class="col-sm-4 col-md-4">
+                    <a
+                      (click)="showFilter()"
+                      class="dropdown-toggle btn btn-primary btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-filter"></i>Filter
+                    </a>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <a
+                      (click)="downloadEmailConfDetails()"
+                      class="dropdown-toggle btn btn-success btn-sm"
+                      style="font-size: 12px"
+                    >
+                      <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </a>
+                  </div>
+                </div>
+                <br />
+                <div *ngIf="ShowFilterDiv">
+                  <div class="row col-md-12 col-sm-12">
+                    <!-- BU Name -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="FullName">Business Unit Name</label>
+                      <select
+                        class="form-select"
+                        name="buId"
+                        [(ngModel)]="searchModal.buId"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Business Unit
+                        </option>
+                        <option
+                          *ngFor="let item of bulist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.businessUnitName }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2">
+                      <label for="FullName">Purpose</label>
+                      <select
+                        class="form-select"
+                        name="purpose"
+                        [(ngModel)]="searchModal.purpose"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Purpose
+                        </option>
+                        <option
+                          *ngFor="let item of Purpose"
+                          value="{{ item.purpose }}"
+                        >
+                          {{ item.purpose }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                      <label for="Email">Email (TO, CC, BCC)</label>
+                      <div class="input-group mb-3">
+                        <select
+                          class="form-select"
+                          name="mailOption"
+                          [(ngModel)]="mailOption"
+                          style="width: min-content; flex: 0 0 auto"
+                        >
+                          <option value="to" selected>TO</option>
+                          <option value="cc">CC</option>
+                          <option value="bcc">BCC</option>
+                        </select>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="email"
+                          [(ngModel)]="searchModal.email"
+                          required
+                          placeholder="Email (TO, CC, BCC)"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- From Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="From Date">From Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.fromDateTime"
+                        type="date"
+                        name="fromDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                    <!-- To Date -->
+                    <div class="col-md-2 col-sm-2">
+                      <label for="To Date">To Date</label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="searchModal.toDateTime"
+                        type="date"
+                        name="toDateTime"
+                        id=""
+                        max="{{ todayDate | date: 'yyyy-MM-dd' }}"
+                      />
+                    </div>
+                  </div>
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <label for="FullName">&nbsp;</label>
+                      <a
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                        (click)="searchEmailConf()"
+                      >
+                        <i class="fa fa-search"></i>Search
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        class="dropdown-toggle btn btn-secondary btn-sm"
+                        style="font-size: 12px"
+                        (click)="resetFilter()"
+                      >
+                        <i class="fa fa-refresh" style="color: white"></i
+                        ><span style="color: white">Reset</span>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a
+                        (click)="closeFilter()"
+                        class="dropdown-toggle btn btn-danger btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-times" style="color: white"></i
+                        ><span style="color: white">close</span>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4"></div>
+                  </div>
+                  <br />
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Business Unit</th>
+                      <th>Purpose</th>
+                      <th>TO</th>
+                      <th>CC</th>
+                      <th>BCC</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of emailList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+                      <td>{{ item.buName }}</td>
+
+                      <td>{{ item.purpose }}</td>
+
+                      <td
+                        *ngIf="item.to != '' || item.to != null"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.to }}"
+                      >
+                        {{ item.to | slice: 0:20 }}...
+                      </td>
+
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.cc }}"
+                      >
+                        {{ item.cc | slice: 0:20 }}...
+                      </td>
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.bcc }}"
+                      >
+                        {{ item.bcc | slice: 0:20 }}...
+                      </td>
+                    </tr>
+                    <br />
+                  </tbody>
+                </table>
+              </div>
+              <br />
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ emailListCount }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

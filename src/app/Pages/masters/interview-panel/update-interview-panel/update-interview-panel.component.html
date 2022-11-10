@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab2">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="tab-pane">
+                <div class="row">
+                  <div class="col-md-4 col-sm-4 prof">
+                    <img src="/assets/img/Interview.png" id="buImg" />
+                  </div>
+                  <div class="col-md-2 col-sm-2"></div>
+                  <div class="col-md-4 col-sm-4">
+                    <br />
+
+                    <div class="card-body card-box">
+                      <form
+                        #f="ngForm"
+                        name="form"
+                        novalidate
+                        (ngSubmit)="saveInterviewPanel(f)"
+                      >
+                        <label for="Customer"
+                          >Business Unit&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-landmark"></i
+                          ></span>
+                          <input
+                            type="text"
+                            disabled
+                            class="form-control"
+                            value="{{ buUser.businessUnitName }}"
+                          />
+                        </div>
+
+                        <label for="Customer"
+                          >Interview Panel&nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-6">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fas fa-user-check"></i
+                          ></span>
+
+                          <ng-select
+                            class="custom"
+                            [items]="userlist"
+                            bindLabel="fullName"
+                            bindValue="id"
+                            placeholder="Select Interviewers"
+                            appendTo="body"
+                            multiple="true"
+                            [clearOnBackspace]="true"
+                            searchable="true"
+                            [(ngModel)]="buUser.interviewPanelList"
+                            name="interviewPanelList"
+                            required
+                            dropdownPosition="bottom"
+                            #interviewPanelList="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                f.submitted && interviewPanelList.invalid
+                            }"
+                          >
+                          </ng-select>
+                        </div>
+                        <!-- <div
+                          *ngIf="f.submitted && interviewPanelList.invalid"
+                          class="help-block"
+                        >
+                          <p
+                            *ngIf="interviewPanelList.errors.required"
+                            style="color: red"
+                          >
+                            Interviewer(s) is Required
+                          </p>
+                        </div> -->
+                        <br />
+                        <input
+                          type="submit"
+                          class="btn btn-circle btn-primary"
+                          value="save"
+                        />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

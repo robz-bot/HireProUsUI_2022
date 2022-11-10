@@ -1,0 +1,333 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <!-- BEGIN PROFILE CONTENT -->
+    <div class="profile-content">
+      <div class="row">
+        <div class="profile-tab-box">
+          <div class="p-l-20 row col-sm-12 col-md-12">
+            <div class="col-md-6 col-sm-12 col-lg-6">
+              <a href="javascript:void(0)" (click)="goback()">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="margin-top: -5px"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="fas fa-backward"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Click To Back"
+                  ></i></button></a
+              ><b style="color: #69696a" class="mx-2">{{
+                jobReq.referenceNumber
+              }}</b>
+            </div>
+            <div class="col-md-6 col-sm-12 col-lg-6 flex-end">
+              <span
+                class="label label-warning label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Yet to Start'"
+                >Open</span
+              >
+              <span
+                class="label label-info label-mini"
+                *ngIf="jobReq.jobReqStatus == 'In Progress'"
+                >In Progress</span
+              >
+              <span
+                class="label label-success label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Completed'"
+                >Completed</span
+              >
+              <span
+                class="label label-danger label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Terminated'"
+                >Terminated</span
+              >
+              <span
+                class="label label-success label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Closed'"
+                >Closed</span
+              >
+              <span
+                class="label label-warning label-mini"
+                *ngIf="jobReq.jobReqStatus == 'Hold'"
+                >Hold</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card-box tab-pane active show table-responsive">
+          <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active fontawesome-demo" id="tab1">
+                <div id="biography">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12 col-lg-5">
+                      <strong>Job Description </strong>
+                      <p class="text-muted">
+                        {{ jobReq.jobDescription }}
+                      </p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-lg-3">
+                      <strong>Requester </strong>
+                      <p class="text-muted">{{ jobReq.requesterName }}</p>
+                      <strong>Recruitment Role </strong>
+                      <p class="text-muted">{{ jobReq.roleName }}</p>
+                      <strong>No. of Openings / Closed </strong>
+                      <p class="text-muted">
+                        {{ jobReq.noOfOpenings }} / {{ jobReq.closedOpenings }}
+                      </p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-lg-4 d-flex">
+                      <div
+                        class="d-flex flex-row flex-wrap align-items-center justify-content-center"
+                      >
+                        <div
+                          class="form-group file-area border border-2 border-secondary bg-secondary text-light"
+                        >
+                          <input
+                            type="file"
+                            name="images"
+                            id="images"
+                            required="required"
+                            multiple="false"
+                            #myInput
+                            (change)="onChange($event)"
+                            accept=".doc,.docx,.pdf,zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
+                          />
+                          <div class="file-dummy">
+                            <div class="success">
+                              Great, your file is selected. Keep on.
+                              <i class="bi bi-emoji-laughing-fill"></i>
+                            </div>
+                            <div class="default text-center">
+                              Select or drag file here (.docx, .pdf,
+                              .zip)
+                            </div>
+                          </div>
+                          <p *ngIf="fileName" class="text-light text-center">
+                            Selected File: {{ fileName }}
+                          </p>
+                        </div>
+                        <div class="text-center">
+                          <button
+                            class="btn btn-sm btn-success text-center"
+                            (click)="uploadFile()"
+                          >
+                            AI Scan
+                          </button>
+                          <button
+                            class="btn btn-sm btn-secondary text-center mx-2"
+                            (click)="clearInput()"
+                          >
+                            Reset
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Scanned Results -->
+        <div class="card-box tab-pane active show table-responsive" *ngIf="showResultCard">
+          <div class="card-body">
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active fontawesome-demo" id="tab1">
+                <div id="biography">
+                  <h4 class="text-center">AI Scanned Results</h4>
+                  <ul
+                    class="nav nav-pills mb-3 d-flex align-items-center justify-content-center"
+                    id="pills-tab"
+                    role="tablist"
+                  >
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link active"
+                        id="pills-shortlist-tab"
+                        data-toggle="pill"
+                        data-target="#pills-shortlist"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-shortlist"
+                        aria-selected="true"
+                      >
+                        Shortlisted
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="pills-notshortlist-tab"
+                        data-toggle="pill"
+                        data-target="#pills-notshortlist"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-notshortlist"
+                        aria-selected="false"
+                      >
+                        Not Shortlisted
+                      </button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="pills-shortlist"
+                      role="tabpanel"
+                      aria-labelledby="pills-shortlist-tab"
+                    >
+                      <div class="table-responsive" *ngIf="shortlistArr.length>0">
+                        <table
+                          class="table table-hover table-checkable full-width"
+                        >
+                          <thead class="bg-listHeader">
+                            <tr>
+                              <th>
+                                <input
+                                  type="checkbox"
+                                  [checked]="isAllCheckBoxChecked()"
+                                  (change)="checkAllCheckBox($event)"
+                                />
+                              </th>
+
+                              <!-- <th>#</th> -->
+                              <th>Candidate Name</th>
+                              <th>Percent</th>
+                              <th>Remarks</th>
+                            </tr>
+                          </thead>
+                          <ng-container
+                            *ngFor="let item of shortlistArr; let i = index"
+                          >
+                            <tr>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  value="{{ item.index }}"
+                                  [(ngModel)]="shortlistArr[i].checked"
+                                  (change)="
+                                    checkedShortlistArr(
+                                      $event.target.checked,
+                                      item
+                                    )
+                                  "
+                                />
+                              </td>
+                              <!-- <td>
+                                {{ item.candidateId }}
+                              </td> -->
+                              <td>
+                                {{ item.FirstName }} {{item.LastName}}
+                              </td>
+                              <td>
+                                {{ item.Similarity }}
+                              </td>
+                              <td>
+                                {{ item.Remark }}
+                              </td>
+                            </tr></ng-container
+                          >
+                        </table>
+                        <div class="text-center">
+                          <button
+                            class="text-center btn btn-info btn-sm"
+                            (click)="moveToShortlist()"
+                          >
+                            Move to Shortlist
+                          </button>
+                        </div>
+                      </div>
+                      <p *ngIf="shortlistArr.length==0" class="text-center">No record(s) Found!</p>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="pills-notshortlist"
+                      role="tabpanel"
+                      aria-labelledby="pills-notshortlist-tab"
+                    >
+                    <div class="table-responsive" *ngIf="notShortlistArr.length>0">
+                      <table
+                        class="table table-hover table-checkable full-width"
+                      >
+                        <thead class="bg-listHeader">
+                          <tr>
+                            <th>
+                              <input
+                                type="checkbox"
+                                [checked]="isAllCheckBoxChecked()"
+                                (change)="checkAllCheckBox($event)"
+                              />
+                            </th>
+
+                            <!-- <th>#</th> -->
+                            <th>Candidate Name</th>
+                            <th>Percent</th>
+                            <th>Remarks</th>
+                          </tr>
+                        </thead>
+                        <ng-container
+                          *ngFor="let item of notShortlistArr; let i = index"
+                        >
+                          <tr>
+                            <td>
+                              <input
+                                type="checkbox"
+                                value="{{ item.index }}"
+                                [(ngModel)]="notShortlistArr[i].checked"
+                                (change)="
+                                  checkedShortlistArr(
+                                    $event.target.checked,
+                                    item
+                                  )
+                                "
+                              />
+                            </td>
+                            <!-- <td>
+                              {{ item.candidateId }}
+                            </td> -->
+                            <td>
+                              {{ item.FirstName }} {{item.LastName}}
+                            </td>
+                            <td>
+                              {{ item.Similarity }}
+                            </td>
+                            <td>
+                              {{ item.Remark }}
+                            </td>
+                          </tr></ng-container
+                        >
+                      </table>
+                      <div class="text-center">
+                        <button
+                          class="text-center btn btn-info btn-sm"
+                          (click)="moveToShortlist()"
+                        >
+                          Move to Shortlist
+                        </button>
+                      </div>
+                    </div>
+                    <p *ngIf="notShortlistArr.length==0" class="text-center">No record(s) Found!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PROFILE CONTENT -->
+  </div>
+  <br /><br /><br />
+</div>
+
+
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

@@ -1,0 +1,629 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <br />
+    <div class="row col-sm-12 col-md-12">
+      <div class="col-sm-4 col-md-4"></div>
+      <div class="col-sm-4 col-md-4">
+        <div class="input-group" id="adv-search">
+          <input
+            type="text"
+            placeholder="Search for Job Request"
+            name="jrNumber"
+            [(ngModel)]="searchJobReq.jrNumber"
+            class="form-control"
+            (keyup)="handleKeyUp($event)"
+          />
+          <div class="input-group-btn">
+            <div class="btn-group" role="group">
+              <div class="dropdown dropdown-lg">
+                <div
+                  class="dropdown-menu dropdown-menu-right"
+                  role="menu"
+                  id="MenuCard"
+                ></div>
+              </div>
+              <button
+                (click)="search()"
+                type="submit"
+                class="btn btn-primary"
+                style="height: 31px; width: 10px"
+              >
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+              <button
+                (click)="clearJobRequest()"
+                type="button"
+                class="btn btn-secondary"
+                style="height: 31px; width: 10px"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4"></div>
+    </div>
+    <br />
+    <div class="row col-sm-12 col-md-12" *ngIf="disableTable">
+      <div class="card card-box">
+        <div class="card-body">
+          <div class="table-wrap">
+            <div class="table-responsive">
+              <table class="table table-hover table-checkable full-width">
+                <thead class="bg-listHeader">
+                  <tr>
+                    <th>#</th>
+                    <th>Job Request #</th>
+                    <th>Customer | Business Unit | Recruitment Role</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Requester By | On</th>
+                    <th>Recruiter</th>
+                    <th *ngIf="enableAddCandidate('Candidate_Add')">
+                      Add Candidate
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="odd gradeX"
+                    *ngFor="
+                      let item of jobReqList
+                        | paginate
+                          : {
+                              itemsPerPage: pageSize,
+                              currentPage: page,
+                              totalItems: count
+                            };
+                      let i = index
+                    "
+                  >
+                    <td class="user-circle-img sorting_1">
+                      {{ (page - 1) * pageSize + i + 1 }}
+                    </td>
+
+                    <td>
+                      <a
+                        (click)="gotoJobReqView(item.referenceNumber)"
+                        href="javascript:void(0)"
+                        style="text-decoration: underline"
+                        >{{ item.referenceNumber }}</a
+                      >
+                    </td>
+                    <td
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="{{ item.customerName }} | {{ item.buName }} | {{
+                        item.roleName
+                      }} "
+                    >
+                      {{ item.customerName }} | {{ item.buName }} |
+                      {{ item.roleName }}
+                    </td>
+
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar"
+                          role="progressbar"
+                          [style.width.%]="item.progress"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <span class="text-muted center" style="font-size: 10px">
+                        {{ item.closedOpenings }} / {{ item.noOfOpenings }} ({{
+                          item.progress
+                        }}%)
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        class="feedLblStyle lblOpen"
+                        *ngIf="item.jobReqStatus == 'Yet to Start'"
+                        >Open</span
+                      >
+                      <span
+                        class="feedLblStyle lblCommentStyle"
+                        *ngIf="item.jobReqStatus == 'In Progress'"
+                        >In Progress</span
+                      >
+                      <span
+                        class="feedLblStyle lblTaskStyle"
+                        *ngIf="item.jobReqStatus == 'Completed'"
+                        >Completed</span
+                      >
+                      <span
+                        class="feedLblStyle lblTerminated"
+                        *ngIf="item.jobReqStatus == 'Terminated'"
+                        >Terminated</span
+                      >
+                      <span
+                        class="feedLblStyle lblClosed"
+                        *ngIf="item.jobReqStatus == 'Closed'"
+                        >Closed</span
+                      >
+                      <span
+                        class="feedLblStyle lblHold"
+                        *ngIf="item.jobReqStatus == 'Hold'"
+                        >Hold</span
+                      >
+                    </td>
+                    <td>
+                      {{ item.requesterName }} |
+                      {{ item.updatedDateTime + "Z" | date: shortDate }}
+                    </td>
+                    <td>{{ item.recruiterName }}</td>
+                    <td
+                      class="center"
+                      *ngIf="enableAddCandidate('Candidate_Add')"
+                    >
+                      <a
+                        *ngIf="
+                          item.jobReqStatus == 'Yet to Start' ||
+                          item.jobReqStatus == 'In Progress'
+                        "
+                        class="btn btn-tbl-add btn-xs"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="Add Candidate"
+                        (click)="
+                          gotoAddCandidate(
+                            item.referenceNumber,
+                            item.roleName,
+                            item.placementFor
+                          )
+                        "
+                      >
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                      </a>
+                      <a
+                        *ngIf="
+                          item.jobReqStatus == 'Terminated' ||
+                          item.jobReqStatus == 'Closed' ||
+                          item.jobReqStatus == 'Hold' ||
+                          item.jobReqStatus == 'Completed'
+                        "
+                        class="btn btn-tbl-add btn-xs disabled"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="Cannot Add Candidate"
+                      >
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                      </a>
+                      <a
+                        *ngIf="
+                          (item.jobReqStatus == 'Yet to Start' ||
+                            item.jobReqStatus == 'In Progress') &&
+                          item.placementFor == 'Customer'
+                        "
+                        class="btn btn-tbl-add-bench btn-xs"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="Add Bench Candidate"
+                        (click)="gotoBenchCandidateList(item.referenceNumber)"
+                      >
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row col-md-12 col-sm-12 col-lg-12" style="height: 29px">
+              <div
+                class="col-md-4 col-sm-4 col-lg-4"
+                style="font-size: 14px"
+              ></div>
+              <div
+                class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                style="font-size: 14px"
+              >
+                Total No.of Record(s): {{ jobReqList.length }}
+              </div>
+              <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                <pagination-controls
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  responsive="true"
+                  (pageChange)="handlePageChangeForJr($event)"
+                ></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row col-sm-12 col-md-12">
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="info-box bg-blue">
+          <span class="info-box-number">{{ widget1.title }}</span
+          ><br />
+
+          <div class="row col-sm-12 col-md-12 col-lg-12">
+            <div
+              class="col-sm-2 col-md-2 col-lg-2"
+              style="margin-top: 12px; margin-left: -15px"
+            >
+              <i class="fa fa-list" aria-hidden="true"></i>
+            </div>
+            <div
+              class="col-sm-10 col-md-10 col-lg-10"
+              style="padding-left: 34px; padding-right: 0px"
+            >
+              <div
+                class="row col-sm-12 col-md-12 mouse-pointer"
+                style="font-size: 14px; padding: 3px"
+                (click)="gotoMyJobRequests()"
+                *ngIf="widget2.count > 0"
+              >
+                {{ widget2.title }} ({{ widget2.count }})
+              </div>
+              <div
+                class="row col-sm-12 col-md-12 mouse-pointer"
+                style="font-size: 14px; padding: 3px"
+                *ngIf="widget2.count == 0"
+              >
+                {{ widget2.title }} ({{ widget2.count }})
+              </div>
+              <div
+                class="row col-sm-12 col-md-12 mouse-pointer"
+                style="font-size: 14px; padding: 3px"
+                (click)="gotoMyinterviews()"
+                *ngIf="widget3.count > 0"
+              >
+                {{ widget3.title }} ({{ widget3.count }})
+              </div>
+              <div
+                class="row col-sm-12 col-md-12 mouse-pointer"
+                style="font-size: 14px; padding: 3px"
+                *ngIf="widget3.count == 0"
+              >
+                {{ widget3.title }} ({{ widget3.count }})
+              </div>
+            </div>
+          </div>
+          <!-- <span class="info-box-workitems"
+            ><span class="underline">Job Requests</span> (12) |
+            <span class="underline"> Interviews </span> (13)</span
+          > -->
+          <!-- <span class="info-box-text"><i class="fa fa-list" aria-hidden="true"></i><a>Job Requests</a> - 13</span> -->
+          <!-- <span class="info-box-text"><i class="fa fa-list" aria-hidden="true"></i><a>Interviews</a> - 13</span> -->
+        </div>
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="info-box bg-orange">
+          <span class="info-box-number">{{ widget4.count }}</span>
+          <span class="info-box-text">{{ widget4.title }}</span>
+          <i class="fa fa-circle" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="info-box bg-purple">
+          <span class="info-box-number">{{ widget5.count }}</span>
+          <span class="info-box-text">{{ widget5.title }}</span>
+          <i class="fas fa-user-check" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="info-box bg-success">
+          <span class="info-box-number">{{ widget6.count }}</span>
+          <span class="info-box-text">{{ widget6.title }}</span>
+          <i class="fas fa-check" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row col-sm-12 col-md-12">
+      <div class="col-md-4 col-sm-4 col-4">
+        <div class="card card-box">
+          <div class="card-head">
+            <header>Active Requests</header>
+            <div class="tools"></div>
+          </div>
+          <div class="card-body no-padding height-9">
+            <div class="row">
+              <div class="noti-information notification-menu">
+                <div
+                  class="
+                    notification-list
+                    mail-list
+                    not-list
+                    small-slimscroll-style
+                  "
+                  *ngFor="
+                    let item of ActiveRequestsData
+                      | paginate
+                        : {
+                            itemsPerPage: bupageSize,
+                            currentPage: bupage,
+                            totalItems: count
+                          };
+                    let i = index
+                  "
+                >
+                  <div class="row col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-sm-3">
+                      <a href="javascript:;" class="single-mail">
+                        <span class="icon single-mail">
+                          <i class="fa fa-landmark"></i> </span
+                      ></a>
+                    </div>
+                    <div class="col-sm-7" *ngIf="item.buName.length < 25">
+                      <span class="notificationtime"
+                        ><a href="javascript:void(0)" title="{{ item.buName }}">
+                          {{ item.buName }}
+                        </a></span
+                      >
+                    </div>
+                    <div class="col-sm-7" *ngIf="item.buName.length > 24">
+                      <span class="notificationtime"
+                        ><a href="javascript:void(0)" title="{{ item.buName }}">
+                          {{ item.buName | slice: 0:24 }}...
+                        </a></span
+                      >
+                    </div>
+                    <div class="col-sm-2">
+                      <span class="notificationtime">{{ item.count }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <pagination-controls
+                  directionLinks="false"
+                  responsive="true"
+                  (pageChange)="handlePageChange($event)"
+                ></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-4">
+        <div class="card card-box">
+          <div class="card-head">
+            <header>Active Job Request Progression</header>
+          </div>
+          <div class="row col-sm-12 col-lg-12 col-md-12">
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+            <div class="col-sm-8 col-lg-8 col-md-8">
+              <select
+                class="form-select"
+                (change)="
+                  onclickBUNameForJRProgression(
+                    $event.target['selectedIndex'] - 1
+                  )
+                "
+                [(ngModel)]="autoSelectBUForJRProgression"
+              >
+                <option disabled selected value="undefined">
+                  Select Business Unit
+                </option>
+                <option
+                  [value]="item.buName"
+                  *ngFor="let item of ActiveRequestsData; let i = index"
+                >
+                  {{ item.buName }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+          </div>
+          <!-- <ul>
+            <li *ngFor="let item of ActiveRequestsData; let i = index">
+              <a href="javascript:void(0)" (click)="onclickBUName(i)">{{
+                item.buName
+              }}</a>
+            </li>
+          </ul> -->
+          <google-chart
+            *ngIf="!recordFoundForJR"
+            #chart
+            [title]="piechartTitle1"
+            [type]="pieChartType1"
+            [data]="pieChartdata1"
+            [options]="pieChartoptions1"
+            [width]="pieChartwidth1"
+            [height]="pieChartheight1"
+          >
+          </google-chart>
+          <h3 *ngIf="recordFoundForJR">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i
+            >&nbsp;No record(s) Found
+          </h3>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-4">
+        <div class="card card-box">
+          <div class="card-head">
+            <header>Active Candidates Progression</header>
+            <div class="tools"></div>
+          </div>
+          <!-- <ul>
+            <li *ngFor="let item of ActiveRequestsData; let i = index">
+              <a href="javascript:void(0)" (click)="onclickBUName(i)">{{
+                item.buName
+              }}</a>
+            </li>
+          </ul> -->
+          <div class="row col-sm-12 col-lg-12 col-md-12">
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+            <div class="col-sm-8 col-lg-8 col-md-8">
+              <select
+                class="form-select"
+                (change)="
+                  onclickBUNameForCandidateProgression(
+                    $event.target['selectedIndex'] - 1
+                  )
+                "
+                [(ngModel)]="autoSelectBUForCandidateProgression"
+              >
+                <option disabled selected value="undefined">
+                  Select Business Unit
+                </option>
+                <option
+                  [value]="item.buName"
+                  *ngFor="let item of ActiveRequestsData; let i = index"
+                >
+                  {{ item.buName }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-2 col-lg-2 col-md-2"></div>
+          </div>
+          <google-chart
+            *ngIf="recordFoundForCandidate"
+            #chart
+            [title]="piechartTitle2"
+            [type]="pieChartType2"
+            [data]="pieChartdata2"
+            [options]="pieChartoptions2"
+            [width]="pieChartwidth2"
+            [height]="pieChartheight2"
+          >
+          </google-chart>
+          <h3 *ngIf="!recordFoundForCandidate">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i
+            >&nbsp;No record(s) Found
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-sm-12 col-md-12">
+      <div class="col-md-12 col-sm-12 col-12">
+        <div class="card card-box">
+          <div class="card-head">
+            <header>Active Job Request - Aging Report</header>
+            <div class="tools"></div>
+          </div>
+          <div class="row col-sm-12 col-lg-12 col-md-12">
+            <div class="col-sm-4 col-lg-4 col-md-4"></div>
+            <div
+              class="col-sm-3 col-lg-3 col-md-3"
+              style="display: flex; justify-content: center"
+            >
+              <select
+                class="form-select"
+                (change)="getJobRequestAgingCountByBuId($event.target.value)"
+              >
+                <option disabled selected value="undefined">
+                  Select Business Unit
+                </option>
+                <option
+                  [value]="item.buId"
+                  *ngFor="let item of ActiveRequestsData; let i = index"
+                >
+                  {{ item.buName }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-5 col-lg-5 col-md-5"></div>
+          </div>
+          <google-chart
+            #chart
+            [title]="title"
+            [type]="type"
+            [data]="agingData"
+            [options]="options"
+            [width]="width"
+            [height]="height"
+            [columns]="columnNames"
+          >
+          </google-chart>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-sm-12 col-md-12">
+      <br />
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-box">
+          <div class="card-head">
+            <header>Recently Updated Work Items</header>
+          </div>
+          <div class="card-body">
+            <div class="table-wrap">
+              <div class="table-responsive">
+                <table
+                  class="table display product-overview mb-30"
+                  id="support_table5"
+                >
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>Job Request #</th>
+                      <th>Customer</th>
+                      <th>Business Unit</th>
+                      <th>Recruitment Role</th>
+                      <th>Initiated By</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of LatestJobRequestsData">
+                      <td>
+                        <a
+                          (click)="gotoJobReqView(item.referenceNumber)"
+                          href="javascript:void(0)"
+                          style="text-decoration: underline"
+                          >{{ item.referenceNumber }}</a
+                        >
+                      </td>
+                      <td>{{ item.customerNameInDetail }}</td>
+                      <td>{{ item.buName }}</td>
+                      <td>{{ item.roleName }}</td>
+                      <td>{{ item.requesterName }}</td>
+                      <td>
+                        <span
+                          class="feedLblStyle lblOpen"
+                          *ngIf="item.jobReqStatus == 'Yet to Start'"
+                          >Open</span
+                        >
+                        <span
+                          class="feedLblStyle lblCommentStyle"
+                          *ngIf="item.jobReqStatus == 'In Progress'"
+                          >In Progress</span
+                        >
+                        <span
+                          class="feedLblStyle lblTaskStyle"
+                          *ngIf="item.jobReqStatus == 'Completed'"
+                          >Completed</span
+                        >
+                        <span
+                          class="feedLblStyle lblTerminated"
+                          *ngIf="item.jobReqStatus == 'Terminated'"
+                          >Terminated</span
+                        >
+                        <span
+                          class="feedLblStyle lblClosed"
+                          *ngIf="item.jobReqStatus == 'Closed'"
+                          >Closed</span
+                        >
+                        <span
+                          class="feedLblStyle lblHold"
+                          *ngIf="item.jobReqStatus == 'Hold'"
+                          >Hold</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row col-sm-12 col-md-12 col-lg-12">
+                <div
+                  class="col-sm-12 col-md-12 col-lg-12"
+                  style="display: flex; justify-content: center"
+                >
+                  <a href="javascript:vid(0)" routerLink="/hirepros/job-request"
+                    >View More...</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

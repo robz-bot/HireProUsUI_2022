@@ -1,0 +1,363 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12">
+                    <div class="col-sm-4 col-md-4 text-muted">
+                      Recruitment / Business Unit Head Approval
+                    </div>
+                    <div class="col-sm-4 col-md-4"></div>
+                    <div class="col-sm-4 col-md-4" id="search">
+                      <form
+                        #f="ngForm"
+                        name="form"
+                        novalidate
+                        (submit)="searchForSchedule()"
+                      >
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            maxlength="35"
+                            class="form-control"
+                            name="jrNumber"
+                            [(ngModel)]="searchDto.jrNumber"
+                            placeholder="Search for Job Request"
+                          />
+
+                          &nbsp;
+                          <input
+                            type="submit"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                            "
+                            value="Search"
+                          />
+                          &nbsp; &nbsp;
+
+                          <input
+                            type="button"
+                            (click)="reset()"
+                            class="btn btn-xs searchbtn"
+                            style="
+                              background-color: #706e6e !important;
+                              color: white;
+                            "
+                            value="Reset"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <table
+                    class="table table-hover table-checkable full-width"
+                    id="example4"
+                  >
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Job Request Reference</th>
+                        <th>Candidate Details</th>
+                        <th>History</th>
+                        <th>Resume</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="odd gradeX"
+                        *ngFor="
+                          let item of ShortlistedCandidatesList
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+
+                        <td>
+                          <a
+                            (click)="gotoJobReqView(item.jrNumber)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.jrNumber }}</a
+                          >
+                          | {{ item.roleName }} |
+
+                          {{ item.employmentType }} |
+                          {{ item.placementFor }}
+                        </td>
+                        <td>
+                          <span
+                            *ngIf="item.sex == 'Male'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Male"
+                            class="badge headerBadgeColor2"
+                          >
+                            M
+                          </span>
+                          <span
+                            *ngIf="item.sex == 'Female'"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Female"
+                            class="badge headerBadgeColor1"
+                          >
+                            F
+                          </span>
+                          |
+                          <a
+                            (click)="gotoCandidateView(item.candidateId)"
+                            href="javascript:void(0)"
+                            style="text-decoration: underline"
+                            >{{ item.candidateName }}</a
+                          >
+                          |
+                          <a href="tel:{{ item.contactNumber }}">{{
+                            item.contactNumber
+                          }}</a>
+                          | {{ item.experience }} yrs
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-plus btn-xs"
+                            (click)="
+                              gotoViewHistory(item.jrNumber, item.candidateId)
+                            "
+                            ><i class="fa fa-history" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            class="btn btn-tbl-resume btn-xs"
+                            (click)="getResume(item.candidateId)"
+                          >
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user">
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Approval "
+                                class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                (click)="clearRemarks()"
+                              >
+                                <i class="fa fa-check"></i>
+                              </a>
+                              <ul
+                                class="
+                                  dropdown-menu dropdown-menu-default
+                                  jello
+                                "
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Approval</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            class="form-control"
+                                            [(ngModel)]="
+                                              interviewSchedule.resultRemarks
+                                            "
+                                            name="resultRemarks"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-select"
+                                            id="basic-addon1"
+                                            (click)="
+                                              addbuShortlistStatus(item.id)
+                                            "
+                                            >Approve</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user">
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Hold "
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                class="dropdown-toggle btn btn-tbl-plus btn-xs"
+                                aria-expanded="false"
+                                (click)="clearRemarks()"
+                              >
+                                <i class="fa fa-pause" aria-hidden="true"></i
+                              ></a>
+                              <ul
+                                class="
+                                  dropdown-menu dropdown-menu-default
+                                  jello
+                                "
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Hold</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            class="form-control"
+                                            [(ngModel)]="
+                                              interviewSchedule.resultRemarks
+                                            "
+                                            name="resultRemarks"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-hold"
+                                            id="basic-addon1"
+                                            (click)="addbuHoldStatus(item.id)"
+                                            >Hold</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                          <ul class="nav navbar-nav pull-left">
+                            <li class="dropdown dropdown-user">
+                              <a
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Reason For Not Approval "
+                                href="javascript:;"
+                                data-toggle="dropdown"
+                                data-hover="dropdown"
+                                data-close-others="true"
+                                class="
+                                  dropdown-toggle
+                                  btn btn-tbl-delete btn-xs
+                                "
+                                aria-expanded="false"
+                                (click)="clearRemarks()"
+                                ><i class="fa fa-times"></i
+                              ></a>
+                              <ul
+                                class="
+                                  dropdown-menu dropdown-menu-default
+                                  jello
+                                "
+                              >
+                                <li>
+                                  <div class="card-body col-md-12 col-sm-12">
+                                    <div class="row col-md-12 col-sm-12">
+                                      <div class="col-md-12 col-sm-12">
+                                        <label for="Customer"
+                                          >Reason For Not Approval</label
+                                        >
+                                        <div class="input-group mb-3">
+                                          <textarea
+                                            class="form-control"
+                                            [(ngModel)]="
+                                              interviewSchedule.resultRemarks
+                                            "
+                                            name="resultRemarks"
+                                          ></textarea>
+                                          <span
+                                            class="input-group-text-reject"
+                                            id="basic-addon1"
+                                            (click)="addbuRejectStatus(item.id)"
+                                            >Reject</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                        <!-- <td *ngIf="!enableApprovalCondition(item.buId)">
+                          <span class="text-muted">No Action Required (Other BU)</span>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row col-md-12 col-sm-12 col-lg-12"
+                  style="height: 29px"
+                >
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4"
+                    style="font-size: 14px"
+                  >
+                    Items per Page:
+                    <select (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Total No.of Record(s):
+                    {{ ShortlistedCandidatesList.length }}
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      responsive="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

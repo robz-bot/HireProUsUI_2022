@@ -1,0 +1,511 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box-table">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div class="col-sm-4 col-md-4 text-muted">
+                    Configurations / Projects
+                  </div>
+                  <div class="col-sm-2 col-md-2" style="font-size: 12px"></div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form
+                      #kf="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="searchProject(kf)"
+                    >
+                      <div class="input-group mb-3">
+                        <!-- <span class="input-group-text" id="basic-addon1"
+                        >Search</span
+                      > -->
+                        <input
+                          type="text"
+                          maxlength="35"
+                          [(ngModel)]="project.keyword"
+                          class="form-control"
+                          name="keyword"
+                          placeholder="Search Project..."
+                        />
+
+                        &nbsp;
+                        <input
+                          type="submit"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs searchbtn"
+                          value="Search"
+                        />
+                        &nbsp; &nbsp;
+
+                        <input
+                          (click)="clearProjectFields()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-sm-2 col-md-2">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addModal"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-plus"></i>New Project
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Project</th>
+                      <th>Business Unit</th>
+                      <th>Customer</th>
+                      <th>Updated By</th>
+                      <th>Updated On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of projectList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td>{{ (page - 1) * pageSize + i + 1 }}</td>
+                      <td>{{ item.projectName }}</td>
+                      <td>{{ item.businessUnitName }}</td>
+                      <td>{{ item.customerName }}</td>
+                      <td>{{ item.updatedByName }}</td>
+                      <td>
+                        {{ item.updatedDateTime + "Z" | date: "short" }}
+                      </td>
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li
+                            _ngcontent-wri-c52=""
+                            class="dropdown dropdown-user"
+                          >
+                            <a
+                              (click)="getId(item.id)"
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+                        <ul class="nav navbar-nav pull-left">
+                          <li
+                            _ngcontent-wri-c52=""
+                            class="dropdown dropdown-user"
+                          >
+                            <a
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li>
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Project? </label
+                                  ><br />
+                                  <button
+                                    (click)="
+                                      deleteproject(item.id, item.projectName)
+                                    "
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ projectList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- update Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="exampleModalLabel">Edit Project</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="clearProjectFields()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              #uf="ngForm"
+              name="form"
+              novalidate
+              (ngSubmit)="updateProject(uf)"
+            >
+              <br />
+              <label for="Customer"
+                >Project Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-sitemap"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  class="form-control"
+                  [(ngModel)]="project.projectName"
+                  name="projectName"
+                  required
+                  #projectName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && projectName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="uf.submitted && projectName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="projectName.errors.required">
+                    Project Name is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Business Unit&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-landmark"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="businessUnitId"
+                  [(ngModel)]="project.businessUnitId"
+                  required
+                  #businessUnitId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && businessUnitId.invalid
+                  }"
+                >
+                  <option disabled selected value="-1">
+                    Select Business Unit
+                  </option>
+                  <option *ngFor="let item of bulist" value="{{ item.id }}">
+                    {{ item.businessUnitName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="uf.submitted && businessUnitId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="businessUnitId.errors.required">
+                    Business Unit is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Customer&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="customerId"
+                  [(ngModel)]="project.customerId"
+                  required
+                  #customerId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': uf.submitted && customerId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Customer
+                  </option>
+                  <option *ngFor="let item of cuslist" value="{{ item.id }}">
+                    {{ item.customerName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="uf.submitted && customerId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="customerId.errors.required">
+                    Customer is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="update"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add Modal -->
+    <div
+      class="modal fade"
+      data-backdrop="static"
+      data-keyboard="false"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form
+            #f="ngForm"
+            name="form"
+            novalidate
+            (ngSubmit)="addNewproject(f)"
+          >
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">Add Project</h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(f)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <br />
+              <label for="Customer"
+                >Project Name&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-sitemap"></i
+                ></span>
+                <input
+                  type="text"
+                  maxlength="35"
+                  class="form-control"
+                  [(ngModel)]="project.projectName"
+                  name="projectName"
+                  required
+                  #projectName="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && projectName.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && projectName.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="projectName.errors.required">
+                    Project Name is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Business Unit&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-landmark"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="businessUnitId"
+                  [(ngModel)]="project.businessUnitId"
+                  required
+                  #businessUnitId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && businessUnitId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Business Unit
+                  </option>
+                  <option *ngFor="let item of bulist" value="{{ item.id }}">
+                    {{ item.businessUnitName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && businessUnitId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="businessUnitId.errors.required">
+                    Business Unit is required
+                  </div>
+                </div>
+              </div>
+              <br />
+              <label for="Customer"
+                >Customer&nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <select
+                  class="form-select"
+                  name="customerId"
+                  [(ngModel)]="project.customerId"
+                  required
+                  #customerId="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && customerId.invalid
+                  }"
+                >
+                  <option
+                    class="dropdown-item"
+                    disabled
+                    selected
+                    value="undefined"
+                  >
+                    Select Customer
+                  </option>
+                  <option *ngFor="let item of cuslist" value="{{ item.id }}">
+                    {{ item.customerName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="f.submitted && customerId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="customerId.errors.required">
+                    Customer is required
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <input
+                type="submit"
+                class="btn btn-circle btn-primary"
+                value="Save"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>

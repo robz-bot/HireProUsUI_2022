@@ -1,0 +1,661 @@
+<div class="container-fluid">
+  <div class="page-bar">
+    <div class="page-title-breadcrumb">
+      <div class="pull-left"></div>
+    </div>
+  </div>
+
+  <div class="tab-content tab-space">
+    <div class="tab-pane active show" id="tab1">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="card-body">
+              <div class="table-scrollable">
+                <div class="row col-md-12 col-sm-12">
+                  <div
+                    class="col-sm-3 col-md-3 text-muted"
+                    style="font-size: 14px"
+                  >
+                    Configurations / Email-Configuration
+                  </div>
+                  <div class="col-sm-3 col-md-3">
+                    <div class="input-group mb-3">
+                      <ng-select
+                        [(ngModel)]="email.searchBuId"
+                        placeholder="Select Business Unit"
+                      >
+                        <ng-option
+                          *ngFor="let item of bulist"
+                          [value]="item.id"
+                          >{{ item.businessUnitName }}</ng-option
+                        >
+                      </ng-select>
+                      <span class="input-group-text" id="basic-addon1"
+                        ><i
+                          class="fa fa-search"
+                          aria-hidden="true"
+                          style="cursor: pointer"
+                          (click)="onchangeBu()"
+                        ></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4" id="search">
+                    <form
+                      #f="ngForm"
+                      name="form"
+                      novalidate
+                      (ngSubmit)="searchemailConfig(f)"
+                    >
+                      <div class="input-group mb-3">
+                        <!-- <span class="input-group-text" id="basic-addon1"
+                      >Search</span
+                    > -->
+                        <input
+                          type="text"
+                          maxlength="35"
+                          [(ngModel)]="email.keyword"
+                          class="form-control"
+                          name="keyword"
+                          placeholder="Search by purpose..."
+                        />
+
+                        &nbsp;
+                        <input
+                          type="submit"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs searchbtn"
+                          value="Search"
+                        />
+                        &nbsp; &nbsp;
+
+                        <input
+                          (click)="clearemailConfigFiled()"
+                          type="button"
+                          style="
+                            background-color: #706e6e !important;
+                            color: white;
+                          "
+                          class="btn btn-xs resetbtn"
+                          value="Reset"
+                        />
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="col-sm-2 col-md-2">
+                    <ul class="nav navbar-nav pull-right">
+                      <li class="dropdown dropdown-user">
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#addModal"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-plus"></i>New Email Conf...
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <table class="table table-hover table-checkable full-width">
+                  <thead class="bg-listHeader">
+                    <tr>
+                      <th>#</th>
+                      <th>Business Unit</th>
+                      <th>Purpose</th>
+                      <th>TO</th>
+                      <th>CC</th>
+                      <th>BCC</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="odd gradeX"
+                      *ngFor="
+                        let item of emailList
+                          | paginate
+                            : {
+                                itemsPerPage: pageSize,
+                                currentPage: page,
+                                totalItems: count
+                              };
+                        let i = index
+                      "
+                    >
+                      <td class="user-circle-img sorting_1">
+                        {{ (page - 1) * pageSize + i + 1 }}
+                      </td>
+                      <td>{{ item.buName }}</td>
+
+                      <td>{{ item.purpose }}</td>
+
+                      <td
+                        *ngIf="item.to != '' || item.to != null"
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.to }}"
+                      >
+                        {{ item.to | slice: 0:20 }}...
+                      </td>
+
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.cc }}"
+                      >
+                        {{ item.cc | slice: 0:20 }}...
+                      </td>
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="{{ item.bcc }}"
+                      >
+                        {{ item.bcc | slice: 0:20 }}...
+                      </td>
+
+                      <td>
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user delete">
+                            <a
+                              (click)="getId(item.id)"
+                              class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </a>
+                          </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav pull-left">
+                          <li class="dropdown dropdown-user edit">
+                            <a
+                              (click)="getId(item.id)"
+                              href="javascript:;"
+                              data-toggle="dropdown"
+                              data-hover="dropdown"
+                              data-close-others="true"
+                              class="dropdown-toggle btn btn-tbl-delete btn-xs"
+                              aria-expanded="false"
+                              ><i class="fa fa-trash-o"></i
+                            ></a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-default jello"
+                            >
+                              <li>
+                                <div class="card-body">
+                                  <label
+                                    >Sure You Want to Delete the Email
+                                    Configuration? </label
+                                  ><br />
+                                  <button
+                                    (click)="
+                                      deleteEmailConfById(item.id, item.purpose)
+                                    "
+                                    type="button"
+                                    class="btn btn-circle btn-danger"
+                                  >
+                                    Yes
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-circle btn-info"
+                                  >
+                                    No
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <br />
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="row col-md-12 col-sm-12 col-lg-12"
+                style="height: 32px"
+              >
+                <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+                  Items per Page:
+                  <select (change)="handlePageSizeChange($event)">
+                    <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                  style="font-size: 14px"
+                >
+                  Total No.of Record(s): {{ emailList.length }}
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- add Modal -->
+    <div
+      class="modal fade"
+      id="addModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <form
+          #addf="ngForm"
+          name="form"
+          novalidate
+          (ngSubmit)="addNewemailConfig(addf)"
+        >
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                Add Email Configuration
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="resetForm(addf)"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row col md-6 col sm-6 col lg-6">
+                <label for="Customer">
+                  Business Unit&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-landmark"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="buId"
+                    [(ngModel)]="email.buId"
+                    required
+                    #buId="ngModel"
+                    [ngClass]="{
+                      'is-invalid': addf.submitted && buId.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Business Unit
+                    </option>
+                    <option *ngFor="let item of bulist" value="{{ item.id }}">
+                      {{ item.businessUnitName }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="addf.submitted && buId.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="buId.errors.required">
+                      Business Unit is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <div class="row col md-12 col sm-12 col lg-12">
+                <label for="Customer">
+                  Purpose&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-bars"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="purpose"
+                    [(ngModel)]="email.purpose"
+                    required
+                    #purpose="ngModel"
+                    [ngClass]="{
+                      'is-invalid': addf.submitted && purpose.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Purpose
+                    </option>
+                    <option
+                      *ngFor="let item of Purpose"
+                      value="{{ item.purpose }}"
+                    >
+                      {{ item.purpose }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="addf.submitted && purpose.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="purpose.errors.required">
+                      Purpose is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer">
+                  TO&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.to"
+                    class="form-control"
+                    name="to"
+                    required
+                    #to="ngModel"
+                    [ngClass]="{
+                      'is-invalid': addf.submitted && to.invalid
+                    }"
+                  ></textarea>
+                  <div
+                    *ngIf="addf.submitted && to.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="to.errors.required">
+                      TO: MailID(s) is(are) required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer"> CC</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.cc"
+                    class="form-control"
+                    name="cc"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer"> BCC</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.bcc"
+                    class="form-control"
+                    name="bcc"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-lg-4">
+                  <input
+                    type="submit"
+                    class="btn btn-circle btn-primary"
+                    value="save"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- update Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <form
+          #updatef="ngForm"
+          name="form"
+          novalidate
+          (ngSubmit)="updateEmailConfig(updatef)"
+        >
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h4 class="modal-title" id="exampleModalLabel">
+                Edit Email Configuration
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="clearemailConfigFiled()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row col md-12 col sm-12 col lg-12">
+                <label for="Customer">
+                  Business Unit&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-landmark"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="buId"
+                    [(ngModel)]="email.buId"
+                    required
+                    #buId="ngModel"
+                    [ngClass]="{
+                      'is-invalid': updatef.submitted && buId.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Business Unit
+                    </option>
+                    <option *ngFor="let item of bulist" value="{{ item.id }}">
+                      {{ item.businessUnitName }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="updatef.submitted && buId.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="buId.errors.required">
+                      Business Unit is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <div class="row col md-12 col sm-12 col lg-12">
+                <label for="Customer">
+                  Purpose&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-bars"></i
+                  ></span>
+                  <select
+                    class="form-select"
+                    name="purpose"
+                    [(ngModel)]="email.purpose"
+                    required
+                    #purpose="ngModel"
+                    [ngClass]="{
+                      'is-invalid': updatef.submitted && purpose.invalid
+                    }"
+                  >
+                    <option
+                      class="dropdown-item"
+                      disabled
+                      selected
+                      value="undefined"
+                    >
+                      Select Purpose
+                    </option>
+                    <option
+                      *ngFor="let item of Purpose"
+                      value="{{ item.purpose }}"
+                    >
+                      {{ item.purpose }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="updatef.submitted && purpose.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="purpose.errors.required">
+                      Purpose is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer">
+                  TO&nbsp;<span style="color: red">*</span></label
+                >
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.to"
+                    class="form-control"
+                    name="to"
+                    required
+                    #to="ngModel"
+                    [ngClass]="{
+                      'is-invalid': addf.submitted && to.invalid
+                    }"
+                  ></textarea>
+                  <div
+                    *ngIf="addf.submitted && to.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="to.errors.required">
+                      TO: MailID(s) is(are) required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer"> CC</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.cc"
+                    class="form-control"
+                    name="cc"
+                  ></textarea>
+                  <!-- <div
+                    *ngIf="addf.submitted && cc.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="cc.errors.required">CC is required</div>
+                  </div> -->
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <label for="Customer"> BCC</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-envelope-o"></i
+                  ></span>
+                  <textarea
+                    type="text"
+                    rows="2"
+                    [(ngModel)]="email.bcc"
+                    class="form-control"
+                    name="bcc"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div class="row col-md-12 col-sm-12 col-lg-12">
+                <div class="col-md-4 col-sm-4 col-lg-4">
+                  <input
+                    type="submit"
+                    class="btn btn-circle btn-primary"
+                    value="update"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="preloader" *ngIf="loader == 1">
+  <div id="loader"></div>
+</div>
