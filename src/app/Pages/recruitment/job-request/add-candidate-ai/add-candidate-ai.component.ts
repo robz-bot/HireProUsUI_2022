@@ -5,6 +5,9 @@ import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMap
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
 import { PythonServiceService } from 'src/app/Services/python-service.service';
+import { candidate } from 'src/app/Models/Candidate';
+import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
+import { vendor } from 'src/app/Models/vendor';
 
 @Component({
   selector: 'app-add-candidate-ai',
@@ -23,7 +26,8 @@ export class AddCandidateAiComponent implements OnInit {
     private aroute: ActivatedRoute,
     private _gmenu: GlobalMenuMappingServicesService,
     private alertify: AlertifyService,
-    private pythonService: PythonServiceService
+    private pythonService: PythonServiceService,
+    private vendorService: VendorServiceService
   ) {}
   id: string;
   jobReq: jobReq = new jobReq();
@@ -31,6 +35,7 @@ export class AddCandidateAiComponent implements OnInit {
   myInputVariable!: ElementRef;
   fileName: string;
   loader = 0;
+  source: string = '';
 
   ngOnInit(): void {
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
@@ -38,6 +43,8 @@ export class AddCandidateAiComponent implements OnInit {
     this.loggedInUserRole = sessionStorage.getItem('Role');
     this.subMenuName = sessionStorage.getItem('subMenuNames');
     this.loggedInUserBUId = sessionStorage.getItem('currentUserBUId');
+
+    this.loadActiveVendors();
 
     this.fileName = '';
     this.id = this.aroute.snapshot.params['id'];
@@ -79,16 +86,29 @@ export class AddCandidateAiComponent implements OnInit {
   file: any;
 
   uploadFile() {
-    this.loader = 1;
+
     console.log(this.file);
+    var desc_skills =
+      this.jobReq.jobDescription +
+      ' ' +
+      this.jobReq.mandatorySkills +
+      ' ' +
+      this.jobReq.optionalSkills;
+
+
+    if (this.source == undefined || this.source == '') {
+      this.alertify.errorMsg('Source is required!');
+      return;
+    }
+    if (this.file.name == undefined || this.file.name == '') {
+      this.alertify.errorMsg('File is required!');
+      return;
+    }
 
     this.fileName = this.file.name;
+    this.loader = 1;
     this.pythonService
-      .parseTable(
-        this.file,
-        this.jobReq.jobDescription,
-        this.jobReq.referenceNumber
-      )
+      .parseTable(this.file, desc_skills, this.jobReq.referenceNumber,this.source)
       .subscribe((data: any) => {
         console.log('Python Reesult:');
         this.loader = 0;
@@ -104,6 +124,14 @@ export class AddCandidateAiComponent implements OnInit {
         console.log(this.shortlistArr);
         console.log(this.notShortlistArr);
       });
+  }
+
+  activeVendors: vendor[];
+  loadActiveVendors() {
+    this.vendorService.getActiveVendors().subscribe((data) => {
+      console.log(data);
+      this.activeVendors = data;
+    });
   }
 
   checkAllCheckBox(ev: any) {
@@ -135,38 +163,57 @@ export class AddCandidateAiComponent implements OnInit {
     }
   }
 
+  candidate: candidate = new candidate();
   moveToShortlist() {
     let uniqueArr = this.resCheckedShortlistArr.filter(
       (item, i, ar) => ar.indexOf(item) === i
     );
     console.log(uniqueArr);
+    if (uniqueArr.length > 0) {
+      for (var i = 0; i < uniqueArr.length; i++) {
+        this.candidate.id = uniqueArr[i].candidateId;
+        this.candidate.recStatus = '01';
+        this.candidate.createdBy = this.loggedInUserId;
+        this.candidate.updatedBy = this.loggedInUserId;
+        this.candidate.jrNumber = uniqueArr[i].jrNumber;
+
+        this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
+          console.log(data);
+          this.loader = 0;
+          this.alertify.successMsg1(
+            'Selected candidates shortlisted successfully!'
+          );
+        });
+      }
+    } else {
+      this.alertify.errorMsg('Select row to shortlist');
+      return;
+    }
     //To shortlist needed params = candidateId, remarks, jrnumber,
     // console.log(this.resCheckedShortlistArr);
   }
 
-  // saveShortlistStatus(id: string) {
-  //   console.log(this.candidate.remarks);
-  //   if (this.candidate.remarks == '') {
-  //     this.alertify.errorMsg('Shortlist Remarks is Required');
-  //   } else {
-  //     this.loader = 1;
-  //     this.candidate.id = id;
-  //     this.candidate.recStatus = '01';
-  //     this.candidate.createdBy = this.loggedInUserId;
-  //     this.candidate.updatedBy = this.loggedInUserId;
-  //     this.candidate.jrNumber = this.jRNumber;
-
-  //     console.log(this.candidate);
-  //     this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
-  //       console.log(data);
-  //       this.loader = 0;
-  //       this.candidate.remarks = '';
-  //       this.alertify.successMsg('Shortlisted Status');
-
-  //       this.loadCandidates();
-  //     });
-  //   }
-  // }
+  saveShortlistStatus(id: string) {
+    //   console.log(this.candidate.remarks);
+    //   if (this.candidate.remarks == '') {
+    //     this.alertify.errorMsg('Shortlist Remarks is Required');
+    //   } else {
+    //     this.loader = 1;
+    //     this.candidate.id = id;
+    //     this.candidate.recStatus = '01';
+    //     this.candidate.createdBy = this.loggedInUserId;
+    //     this.candidate.updatedBy = this.loggedInUserId;
+    //     this.candidate.jrNumber = this.jRNumber;
+    //     console.log(this.candidate);
+    // this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
+    //       console.log(data);
+    //       this.loader = 0;
+    //       this.candidate.remarks = '';
+    //       this.alertify.successMsg('Shortlisted Status');
+    //       this.loadCandidates();
+    //     });
+    //   }
+  }
 
   onChange(event: any) {
     this.file = event.target.files[0];

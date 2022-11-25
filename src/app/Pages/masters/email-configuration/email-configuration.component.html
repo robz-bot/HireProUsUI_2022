@@ -588,11 +588,11 @@
                     required
                     #to="ngModel"
                     [ngClass]="{
-                      'is-invalid': addf.submitted && to.invalid
+                      'is-invalid': updatef.submitted && to.invalid
                     }"
                   ></textarea>
                   <div
-                    *ngIf="addf.submitted && to.invalid"
+                    *ngIf="updatef.submitted && to.invalid"
                     class="invalid-feedback"
                   >
                     <div *ngIf="to.errors.required">

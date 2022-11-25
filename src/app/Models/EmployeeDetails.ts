@@ -9,8 +9,8 @@ export class employeeDetails {
   sex: string;
   employmentType: string;
   projectAllocation: string;
-  projectId: string;
-  customerId: string;
+  projectId: number;
+  customerId: number;
   buId: string;
   skillSet: string;
   createdBy: string;

@@ -10,7 +10,7 @@ export class PythonServiceService {
 
   private resumeAnalyseUrl = this.baseUrl + 'parse_table';
 
-  parseTable(file: File, jd: string, jdnum: string) {
+  parseTable(file: File, jd: string, jdnum: string,source:string) {
     const formData: FormData = new FormData();
     console.log(file);
     console.log(file.name);
@@ -18,6 +18,7 @@ export class PythonServiceService {
     console.log(formData);
     formData.append('jd', jd);
     formData.append('jdNum', jdnum);
+    formData.append('source', source);
     return this.httpClient.post(this.resumeAnalyseUrl, formData);
   }
 }

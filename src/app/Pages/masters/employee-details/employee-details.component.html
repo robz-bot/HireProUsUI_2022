@@ -256,128 +256,125 @@
                   </div>
                 </div>
                 <br />
-
-                <table class="table table-hover table-checkable full-width">
-                  <thead class="bg-listHeader">
-                    <tr>
-                      <th>#</th>
-                      <th title="Employee Id | Employee Id By HR">
-                        Employee ID | By HR
-                      </th>
-                      <th>WO Number</th>
-
-                      <th>Employee Name</th>
-                      <th>Status</th>
-                      <th>
-                        Project
-                        <br />
-                        Allocation
-                      </th>
-                      <th title="Effective From">Eff. From</th>
-                      <th>Business Unit | Customer | Project</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <ng-container
-                      *ngFor="
-                        let item of allResources
-                          | paginate
-                            : {
-                                itemsPerPage: pageSize,
-                                currentPage: page,
-                                totalItems: count
-                              };
-                        let i = index
-                      "
-                    >
+                <div class="table-responsive">
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
                       <tr>
-                        <td (click)="item.expanded = !item.expanded">
-                          {{ item.expanded ? "&ndash;" : "+" }}
-                        </td>
-                        <td>
-                          {{ item.employeeId }} | {{ item.employeeIdByHR }}
-                        </td>
-                        <td>{{ item.workOrderNumber }}</td>
-                        <td>{{ item.fullName }}</td>
-                        <td>
-                          <span
-                            class="feedLblStyle lblOpen"
-                            *ngIf="item.resourceStatus == 'Active'"
-                            >Active</span
-                          >
-                          <span
-                            class="feedLblStyle lblCommentStyle"
-                            *ngIf="item.resourceStatus == 'In-Active'"
-                            >In-Active</span
-                          >
+                        <th>#</th>
+                        <th title="Employee Id | Employee Id By HR">
+                          Employee ID | By HR
+                        </th>
+                        <th>WO Number</th>
 
-                          <span
-                            class="feedLblStyle lblTerminated"
-                            *ngIf="item.resourceStatus == 'Terminated'"
-                            >Terminated</span
-                          >
-                          <span
-                            class="feedLblStyle lblClosed"
-                            *ngIf="item.resourceStatus == 'Resigned'"
-                            >Resigned</span
-                          >
-                          <span
-                            class="feedLblStyle lblHold"
-                            *ngIf="item.resourceStatus == 'Hold'"
-                            >Hold</span
-                          >
-                        </td>
-                        <td *ngIf="item.projectAllocation == 'Yes'">✔️</td>
-                        <td *ngIf="item.projectAllocation == 'No'">❌</td>
-                        <td>{{ item.effectiveDate }}</td>
-                        <td
-                          *ngIf="
-                            item.customerName != null &&
-                            item.projectName != null
-                          "
-                        >
-                          {{ item.buName }} | {{ item.customerName }} |
-                          {{ item.projectName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            item.customerName == null &&
-                            item.projectName == null
-                          "
-                        >
-                          {{ item.buName }} | - | -
-                        </td>
-                        <td>
-                          <ul class="nav navbar-nav pull-left">
-                            <li class="dropdown dropdown-user delete">
-                              <a
-                                class="dropdown-toggle btn btn-tbl-edit btn-xs"
-                                (click)="showUpdateEmp(item.id)"
-                                title="Edit Resource"
-                              >
-                                <i class="fa fa-pencil"></i>
-                              </a>
-                            </li>
-                          </ul>
-                          <ul class="nav navbar-nav pull-left">
-                            <li class="dropdown dropdown-user">
-                              <a
-                                class="
-                                  dropdown-toggle
-                                  btn btn-tbl-add-bench btn-xs
-                                "
-                                title="Update Resource Status"
-                                data-toggle="modal"
-                                (click)="getId(item.id)"
-                                data-target="#exampleModal"
-                              >
-                                <i class="fa fa-ellipsis-h"></i>
-                              </a>
-                            </li>
-                          </ul>
+                        <th>Employee Name</th>
+                        <th>Status</th>
+                        <th>
+                          Project
+                          <br />
+                          Allocation
+                        </th>
+                        <th title="Effective From">Eff. From</th>
+                        <th>Business Unit | Customer | Project</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container
+                        *ngFor="
+                          let item of allResources
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <tr>
+                          <td (click)="item.expanded = !item.expanded">
+                            {{ item.expanded ? "&ndash;" : "+" }}
+                          </td>
+                          <td>
+                            {{ item.employeeId }} | {{ item.employeeIdByHR }}
+                          </td>
+                          <td>{{ item.workOrderNumber }}</td>
+                          <td>{{ item.fullName }}</td>
+                          <td>
+                            <span
+                              class="feedLblStyle lblOpen"
+                              *ngIf="item.resourceStatus == 'Active'"
+                              >Active</span
+                            >
+                            <span
+                              class="feedLblStyle lblCommentStyle"
+                              *ngIf="item.resourceStatus == 'In-Active'"
+                              >In-Active</span
+                            >
 
-                          <!-- <ul class="nav navbar-nav pull-left">
+                            <span
+                              class="feedLblStyle lblTerminated"
+                              *ngIf="item.resourceStatus == 'Terminated'"
+                              >Terminated</span
+                            >
+                            <span
+                              class="feedLblStyle lblClosed"
+                              *ngIf="item.resourceStatus == 'Resigned'"
+                              >Resigned</span
+                            >
+                            <span
+                              class="feedLblStyle lblHold"
+                              *ngIf="item.resourceStatus == 'Hold'"
+                              >Hold</span
+                            >
+                          </td>
+                          <td *ngIf="item.projectAllocation == 'Yes'">✔️</td>
+                          <td *ngIf="item.projectAllocation == 'No'">❌</td>
+                          <td>{{ item.effectiveDate }}</td>
+                          <td
+                            *ngIf="
+                              item.customerName != null &&
+                              item.projectName != null
+                            "
+                          >
+                            {{ item.buName }} | {{ item.customerName }} |
+                            {{ item.projectName }}
+                          </td>
+                          <td
+                            *ngIf="
+                              item.customerName == null &&
+                              item.projectName == null
+                            "
+                          >
+                            {{ item.buName }} | - | -
+                          </td>
+                          <td>
+                            <ul class="nav navbar-nav pull-left">
+                              <li class="dropdown dropdown-user delete">
+                                <a
+                                  class="dropdown-toggle btn btn-tbl-edit btn-xs"
+                                  (click)="showUpdateEmp(item.id)"
+                                  title="Edit Resource"
+                                >
+                                  <i class="fa fa-pencil"></i>
+                                </a>
+                              </li>
+                            </ul>
+                            <ul class="nav navbar-nav pull-left">
+                              <li class="dropdown dropdown-user">
+                                <a
+                                  class="dropdown-toggle btn btn-tbl-add-bench btn-xs"
+                                  title="Update Resource Status"
+                                  data-toggle="modal"
+                                  (click)="getId(item.id)"
+                                  data-target="#exampleModal"
+                                >
+                                  <i class="fa fa-ellipsis-h"></i>
+                                </a>
+                              </li>
+                            </ul>
+
+                            <!-- <ul class="nav navbar-nav pull-left">
                             <li class="dropdown dropdown-user edit">
                               <a
                                 href="javascript:;"
@@ -425,28 +422,30 @@
                               </ul>
                             </li>
                           </ul> -->
-                        </td>
-                      </tr>
-                      <ng-container *ngIf="item.expanded">
-                        <tr *ngFor="let details of findDetails(item)">
-                          <td style="padding-left: 12px"></td>
-                          <td style="padding-left: 12px"></td>
-                          <td style="padding-left: 12px"></td>
-                          <td
-                            colspan="6"
-                            data-toggle="tooltip"
-                            data-placement="left"
-                            title="{{ details.skillSet }} "
-                          >
-                            {{ details.email }} | {{ details.contactNumber }} |
-                            {{ item.designation }} | {{ details.skillSet }}
                           </td>
                         </tr>
+                        <ng-container *ngIf="item.expanded">
+                          <tr *ngFor="let details of findDetails(item)">
+                            <td style="padding-left: 12px"></td>
+                            <td style="padding-left: 12px"></td>
+                            <td style="padding-left: 12px"></td>
+                            <td
+                              colspan="6"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="{{ details.skillSet }} "
+                            >
+                              {{ details.email }} |
+                              {{ details.contactNumber }} |
+                              {{ item.designation }} | {{ details.skillSet }}
+                            </td>
+                          </tr>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <br />
-                  </tbody>
-                </table>
+                      <br />
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div
                 class="row col-md-12 col-sm-12 col-lg-12"
@@ -860,65 +859,68 @@
                           </div>
                         </div>
                       </div>
-                    </div><!-- Customer Name -->
-                    <div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableCustomerOther">
+                    </div>
+                    <!-- Customer Name -->
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableCustomerOther"
+                    >
                       <label>Customer Name</label>
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"
                           ><i class="fa fa-landmark"></i
                         ></span>
-                        <input
-                          disabled
-                          type="text"
-                          class="form-control"
-                          value=" Select Customer Name "
-                        /> 
+                        <input disabled type="text" class="form-control" />
                         <input hidden type="text" value="{{ changedCusId }}" />
-              </div>
-						</div>
-						<div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableCustomer">
-              <label>
-                Customer Name&nbsp;<span style="color: red"
-                  >*</span
-                ></label
-              >
-						<div class="input-group mb-3">
+                      </div>
+                    </div>
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableCustomer"
+                    >
+                      <label>
+                        Customer Name&nbsp;<span style="color: red"
+                          >*</span
+                        ></label
+                      >
+                      <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"
                           ><i class="fa fa-landmark"></i
                         ></span>
-						<select
-                         class="form-select"
-                         [(ngModel)]="empDet.customerId"
+                        <select
+                          class="form-select"
+                          [(ngModel)]="empDet.customerId"
                           name="customerId"
                           (change)="onChangeCus(empDet.customerId)"
-                         #customerId="ngModel"
-                         [ngClass]="{
-                         'is-invalid': addf.submitted && customerId.invalid
-                         }"
+                          #customerId="ngModel"
+                          [ngClass]="{
+                            'is-invalid': addf.submitted && customerId.invalid
+                          }"
                         >
-						<option  disabled selected value="undefined">
-                         Select Customer Name
-                        </option>
-                        <option
-                        *ngFor="let item of cusList"
-                         value="{{ item.id }}"
-                         >
-						{{ item.customerName }}
-                         </option>
-                         </select>
-                         <div
-                         *ngIf="addf.submitted && customerId.invalid"
-                          class="invalid-feedback"
+                          <option disabled selected value="undefined">
+                            Select Customer Name
+                          </option>
+                          <option
+                            *ngFor="let item of cusList"
+                            value="{{ item.id }}"
                           >
-                         <div *ngIf="customerId.errors.required">
-                         Customer Name is required
-                        </div>
-                        </div>
+                            {{ item.customerName }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="addf.submitted && customerId.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="customerId.errors.required">
+                            Customer Name is required
+                          </div>
                         </div>
                       </div>
-                                           
-                   <!-- Project Name -->
-                  <div
+                    </div>
+
+                    <!-- Project Name -->
+                    <!-- Old code -->
+                    <!-- <div
                   class="col-sm-3 col-sm-3 col-lg-3"
                   *ngIf="enableProjectOther"
                 >
@@ -932,7 +934,7 @@
                       [(ngModel)]="empDet.projectId"
                       name="projectId"
                       class="form-select"
-                      
+
                       #projectId="ngModel"
                       [ngClass]="{
                         'is-invalid': addf.submitted && projectId.invalid
@@ -1002,8 +1004,72 @@
                   </div>
                 </div>
               </div>
-                <br /> 
-                <div class="row col-sm-12 col-md-12 col-lg-12">
+                <br />  -->
+                    <!-- New Project Name -->
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableProjectOther"
+                    >
+                      <label> Project Name</label>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fa fa-landmark"></i
+                        ></span>
+                        <input disabled type="text" class="form-control" />
+                        <input
+                          hidden
+                          type="text"
+                          value="{{ changedCProjId }}"
+                        />
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableProject"
+                    >
+                      <label>
+                        Project Name&nbsp;<span style="color: red"
+                          >*</span
+                        ></label
+                      >
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fa fa-landmark"></i
+                        ></span>
+                        <select
+                          [(ngModel)]="empDet.projectId"
+                          name="projectId"
+                          class="form-select"
+                          (change)="onchangeProj(empDet.projectId)"
+                          #projectId="ngModel"
+                          [ngClass]="{
+                            'is-invalid': addf.submitted && projectId.invalid
+                          }"
+                        >
+                          <option disabled selected value="undefined">
+                            Select Project
+                          </option>
+                          <option
+                            *ngFor="let item of customerprojectList"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.projectName }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="addf.submitted && projectId.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="projectId.errors.required">
+                            Project Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row col-sm-12 col-md-12 col-lg-12">
                     <!-- Business Unit -->
                     <div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableOther">
                       <label
@@ -1569,9 +1635,12 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <!-- Customer Name -->
-                    <div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableCustomerOther">
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableCustomerOther"
+                    >
                       <label>Customer Name</label>
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"
@@ -1582,137 +1651,141 @@
                           type="text"
                           class="form-control"
                           value=" Select Customer Name "
-                        /> 
+                        />
                         <input hidden type="text" value="{{ changedCusId }}" />
-              </div>
-						</div>
-						<div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableCustomer">
-              <label>
-                Customer Name&nbsp;<span style="color: red"
-                  >*</span
-                ></label
-              >
-						<div class="input-group mb-3">
+                      </div>
+                    </div>
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableCustomer"
+                    >
+                      <label>
+                        Customer Name&nbsp;<span style="color: red"
+                          >*</span
+                        ></label
+                      >
+                      <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1"
                           ><i class="fa fa-landmark"></i
                         ></span>
-						<select
-                         class="form-select"
-                         [(ngModel)]="updateEmpDet.customerId"
+                        <select
+                          class="form-select"
+                          [(ngModel)]="updateEmpDet.customerId"
                           name="customerId"
-                         #customerId="ngModel"
-                         (change)="onChangeCus(updateEmpDet.customerId)"
-                         [ngClass]="{
-                         'is-invalid': updatef.submitted && customerId.invalid
-                         }"
+                          #customerId="ngModel"
+                          (change)="onChangeCus(updateEmpDet.customerId)"
+                          [ngClass]="{
+                            'is-invalid':
+                              updatef.submitted && customerId.invalid
+                          }"
                         >
-						<option  disabled selected value="undefined">
-                         Select Customer Name
-                        </option>
-                        <option
-                        *ngFor="let item of cusList"
-                         value="{{ item.id }}"
-                         >
-						{{ item.customerName }}
-                         </option>
-                         </select>
-                         <div
-                         *ngIf="updatef.submitted && customerId.invalid"
-                          class="invalid-feedback"
+                          <option disabled selected value="undefined">
+                            Select Customer Name
+                          </option>
+                          <option
+                            *ngFor="let item of cusList"
+                            value="{{ item.id }}"
                           >
-                         <div *ngIf="customerId.errors.required">
-                         Customer Name is required
-                        </div>
-                        </div>
+                            {{ item.customerName }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="updatef.submitted && customerId.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="customerId.errors.required">
+                            Customer Name is required
+                          </div>
                         </div>
                       </div>
-                                           
-                   <!-- Project Name -->
-                  <div
-                  class="col-sm-3 col-sm-3 col-lg-3"
-                  *ngIf="enableProjectOther"
-                >
-                  <label> Project Name</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      ><i class="fa fa-landmark"></i
-                    ></span>
-                    <select
-                      disabled
-                      [(ngModel)]="updateEmpDet.projectId"
-                      name="projectId"
-                      class="form-select"
-                      #projectId="ngModel"
-                      [ngClass]="{
-                        'is-invalid': updatef.submitted && projectId.invalid
-                      }"
-                    >
-                      <option disabled selected value="undefined">
-                        Select Project
-                      </option>
-                      <option
-                        *ngFor="let item of customerprojectList"
-                        value="{{ item.id }}"
-                      >
-                        {{ item.projectName }}
-                      </option>
-                    </select>
+                    </div>
+
+                    <!-- Project Name -->
                     <div
-                      *ngIf="updatef.submitted && projectId.invalid"
-                      class="invalid-feedback"
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableProjectOther"
                     >
-                      <div *ngIf="projectId.errors.required">
-                        Project Name is required
+                      <label> Project Name</label>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fa fa-landmark"></i
+                        ></span>
+                        <select
+                          disabled
+                          [(ngModel)]="updateEmpDet.projectId"
+                          name="projectId"
+                          class="form-select"
+                          #projectId="ngModel"
+                          [ngClass]="{
+                            'is-invalid': updatef.submitted && projectId.invalid
+                          }"
+                        >
+                          <option disabled selected value="undefined">
+                            Select Project
+                          </option>
+                          <option
+                            *ngFor="let item of customerprojectList"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.projectName }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="updatef.submitted && projectId.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="projectId.errors.required">
+                            Project Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-sm-3 col-sm-3 col-lg-3"
+                      *ngIf="enableProject"
+                    >
+                      <label>
+                        Project Name&nbsp;<span style="color: red"
+                          >*</span
+                        ></label
+                      >
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          ><i class="fa fa-landmark"></i
+                        ></span>
+                        <select
+                          [(ngModel)]="updateEmpDet.projectId"
+                          name="projectId"
+                          class="form-select"
+                          (change)="onchangeProj(updateEmpDet.projectId)"
+                          #projectId="ngModel"
+                          [ngClass]="{
+                            'is-invalid': updatef.submitted && projectId.invalid
+                          }"
+                        >
+                          <option disabled selected value="undefined">
+                            Select Project
+                          </option>
+                          <option
+                            *ngFor="let item of customerprojectList"
+                            value="{{ item.id }}"
+                          >
+                            {{ item.projectName }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="updatef.submitted && projectId.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="projectId.errors.required">
+                            Project Name is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="col-sm-3 col-sm-3 col-lg-3"
-                  *ngIf="enableProject"
-                >
-                  <label>
-                    Project Name&nbsp;<span style="color: red"
-                      >*</span
-                    ></label
-                  >
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      ><i class="fa fa-landmark"></i
-                    ></span>
-                    <select
-                      [(ngModel)]="updateEmpDet.projectId"
-                      name="projectId"
-                      class="form-select"
-                      (change)="onchangeProj(updateEmpDet.projectId)"
-                      #projectId="ngModel"
-                      [ngClass]="{
-                        'is-invalid': updatef.submitted && projectId.invalid
-                      }"
-                    >
-                      <option disabled selected value="undefined">
-                        Select Project
-                      </option>
-                      <option
-                        *ngFor="let item of customerprojectList"
-                        value="{{ item.id }}"
-                      >
-                        {{ item.projectName }}
-                      </option>
-                    </select>
-                    <div
-                      *ngIf="updatef.submitted && projectId.invalid"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="projectId.errors.required">
-                        Project Name is required
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                <br /> 
-                <div class="row col-sm-12 col-md-12 col-lg-12">
+                  <br />
+                  <div class="row col-sm-12 col-md-12 col-lg-12">
                     <!-- Business Unit -->
                     <div class="col-sm-3 col-sm-3 col-lg-3" *ngIf="enableOther">
                       <label

@@ -4,7 +4,7 @@ export class project {
   createdBy: string;
   createdByName: string;
   createdDateTime: string;
-  customerId: string;
+  customerId: number;
   customerName: string;
   id: string;
   message: string;

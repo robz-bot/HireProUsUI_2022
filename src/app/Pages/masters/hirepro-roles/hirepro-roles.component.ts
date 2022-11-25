@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Roles } from 'src/app/Models/Roles';
 import { MasterserviceService } from 'src/app/Services/MasterServices/masterservice.service';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 declare function closeModal(): any;
 declare function highlightMasters(): any;
 declare function showHideRow(row): any;
@@ -84,14 +84,14 @@ export class HireproRolesComponent implements OnInit {
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
   }
 
-  subscription: Subscription;
+  // subscription: Subscription;
   /**
    * Loads roles
    */
   loadRoles() {
     this.loader = 1;
     this.role.keyword = '';
-    this.subscription = this.mserv.getRolesList().subscribe((data) => {
+     this.mserv.getRolesList().subscribe((data) => {
       this.roleList = data;
       console.log(this.roleList);
       this.loader = 0;

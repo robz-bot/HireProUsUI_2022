@@ -11,6 +11,11 @@ export class AlertifyService {
     alertify.success(msg + ' ' + 'Added Successfully!');
     alertify.alert().bringToFront();
   }
+  successMsg1(msg) {
+    alertify.set('notifier', 'position', 'top-right');
+    alertify.success(msg);
+    alertify.alert().bringToFront();
+  }
 
   defaultSuccessMsg(msg) {
     alertify.set('notifier', 'position', 'top-right');

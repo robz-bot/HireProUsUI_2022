@@ -18,7 +18,7 @@
  declare function highlightService(): any;
  declare function closeFilter(): any;
  declare function closeModal(): any;
- 
+
  @Component({
    selector: 'app-employee-details',
    templateUrl: './employee-details.component.html',
@@ -30,7 +30,7 @@
      private mserv: MasterserviceService,
      private alertify: AlertifyService
    ) {}
- 
+
    loggedInUserId: string;
    ngOnInit(): void {
      highlightService();
@@ -40,13 +40,13 @@
      this.loadCustomer();
      this.getAllEmployeeIds();
      this.getAllWorkOrderNumbers();
- 
+
      this.loggedInUserId = sessionStorage.getItem('currentUserId');
- 
+
      this.getAllResourceMgmts();
      this.loadDate();
    }
- 
+
    page = 1;
    count = 0;
    pageSize = 5;
@@ -69,7 +69,7 @@
      this.pageSize = event.target.value;
      this.page = 1;
    }
- 
+
    loader: number = 0;
    /**
     * Resets form
@@ -97,7 +97,7 @@
      });
      this.showListEmp();
    }
- 
+
    addEmp: boolean = false;
    updateEmp: boolean = false;
    listEmp: boolean = false;
@@ -120,7 +120,7 @@
      this.listEmp = false;
      this.editEmp = false;
      this.updateEmp = true;
- 
+
      this.getEmpDetById(id);
    }
    /**
@@ -157,7 +157,7 @@
        this.allWONum = data;
      });
    }
- 
+
    bulist: BusinessUnit[];
    /**
     * Loads bu
@@ -179,10 +179,10 @@
    findDetails(data) {
      return this.allResources.filter((x) => x.id === data.id);
    }
- 
+
    projectList: project[];
    customerprojectList: project[];
- 
+
    /**
     * Loads project
     */
@@ -195,8 +195,8 @@
        );
      });
    }
- 
-   changedCusId: string;
+
+   changedCusId: number;
    changedCustomerName: string;
    changedBuId: string;
    changedBuName: string;
@@ -220,6 +220,7 @@
 
    onchangeProj(projId: string) {
        console.log(projId);
+      //  this.empDet.customerId = 0
     this.mserv.getprojectById(projId).subscribe((data) => {
 
       console.log(data);
@@ -235,8 +236,8 @@
     });
 
   }
-   
-   
+
+
 cusList: customer[];
    /**
     * Loads customer
@@ -250,7 +251,7 @@ cusList: customer[];
        );
      });
    }
- 
+
    enableBu: boolean = true;
    enableOther: boolean = false;
    enableProject: boolean = true;
@@ -270,9 +271,11 @@ cusList: customer[];
        this.enableProject = true;
        this.enableCustomerOther =  false;
        this.enableCustomer = true;
- 
+
      } else {
        this.enableBu = true;
+       this.empDet.customerId = undefined;
+       this.updateEmpDet.customerId = undefined;
        this.enableOther = false;
        this.enableProjectOther = true;
        this.enableProject = false;
@@ -282,10 +285,9 @@ cusList: customer[];
        this.changedBuName = '';
        this.enableCustomerOther = true;
        this.enableCustomer = false;
- 
      }
    }
- 
+
    allResources: any;
    allResourcesCount: number;
    /**
@@ -298,7 +300,7 @@ cusList: customer[];
        this.allResourcesCount = this.allResources.length;
      });
    }
- 
+
    searchModal: employeeDetails = new employeeDetails();
    /**
     * Searchs resource mgmt
@@ -328,7 +330,7 @@ cusList: customer[];
        this.allResourcesCount = this.allResources.length;
      });
    }
- 
+
    restBtn: boolean = false;
    /**
     * Clears search modal
@@ -360,7 +362,7 @@ cusList: customer[];
      const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/g;
      return emailRegex.test(String(email.toLowerCase()));
    }
- 
+
    empDet: employeeDetails = new employeeDetails();
    addResData: any;
    /**
@@ -374,7 +376,7 @@ cusList: customer[];
          this.alertify.errorMsg('Contact Number should be atleast 10 digits');
          return;
        }
- 
+
        if (!this.validateEmail(this.empDet.email)) {
          this.alertify.errorMsg('Email is Invalid!');
          return;
@@ -388,7 +390,15 @@ cusList: customer[];
        this.empDet.createdBy = this.loggedInUserId;
        this.empDet.updatedBy = this.loggedInUserId;
        this.empDet.employeeId = this.empDet.employeeIdByHR;
- 
+
+       if(this.empDet.customerId == undefined || this.empDet.customerId ==  null){
+        this.empDet.customerId = 0;
+       }
+
+       if(this.empDet.projectId == undefined || this.empDet.projectId ==  null){
+        this.empDet.projectId = 0;
+       }
+
        this.rmserv.addResourceMgmt(this.empDet).subscribe((data) => {
          console.log(data);
          this.addResData = data;
@@ -422,7 +432,7 @@ cusList: customer[];
          this.changedBuName = this.updateEmpDet.buName;
          this.changedBuId = this.updateEmpDet.buId;
          this.changedCusId = this.updateEmpDet.customerId;
- 
+
        } else {
          this.enableBu = true;
          this.enableOther = false;
@@ -442,13 +452,13 @@ cusList: customer[];
     */
    getId(id: string) {
      this.toupdateStatusId = id;
- 
+
      this.rmserv.getResourceMgmt(id).subscribe((data) => {
        console.log(data);
        this.statusUpdate = data;
      });
    }
- 
+
    updateStatusResData: any;
    statusUpdate: employeeDetails = new employeeDetails();
    /**
@@ -458,7 +468,7 @@ cusList: customer[];
    updateEmpStatus(f: NgForm) {
      if (f.valid) {
        this.statusUpdate.id = this.toupdateStatusId;
- 
+
        this.rmserv
          .updateResourceMgmtStatus(this.statusUpdate)
          .subscribe((data) => {
@@ -475,7 +485,7 @@ cusList: customer[];
          });
      }
    }
- 
+
    updateEmpDet: employeeDetails = new employeeDetails();
    updateResData: any;
    /**
@@ -489,12 +499,12 @@ cusList: customer[];
          this.alertify.errorMsg('Contact Number should be atleast 10 digits');
          return;
        }
- 
+
        if (!this.validateEmail(this.updateEmpDet.email)) {
          this.alertify.errorMsg('Email is Invalid!');
          return;
        }
- 
+
        this.loader = 1;
        this.updateEmpDet.customerId = this.changedCusId;
        this.updateEmpDet.buId =
@@ -503,7 +513,7 @@ cusList: customer[];
            : this.changedBuId;
        this.updateEmpDet.updatedBy = this.loggedInUserId;
        this.empDet.employeeId = this.empDet.employeeIdByHR;
- 
+
        this.rmserv.updateResourceMgmt(this.updateEmpDet).subscribe((data) => {
          console.log(data);
          this.updateResData = data;
@@ -521,7 +531,7 @@ cusList: customer[];
        });
      }
    }
- 
+
    deleteData: any;
    /**
     * Deletes resource mgmt by id
@@ -543,7 +553,7 @@ cusList: customer[];
        }
      });
    }
- 
+
    // Textbox validating Functions
    /**
     * Onlys alpha space
@@ -570,11 +580,10 @@ cusList: customer[];
        event.preventDefault();
      }
    }
- 
+
    todayDate: Date;
    loadDate() {
      this.todayDate = new Date();
      console.log(this.todayDate);
    }
  }
- 

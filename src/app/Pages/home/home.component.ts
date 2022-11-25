@@ -9,7 +9,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { Subscription } from 'rxjs/internal/Subscription';
+// import { Subscription } from 'rxjs/internal/Subscription';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     // }
     // });
   }
-  private sessionSubscription: Subscription;
+  // private sessionSubscription: Subscription;
   ngOnInit(): void {
     // console.log(sessionStorage.getItem('isVendor'));
     // this.sessionSubscription = this.bnIdle

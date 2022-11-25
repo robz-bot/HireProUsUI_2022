@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <div class="col-md-12">
+    <marquee><h1 class="text-center text-danger my-3">* This page is still under construction. Don't test</h1></marquee>
     <!-- BEGIN PROFILE CONTENT -->
     <div class="profile-content">
       <div class="row">
@@ -79,11 +80,39 @@
                       <p class="text-muted">
                         {{ jobReq.noOfOpenings }} / {{ jobReq.closedOpenings }}
                       </p>
+                      <strong>Mandatory Skills </strong>
+                      <p class="text-muted">
+                        {{ jobReq.mandatorySkills }}
+                      </p>
                     </div>
                     <div class="col-md-6 col-sm-12 col-lg-4 d-flex">
                       <div
                         class="d-flex flex-row flex-wrap align-items-center justify-content-center"
                       >
+                        <select
+                          class="form-select"
+                          required
+                          [(ngModel)]="source"
+                          name="source"
+                        >
+                          <option
+                            class="dropdown-item"
+                            disabled
+                            selected
+                            value=""
+                          >
+                            Select Source
+                          </option>
+                          <option class="dropdown-item" value="Direct">
+                            Direct Recruitment Team
+                          </option>
+                          <option
+                            *ngFor="let item of activeVendors"
+                            value="{{ item.vendorName }}"
+                          >
+                            {{ item.vendorName }}
+                          </option>
+                        </select>
                         <div
                           class="form-group file-area border border-2 border-secondary bg-secondary text-light"
                         >
@@ -103,8 +132,7 @@
                               <i class="bi bi-emoji-laughing-fill"></i>
                             </div>
                             <div class="default text-center">
-                              Select or drag file here (.docx, .pdf,
-                              .zip)
+                              Select or drag file here (.docx, .pdf, .zip)
                             </div>
                           </div>
                           <p *ngIf="fileName" class="text-light text-center">
@@ -134,7 +162,10 @@
           </div>
         </div>
         <!-- Scanned Results -->
-        <div class="card-box tab-pane active show table-responsive" *ngIf="showResultCard">
+        <div
+          class="card-box tab-pane active show table-responsive"
+          *ngIf="showResultCard"
+        >
           <div class="card-body">
             <!-- Tab panes -->
             <div class="tab-content">
@@ -182,7 +213,10 @@
                       role="tabpanel"
                       aria-labelledby="pills-shortlist-tab"
                     >
-                      <div class="table-responsive" *ngIf="shortlistArr.length>0">
+                      <div
+                        class="table-responsive"
+                        *ngIf="shortlistArr.length > 0"
+                      >
                         <table
                           class="table table-hover table-checkable full-width"
                         >
@@ -198,7 +232,8 @@
 
                               <!-- <th>#</th> -->
                               <th>Candidate Name</th>
-                              <th>Percent</th>
+                              <th>AI Score</th>
+                              <th>Source</th>
                               <th>Remarks</th>
                             </tr>
                           </thead>
@@ -222,12 +257,11 @@
                               <!-- <td>
                                 {{ item.candidateId }}
                               </td> -->
+                              <td>{{ item.FirstName }} {{ item.LastName }}</td>
                               <td>
-                                {{ item.FirstName }} {{item.LastName}}
+                                {{ item.Similarity.toString().split(".")[0] }}
                               </td>
-                              <td>
-                                {{ item.Similarity }}
-                              </td>
+                              <td>{{ source }}</td>
                               <td>
                                 {{ item.Remark }}
                               </td>
@@ -243,7 +277,9 @@
                           </button>
                         </div>
                       </div>
-                      <p *ngIf="shortlistArr.length==0" class="text-center">No record(s) Found!</p>
+                      <p *ngIf="shortlistArr.length == 0" class="text-center">
+                        No record(s) Found!
+                      </p>
                     </div>
                     <div
                       class="tab-pane fade"
@@ -251,31 +287,33 @@
                       role="tabpanel"
                       aria-labelledby="pills-notshortlist-tab"
                     >
-                    <div class="table-responsive" *ngIf="notShortlistArr.length>0">
-                      <table
-                        class="table table-hover table-checkable full-width"
+                      <div
+                        class="table-responsive"
+                        *ngIf="notShortlistArr.length > 0"
                       >
-                        <thead class="bg-listHeader">
-                          <tr>
-                            <th>
+                        <table class="table table-hover full-width">
+                          <thead class="bg-listHeader">
+                            <tr>
+                              <!-- <th>
                               <input
                                 type="checkbox"
                                 [checked]="isAllCheckBoxChecked()"
                                 (change)="checkAllCheckBox($event)"
                               />
-                            </th>
+                            </th> -->
 
-                            <!-- <th>#</th> -->
-                            <th>Candidate Name</th>
-                            <th>Percent</th>
-                            <th>Remarks</th>
-                          </tr>
-                        </thead>
-                        <ng-container
-                          *ngFor="let item of notShortlistArr; let i = index"
-                        >
-                          <tr>
-                            <td>
+                              <!-- <th>#</th> -->
+                              <th>Candidate Name</th>
+                              <th>AI Score</th>
+                              <th>Source</th>
+                              <th>Remarks</th>
+                            </tr>
+                          </thead>
+                          <ng-container
+                            *ngFor="let item of notShortlistArr; let i = index"
+                          >
+                            <tr>
+                              <!-- <td>
                               <input
                                 type="checkbox"
                                 value="{{ item.index }}"
@@ -287,32 +325,36 @@
                                   )
                                 "
                               />
-                            </td>
-                            <!-- <td>
+                            </td> -->
+                              <!-- <td>
                               {{ item.candidateId }}
                             </td> -->
-                            <td>
-                              {{ item.FirstName }} {{item.LastName}}
-                            </td>
-                            <td>
-                              {{ item.Similarity }}
-                            </td>
-                            <td>
-                              {{ item.Remark }}
-                            </td>
-                          </tr></ng-container
-                        >
-                      </table>
-                      <div class="text-center">
-                        <button
+                              <td>{{ item.FirstName }} {{ item.LastName }}</td>
+                              <td>
+                                {{ item.Similarity.toString().split(".")[0] }}
+                              </td>
+                              <td>{{ source }}</td>
+                              <td>
+                                {{ item.Remark }}
+                              </td>
+                            </tr></ng-container
+                          >
+                        </table>
+                        <div class="text-center">
+                          <!-- <button
                           class="text-center btn btn-info btn-sm"
                           (click)="moveToShortlist()"
                         >
                           Move to Shortlist
-                        </button>
+                        </button> -->
+                        </div>
                       </div>
-                    </div>
-                    <p *ngIf="notShortlistArr.length==0" class="text-center">No record(s) Found!</p>
+                      <p
+                        *ngIf="notShortlistArr.length == 0"
+                        class="text-center"
+                      >
+                        No record(s) Found!
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -326,7 +368,6 @@
   </div>
   <br /><br /><br />
 </div>
-
 
 <div id="preloader" *ngIf="loader == 1">
   <div id="loader"></div>
