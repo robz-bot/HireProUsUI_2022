@@ -179,6 +179,8 @@ export class CustomersComponent implements OnInit {
     }
     this.loadCustomer();
   }
+
+  deleteData:any
   /**
    * Deletes customer
    * @param id
@@ -189,8 +191,14 @@ export class CustomersComponent implements OnInit {
     //console.log(id);
     this.mserv.deleteCustomer(id).subscribe((data) => {
       this.loader = 0;
-      this.alertify.deleteMsg(customerName);
-      this.loadCustomer();
+      this.deleteData = data;
+      if (this.deleteData.status == 1) {
+        this.alertify.errorMsg(this.deleteData.message);
+      } else {
+        console.log(this.deleteData);
+        this.alertify.deleteMsg(customerName);
+        this.loadCustomer();
+      }
     });
   }
 

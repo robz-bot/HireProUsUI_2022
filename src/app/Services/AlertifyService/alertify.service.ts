@@ -27,6 +27,11 @@ export class AlertifyService {
     alertify.success(msg + ' ' + 'Updated Successfully!');
   }
 
+  clonedMsg(msg) {
+    alertify.set('notifier', 'position', 'top-right');
+    alertify.success(msg + ' ' + 'Cloned Successfully!');
+  }
+
   errorMsg(msg) {
     alertify.set('notifier', 'position', 'top-right');
     alertify.error(msg);

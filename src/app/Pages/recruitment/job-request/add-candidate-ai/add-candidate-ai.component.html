@@ -1,6 +1,10 @@
 <div class="container-fluid">
   <div class="col-md-12">
-    <marquee><h1 class="text-center text-danger my-3">* This page is still under construction. Don't test</h1></marquee>
+    <!-- <marquee
+      ><h1 class="text-center text-danger my-3">
+        * This page is still under construction. Don't test
+      </h1></marquee
+    > -->
     <!-- BEGIN PROFILE CONTENT -->
     <div class="profile-content">
       <div class="row">
@@ -230,7 +234,7 @@
                                 />
                               </th>
 
-                              <!-- <th>#</th> -->
+                              <th>Candidate Id</th>
                               <th>Candidate Name</th>
                               <th>AI Score</th>
                               <th>Source</th>
@@ -254,16 +258,16 @@
                                   "
                                 />
                               </td>
-                              <!-- <td>
-                                {{ item.candidateId }}
-                              </td> -->
-                              <td>{{ item.FirstName }} {{ item.LastName }}</td>
                               <td>
-                                {{ item.Similarity.toString().split(".")[0] }}
+                                {{ item.candidateId }}
+                              </td>
+                              <td>{{ item.name }}</td>
+                              <td>
+                                {{ item.similarity.toString().split(".")[0] }}
                               </td>
                               <td>{{ source }}</td>
                               <td>
-                                {{ item.Remark }}
+                                {{ item.remark }}
                               </td>
                             </tr></ng-container
                           >
@@ -303,6 +307,7 @@
                             </th> -->
 
                               <!-- <th>#</th> -->
+                              <th>Candidate Id</th>
                               <th>Candidate Name</th>
                               <th>AI Score</th>
                               <th>Source</th>
@@ -326,17 +331,17 @@
                                 "
                               />
                             </td> -->
-                              <!-- <td>
+                            <td>
                               {{ item.candidateId }}
-                            </td> -->
-                              <td>{{ item.FirstName }} {{ item.LastName }}</td>
-                              <td>
-                                {{ item.Similarity.toString().split(".")[0] }}
-                              </td>
-                              <td>{{ source }}</td>
-                              <td>
-                                {{ item.Remark }}
-                              </td>
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>
+                              {{ item.similarity.toString().split(".")[0] }}
+                            </td>
+                            <td>{{ source }}</td>
+                            <td>
+                              {{ item.remark }}
+                            </td>
                             </tr></ng-container
                           >
                         </table>

@@ -234,7 +234,7 @@ export class JobRequestCloneComponent implements OnInit {
         this.loader = 0;
         if (data) {
           this._router.navigateByUrl('hirepros/job-request');
-          this.alertify.updatedMsg('Job Request');
+          this.alertify.clonedMsg('Job Request');
         }
       });
     }

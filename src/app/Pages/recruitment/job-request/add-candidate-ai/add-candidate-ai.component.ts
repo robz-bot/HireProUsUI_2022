@@ -66,27 +66,27 @@ export class AddCandidateAiComponent implements OnInit {
     history.back();
   }
 
-  shortlistArr = [
-    {
-      candidateId: 1,
-      candidateName: 'Robin',
-      percent: '30%',
-      remarks: 'good to go',
-    },
-    {
-      candidateId: 2,
-      candidateName: 'Rajesh',
-      percent: '30%',
-      remarks: 'good to go',
-    },
-  ];
+  // shortlistArr = [
+  //   {
+  //     candidateId: 1,
+  //     candidateName: 'Robin',
+  //     percent: '30%',
+  //     remarks: 'good to go',
+  //   },
+  //   {
+  //     candidateId: 2,
+  //     candidateName: 'Rajesh',
+  //     percent: '30%',
+  //     remarks: 'good to go',
+  //   },
+  // ];
+  shortlistArr: any[] = [];
   notShortlistArr: any[] = [];
   resCheckedShortlistArr: any[] = [];
   showResultCard: boolean = false;
   file: any;
 
   uploadFile() {
-
     console.log(this.file);
     var desc_skills =
       this.jobReq.jobDescription +
@@ -94,7 +94,6 @@ export class AddCandidateAiComponent implements OnInit {
       this.jobReq.mandatorySkills +
       ' ' +
       this.jobReq.optionalSkills;
-
 
     if (this.source == undefined || this.source == '') {
       this.alertify.errorMsg('Source is required!');
@@ -108,7 +107,12 @@ export class AddCandidateAiComponent implements OnInit {
     this.fileName = this.file.name;
     this.loader = 1;
     this.pythonService
-      .parseTable(this.file, desc_skills, this.jobReq.referenceNumber,this.source)
+      .parseTable(
+        this.file,
+        desc_skills,
+        this.jobReq.referenceNumber,
+        this.source
+      )
       .subscribe((data: any) => {
         console.log('Python Reesult:');
         this.loader = 0;
@@ -176,15 +180,16 @@ export class AddCandidateAiComponent implements OnInit {
         this.candidate.createdBy = this.loggedInUserId;
         this.candidate.updatedBy = this.loggedInUserId;
         this.candidate.jrNumber = uniqueArr[i].jrNumber;
+        this.candidate.remarks = uniqueArr[i].remarks;
 
         this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
           console.log(data);
-          this.loader = 0;
-          this.alertify.successMsg1(
-            'Selected candidates shortlisted successfully!'
-          );
         });
       }
+      this.loader = 0;
+      this.alertify.successMsg1(
+        'Selected candidates shortlisted successfully!'
+      );
     } else {
       this.alertify.errorMsg('Select row to shortlist');
       return;

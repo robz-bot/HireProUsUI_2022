@@ -22,11 +22,11 @@ export class VendorLoginComponent implements OnInit {
   logindata: vendorReg = new vendorReg();
   loginDataRes: any;
   loginuser(f: NgForm) {
-    console.log(f);
+    console.log(this.logindata.vendorId);
     if (
-      this.logindata.email == '' ||
-      this.logindata.email == undefined ||
-      this.logindata.email == null
+      this.logindata.vendorId == '' ||
+      this.logindata.vendorId == undefined ||
+      this.logindata.vendorId == null
     ) {
       this.alertify.errorMsg('Vendor ID is Required');
       return;
