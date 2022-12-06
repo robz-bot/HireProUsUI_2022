@@ -111,7 +111,7 @@ export class AddCandidateAiComponent implements OnInit {
         this.file,
         desc_skills,
         this.jobReq.referenceNumber,
-        this.source
+        this.source,this.loggedInUserId
       )
       .subscribe((data: any) => {
         console.log('Python Reesult:');
@@ -180,7 +180,7 @@ export class AddCandidateAiComponent implements OnInit {
         this.candidate.createdBy = this.loggedInUserId;
         this.candidate.updatedBy = this.loggedInUserId;
         this.candidate.jrNumber = uniqueArr[i].jrNumber;
-        this.candidate.remarks = uniqueArr[i].remarks;
+        this.candidate.remarks = uniqueArr[i].remark;
 
         this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
           console.log(data);
