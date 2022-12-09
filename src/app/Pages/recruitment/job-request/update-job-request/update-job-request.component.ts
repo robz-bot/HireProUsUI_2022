@@ -41,16 +41,21 @@ export class UpdateJobRequestComponent implements OnInit {
   ) {}
   id: string;
   currentUserId: any;
+  currentUserBUId: any;
+  SS_Role: any;
   loader: number = 0;
   jobReq: jobReq = new jobReq();
   ngOnInit(): void {
     highlightRecruitment();
 
+    this.currentUserId = sessionStorage.getItem('currentUserId');
+    this.currentUserBUId = sessionStorage.getItem('currentUserBUId');
+    this.SS_Role = sessionStorage.getItem('Role');
+
     this.loadroles();
     this.loadcustomers();
     this.loadbu();
     this.loadRecruiters();
-    this.currentUserId = sessionStorage.getItem('currentUserId');
 
     this.id = this.aroute.snapshot.params['id'];
     this.rserv.getJobRequestById(this.id).subscribe(
@@ -201,10 +206,24 @@ export class UpdateJobRequestComponent implements OnInit {
     });
   }
   bulist: BusinessUnit[];
+  selectedBUList: BusinessUnit[] = [];
   loadbu() {
     this.mserv.getBUList().subscribe((data) => {
       this.bulist = data;
-      this.bulist = this.bulist.sort((a, b) =>
+      if (
+        this.SS_Role != 'Sales Manager' &&
+        this.SS_Role != 'Recruitment Manager' &&
+        this.SS_Role != 'Super Admin'
+      ) {
+        this.bulist.forEach((element: any) => {
+          if (element.id == this.currentUserBUId) {
+            this.selectedBUList.push(element);
+          }
+        });
+      } else {
+        this.selectedBUList = this.bulist;
+      }
+      this.selectedBUList = this.selectedBUList.sort((a, b) =>
         a.businessUnitName.localeCompare(b.businessUnitName)
       );
     });

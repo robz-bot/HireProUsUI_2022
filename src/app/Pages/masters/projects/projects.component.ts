@@ -54,6 +54,7 @@ export class ProjectsComponent implements OnInit {
 
     this.project.customerId = undefined;
     this.project.businessUnitId = undefined;
+    this.project.projStatus = 'Active';
     this.clearProjectFields();
     this.loadprojects();
     this.loadBu();
@@ -69,7 +70,7 @@ export class ProjectsComponent implements OnInit {
     this.mserv.getprojectList().subscribe((data) => {
       this.projectList = data;
       this.loader = 0;
-      //console.log(this.projectList);
+      console.log(this.projectList);
     });
   }
   /**
@@ -162,6 +163,7 @@ export class ProjectsComponent implements OnInit {
     this.project.keyword = '';
     this.project.customerId = undefined;
     this.project.businessUnitId = undefined;
+    this.project.projStatus = 'Active';
 
     this.loadprojects();
   }

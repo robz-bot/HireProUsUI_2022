@@ -14,4 +14,5 @@ export class project {
   updatedByName: string;
   updatedDateTime: string;
   keyword: string;
+  projStatus:string
 }

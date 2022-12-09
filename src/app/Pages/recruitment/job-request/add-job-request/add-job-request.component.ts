@@ -43,6 +43,8 @@ export class AddJobRequestComponent implements OnInit {
   ) {}
   id: string;
   currentUserId: any;
+  currentUserBUId: any;
+  SS_Role: any;
   loggedInUserName: string;
   loggedInUserRole: string;
   loader: number = 0;
@@ -51,17 +53,27 @@ export class AddJobRequestComponent implements OnInit {
   ngOnInit(): void {
     highlightRecruitment();
 
-    this.loadroles();
-    this.loadcustomers();
-    this.loadbu();
-
     this.loadRecruiters();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');
     this.currentUserId = sessionStorage.getItem('currentUserId');
+    this.currentUserBUId = sessionStorage.getItem('currentUserBUId');
+    this.SS_Role = sessionStorage.getItem('Role');
+
+    this.loadroles();
+    this.loadcustomers();
+    this.loadbu();
 
     this.loadDate();
     this.loadActiveVendors();
+    this.loadDefaultValues();
+  }
+
+  loadDefaultValues(){
+    this.jobReq.payRange = 'As Per Standard'
+    this.jobReq.payFrequency = 'Monthly'
+    this.jobReq.remoteOption = 'No'
+    this.jobReq.employmentType = 'Full Time'
   }
 
   activeVendors: vendor[];
@@ -191,14 +203,29 @@ export class AddJobRequestComponent implements OnInit {
       );
     });
   }
-  bulist: BusinessUnit[];
+  bulist: BusinessUnit[]=[];
+  selectedBUList: BusinessUnit[]=[];
   loadbu() {
     this.mserv.getBUList().subscribe((data) => {
       this.bulist = data;
-      this.bulist = this.bulist.sort((a, b) =>
+      if (
+        this.SS_Role != 'Sales Manager' &&
+        this.SS_Role != 'Recruitment Manager' &&
+        this.SS_Role != 'Super Admin'
+      ) {
+        this.bulist.forEach((element: any) => {
+          if (element.id == this.currentUserBUId) {
+            this.selectedBUList.push(element);
+          }
+        });
+      } else {
+        this.selectedBUList = this.bulist;
+      }
+      this.selectedBUList = this.selectedBUList.sort((a, b) =>
         a.businessUnitName.localeCompare(b.businessUnitName)
       );
     });
+    console.log(this.selectedBUList);
   }
   //Validate Text Fields based on inputs
   isNumberKey(evt) {

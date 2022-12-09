@@ -41,6 +41,8 @@ export class JobRequestCloneComponent implements OnInit {
   ) {}
   id: string;
   currentUserId: any;
+  currentUserBUId: any;
+  SS_Role: any;
   loader: number = 0;
   jobReq: jobReq = new jobReq();
   ngOnInit(): void {
@@ -52,6 +54,8 @@ export class JobRequestCloneComponent implements OnInit {
     this.loadRecruiters();
     this.currentUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');
+    this.currentUserBUId = sessionStorage.getItem('currentUserBUId');
+    this.SS_Role = sessionStorage.getItem('Role');
 
     this.id = this.aroute.snapshot.params['id'];
     this.rserv.getJobRequestById(this.id).subscribe(
@@ -193,10 +197,24 @@ export class JobRequestCloneComponent implements OnInit {
     });
   }
   bulist: BusinessUnit[];
+  selectedBUList: BusinessUnit[] = [];
   loadbu() {
     this.mserv.getBUList().subscribe((data) => {
       this.bulist = data;
-      this.bulist = this.bulist.sort((a, b) =>
+      if (
+        this.SS_Role != 'Sales Manager' &&
+        this.SS_Role != 'Recruitment Manager' &&
+        this.SS_Role != 'Super Admin'
+      ) {
+        this.bulist.forEach((element: any) => {
+          if (element.id == this.currentUserBUId) {
+            this.selectedBUList.push(element);
+          }
+        });
+      } else {
+        this.selectedBUList = this.bulist;
+      }
+      this.selectedBUList = this.selectedBUList.sort((a, b) =>
         a.businessUnitName.localeCompare(b.businessUnitName)
       );
     });

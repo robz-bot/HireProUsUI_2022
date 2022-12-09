@@ -87,6 +87,7 @@
                       <th>Customer</th>
                       <th>Updated By</th>
                       <th>Updated On</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -112,6 +113,8 @@
                       <td>
                         {{ item.updatedDateTime + "Z" | date: "short" }}
                       </td>
+                      <td *ngIf="item.projStatus == 'Active'"><span class="badge bg-success">{{ item.projStatus }}</span></td>
+                      <td *ngIf="item.projStatus == 'In-Active'"><span class="badge bg-danger">{{ item.projStatus }}</span></td>
                       <td>
                         <ul class="nav navbar-nav pull-left">
                           <li
@@ -341,6 +344,31 @@
                   </div>
                 </div>
               </div>
+              <br>
+              <label>Status&nbsp;<span style="color: red">*</span></label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <select
+                class="form-select"
+                name="projStatus"
+                [(ngModel)]="project.projStatus"
+              >
+                <option
+                  class="dropdown-item"
+                  value="Active"
+                >
+                  Active
+                </option>
+                <option
+                  class="dropdown-item"
+                  value="In-Active"
+                >
+                  In-Active
+                </option>
+              </select>
+              </div>
 
               <br />
               <input
@@ -491,6 +519,32 @@
                     Customer is required
                   </div>
                 </div>
+              </div>
+              <br>
+              <label>Status&nbsp;<span style="color: red">*</span></label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-user-tag"></i
+                ></span>
+                <select
+                class="form-select"
+                name="projStatus"
+                [(ngModel)]="project.projStatus"
+              >
+                <option
+                  class="dropdown-item"
+                  value="Active"
+                  [selected]
+                >
+                  Active
+                </option>
+                <option
+                  class="dropdown-item"
+                  value="In-Active"
+                >
+                  In-Active
+                </option>
+              </select>
               </div>
 
               <br />
