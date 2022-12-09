@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
       },
       bar: { groupWidth: '25%' },
     };
-    this.width = 1250;
+    this.width = 1000;
     this.height = 325;
     //////////////////////////////////////////
     this.pieChartType1 = 'PieChart';

@@ -103,9 +103,9 @@ a {
   background: #188ae2 !important;
   border-radius: 0.25rem;
 }
-.page-header.navbar.navbar-fixed-top {
+/* .page-header.navbar.navbar-fixed-top {
   height: 46px;
-}
+} */
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;

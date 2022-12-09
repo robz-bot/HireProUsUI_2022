@@ -5,3 +5,9 @@ body {
   flex-direction: column;
   /* align-items: center; */
 }
+
+
+.container-fluid{
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
