@@ -8,7 +8,7 @@ import { PythonServiceService } from 'src/app/Services/python-service.service';
 import { candidate } from 'src/app/Models/Candidate';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 import { vendor } from 'src/app/Models/vendor';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-add-candidate-ai',
   templateUrl: './add-candidate-ai.component.html',
@@ -85,6 +85,7 @@ export class AddCandidateAiComponent implements OnInit {
   resCheckedShortlistArr: any[] = [];
   showResultCard: boolean = false;
   file: any;
+  pythonResData: any;
 
   uploadFile() {
     console.log(this.file);
@@ -111,22 +112,29 @@ export class AddCandidateAiComponent implements OnInit {
         this.file,
         desc_skills,
         this.jobReq.referenceNumber,
-        this.source,this.loggedInUserId
+        this.source,
+        this.loggedInUserId
       )
       .subscribe((data: any) => {
         console.log('Python Reesult:');
         this.loader = 0;
         console.log(data);
-        this.shortlistArr = data['Shortlisted'][0];
-        this.notShortlistArr = data['NotShortlisted'][0];
+        this.pythonResData = data;
+        if (this.pythonResData.isSuccess == 'False') {
+          this.alertify.errorMsg(this.pythonResData.message);
+        } else {
+          this.shortlistArr = data['Shortlisted'][0];
+          this.notShortlistArr = data['NotShortlisted'][0];
 
-        this.showResultCard =
-          this.shortlistArr.length > 0 || this.notShortlistArr.length > 0
-            ? true
-            : false;
+          this.showResultCard =
+            this.shortlistArr.length > 0 || this.notShortlistArr.length > 0
+              ? true
+              : false;
 
-        console.log(this.shortlistArr);
-        console.log(this.notShortlistArr);
+          console.log(this.shortlistArr);
+          console.log(this.notShortlistArr);
+          this.alertify.successMsg1(this.pythonResData.message);
+        }
       });
   }
 
@@ -230,5 +238,29 @@ export class AddCandidateAiComponent implements OnInit {
     this.myInputVariable.nativeElement.value = '';
     this.shortlistArr = [];
     this.showResultCard = false;
+  }
+
+  shortlistedFileName: string = 'shortlisted_';
+  notShortlistedFileName: string = 'not_shortlisted_';
+  exportexcel(type: string): void {
+    var seconds = new Date().getTime() / 1000;
+    var downloadFileName = '';
+    let element;
+    /* pass here the table id */
+    if (type == 'shortlist') {
+      element = document.getElementById('shortlist-table');
+      downloadFileName = this.shortlistedFileName + seconds + '.xlsx';
+    } else if (type == 'not-shortlist') {
+      element = document.getElementById('not-shortlist-table');
+      downloadFileName = this.notShortlistedFileName + seconds + '.xlsx';
+    }
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, downloadFileName);
   }
 }

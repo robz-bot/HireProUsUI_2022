@@ -223,7 +223,18 @@
                       >
                         <table
                           class="table table-hover table-checkable full-width"
+                          id="shortlist-table"
                         >
+                          <button
+                            class="btn btn-sm btn-success float-end"
+                            (click)="exportexcel('shortlist')"
+                          >
+                            <i
+                              class="fa fa-file-excel-o"
+                              aria-hidden="true"
+                            ></i>
+                            Export to Excel
+                          </button>
                           <thead class="bg-listHeader">
                             <tr>
                               <th>
@@ -295,7 +306,17 @@
                         class="table-responsive"
                         *ngIf="notShortlistArr.length > 0"
                       >
-                        <table class="table table-hover full-width">
+                        <button
+                          class="btn btn-sm btn-success float-end"
+                          (click)="exportexcel('not-shortlist')"
+                        >
+                          <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                          Export to Excel
+                        </button>
+                        <table
+                          class="table table-hover full-width"
+                          id="not-shortlist-table"
+                        >
                           <thead class="bg-listHeader">
                             <tr>
                               <!-- <th>
@@ -331,17 +352,17 @@
                                 "
                               />
                             </td> -->
-                            <td>
-                              {{ item.candidateId }}
-                            </td>
-                            <td>{{ item.name }}</td>
-                            <td>
-                              {{ item.similarity.toString().split(".")[0] }}
-                            </td>
-                            <td>{{ source }}</td>
-                            <td>
-                              {{ item.remark }}
-                            </td>
+                              <td>
+                                {{ item.candidateId }}
+                              </td>
+                              <td>{{ item.name }}</td>
+                              <td>
+                                {{ item.similarity.toString().split(".")[0] }}
+                              </td>
+                              <td>{{ source }}</td>
+                              <td>
+                                {{ item.remark }}
+                              </td>
                             </tr></ng-container
                           >
                         </table>
