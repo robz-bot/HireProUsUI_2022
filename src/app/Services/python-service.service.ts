@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class PythonServiceService {
   constructor(private httpClient: HttpClient) {}
-  private baseUrl: string = 'http://127.0.0.1:5000/';
+  // private baseUrl: string = 'http://127.0.0.1:5000/';
+  private baseUrl: string = 'http://52.91.195.253:5000/';
 
   private resumeAnalyseUrl = this.baseUrl + 'parse_table';
 
