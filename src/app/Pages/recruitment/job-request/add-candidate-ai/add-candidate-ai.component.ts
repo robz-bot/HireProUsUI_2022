@@ -198,6 +198,7 @@ export class AddCandidateAiComponent implements OnInit {
       this.alertify.successMsg1(
         'Selected candidates shortlisted successfully!'
       );
+      this.resCheckedShortlistArr.length = 0
     } else {
       this.alertify.errorMsg('Select row to shortlist');
       return;

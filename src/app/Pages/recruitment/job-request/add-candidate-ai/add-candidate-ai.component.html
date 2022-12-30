@@ -212,6 +212,14 @@
                       role="tabpanel"
                       aria-labelledby="pills-shortlist-tab"
                     >
+                      <button
+                        class="btn btn-sm btn-success float-end"
+                        (click)="exportexcel('shortlist')"
+                        *ngIf="shortlistArr.length > 0"
+                      >
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                        Export to Excel
+                      </button>
                       <div
                         class="table-responsive"
                         *ngIf="shortlistArr.length > 0"
@@ -220,16 +228,6 @@
                           class="table table-hover table-checkable full-width"
                           id="shortlist-table"
                         >
-                          <button
-                            class="btn btn-sm btn-success float-end"
-                            (click)="exportexcel('shortlist')"
-                          >
-                            <i
-                              class="fa fa-file-excel-o"
-                              aria-hidden="true"
-                            ></i>
-                            Export to Excel
-                          </button>
                           <thead class="bg-listHeader">
                             <tr>
                               <th>
