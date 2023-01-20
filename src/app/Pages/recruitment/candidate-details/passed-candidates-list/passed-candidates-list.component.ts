@@ -137,6 +137,7 @@ export class PassedCandidatesListComponent implements OnInit {
         )
         .subscribe((data) => {
           this.loader = 0;
+          console.log(this.passedCandidateList)
           this.passedCandidateList = data;
           this.passedCandidatesCount = this.passedCandidateList.length;
         });
@@ -144,7 +145,7 @@ export class PassedCandidatesListComponent implements OnInit {
       this.rserv
         .getCandidatesByRecStatusList(this.PassedCandidates)
         .subscribe((data) => {
-          this.loader = 0;
+          this.loader = 0;console.log(this.passedCandidateList)
           this.passedCandidateList = data;
           this.passedCandidatesCount = this.passedCandidateList.length;
         });

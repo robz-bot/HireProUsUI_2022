@@ -190,6 +190,21 @@ export class AddCandidateAiComponent implements OnInit {
         this.candidate.jrNumber = uniqueArr[i].jrNumber;
         this.candidate.remarks = uniqueArr[i].remark;
 
+        this.shortlistArr.find((item, i, arr) => {
+          console.log('item: ');
+          console.log(item);
+          for (var j = 0; j < uniqueArr.length; j++) {
+            if (item === uniqueArr[j]) {
+              this.shortlistArr.splice(
+                this.shortlistArr.findIndex(
+                  (e) => e.candidateId === uniqueArr[j].candidateId
+                ),
+                1
+              );
+            }
+          }
+        });
+
         this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
           console.log(data);
         });
@@ -198,7 +213,6 @@ export class AddCandidateAiComponent implements OnInit {
       this.alertify.successMsg1(
         'Selected candidates shortlisted successfully!'
       );
-      this.resCheckedShortlistArr.length = 0
     } else {
       this.alertify.errorMsg('Select row to shortlist');
       return;
@@ -243,6 +257,7 @@ export class AddCandidateAiComponent implements OnInit {
 
   shortlistedFileName: string = 'shortlisted_';
   notShortlistedFileName: string = 'not_shortlisted_';
+  // Export shortlisted and Not shortlisted excel
   exportexcel(type: string): void {
     var seconds = new Date().getTime() / 1000;
     var downloadFileName = '';
