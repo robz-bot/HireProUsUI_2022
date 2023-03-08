@@ -61,24 +61,25 @@
           </option>
         </select>
       </div-->
-      <!-- <div class="p-2">
-        <select name="year" class="form-select" [(ngModel)]="searchRating.year">
-          <option value="undefined" disabled selected>Year</option>
+      <div class="p-2">
+        <select name="year" class="form-select" [(ngModel)]="yearSelection"
+        (change)="onchangeYear()">
+          <option value="undefined" selected>All</option>
           <option value="2022">2022</option>
           <option value="2023">2023</option>
           <option value="2024">2024</option>
           <option value="2025">2025</option>
           <option value="2026">2026</option>
         </select>
-      </div> -->
+      </div>
        <!-- <div class="p-2">
         <select name="status" class="form-select" [(ngModel)]="searchRating.status">
           <option value="undefined" disabled selected>Status</option>
           <option value="Open">Open</option>
           <option value="Closed">Closed</option>
-         
+
         </select>
-      </div> 
+      </div>
       <div class="p-2">
         <button (click)="search()" class="btn btn-primary btn-sm">
           Search
@@ -114,7 +115,7 @@
         <tr
           *ngFor="
             let item of achievements
-            
+
               | paginate
                 : {
                     itemsPerPage: pageSize,

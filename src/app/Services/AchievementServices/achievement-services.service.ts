@@ -26,8 +26,10 @@ export class AchievementServicesService {
     this.baseUrl + 'updateAccomplishmentRating';
   private getAllResourceAccomplishmentUrl =
     this.baseUrl + 'getAllResourceAccomplishment';
-    private getResourceAccomplishmentByBuIdUrl = 
+    private getResourceAccomplishmentByBuIdUrl =
     this.baseUrl +'getResourceAccomplishmentByBuId';
+    private getResourceAccomplishmentByBuIdYearUrl =
+    this.baseUrl +'getResourceAccomplishmentByBuIdYear';
   private checkEntryValidityUrl = this.baseUrl + 'checkEntryValidity';
   private downloadAccomplishmentRatingUrl =
     this.baseUrl + 'downloadAccomplishmentReport';
@@ -102,7 +104,7 @@ export class AchievementServicesService {
       }
     );
   }
-  
+
   getAllResourceAccomplishment(): Observable<resourceaccomplishment[]> {
     return this.httpClient.get<resourceaccomplishment[]>(
       `${this.getAllResourceAccomplishmentUrl}`,
@@ -118,6 +120,17 @@ export class AchievementServicesService {
   getResourceAccomplishmentByBuId(buId:String): Observable<resourceaccomplishment[]> {
     return this.httpClient.get<resourceaccomplishment[]>(
       `${this.getResourceAccomplishmentByBuIdUrl}/${buId}`,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
+  getResourceAccomplishmentByBuIdYear(buId:String,year:String): Observable<resourceaccomplishment[]> {
+    return this.httpClient.get<resourceaccomplishment[]>(
+      `${this.getResourceAccomplishmentByBuIdYearUrl}/${buId}/${year}`,
       {
         headers: {
           'pro-api-key': 'h1r5pr0',

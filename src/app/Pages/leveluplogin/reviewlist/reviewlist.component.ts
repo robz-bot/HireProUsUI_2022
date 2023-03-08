@@ -63,7 +63,7 @@ export class ReviewlistComponent implements OnInit {
   loadAchievements() {
     this.searchRating.buId = undefined;
     this.searchRating.status = undefined;
-    
+
 
     // if(this.SS_UserName == "nagarajan@promantus.com"){
       if(this.SS_UserName == "Elango@promantusinc.com"){
@@ -79,7 +79,25 @@ export class ReviewlistComponent implements OnInit {
         console.log(this.achievements);
       });
     }
-    
+
+  }
+  yearSelection: string;
+  onchangeYear() {
+    console.log(this.yearSelection);
+    if (this.yearSelection == 'undefined') {
+      this.loadAchievements();
+    } else {
+      this.aserv
+        .getResourceAccomplishmentByBuIdYear(this.SS_BUId,this.yearSelection)
+        .subscribe((data) => {
+
+          this.achievements=data
+          console.log(this.achievements);
+          // this.reviewLength = this.achievements.length;
+        });
+    }
+    console.log(this.achievements);
+    this.reviewLength = this.achievements.length;
   }
 
   /**
