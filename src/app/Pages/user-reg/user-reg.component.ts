@@ -222,6 +222,8 @@ export class UserRegComponent implements OnInit {
     this.userReg.roleId = '-1';
     this.userReg.skillSet = ' ';
     this.userReg.location = ' ';
+    this.userReg.dateOfJoining = ' ';
+    this.userReg.dateOfBirth = ' ';
   }
 
   onchangebu(id) {
@@ -337,7 +339,7 @@ export class UserRegComponent implements OnInit {
       this.loader = 0;
       this.userReg.managerId = data.managerId;
       this.changedManagerName = data.managerName;
-      console.log(this.changedManagerName)   
+      console.log(this.changedManagerName)
     });
   }
 }
