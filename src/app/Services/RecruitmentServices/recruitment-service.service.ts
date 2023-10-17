@@ -55,6 +55,7 @@ export class RecruitmentServiceService {
   private putJobRequestUrl = this.baseUrl + 'updateJobRequest';
   private putRecruiterUrl = this.baseUrl + 'updateRecruiter';
   private updateShortlistResultUrl = this.baseUrl + 'updateShortlistResult';
+  private updateAIShortlistResultUrl = this.baseUrl + 'updateAIShortlistResult';
   private getJobRequestByIdUrl = this.baseUrl + 'getJobRequest';
   private getJRByCustomerIdUrl = this.baseUrl + 'getJRsByCustomerId';
   private getJRByRecRoleIdUrl = this.baseUrl + 'getJRsByRoleId';
@@ -264,6 +265,14 @@ export class RecruitmentServiceService {
 
   updateShortlistResult(Candidate: candidate): Observable<Object> {
     return this.httpClient.put(`${this.updateShortlistResultUrl}`, Candidate, {
+      headers: {
+        'pro-api-key': 'h1r5pr0',
+      },
+    });
+  }
+
+  updateAIShortlistResult(Candidate: candidate): Observable<Object> {
+    return this.httpClient.put(`${this.updateAIShortlistResultUrl}`, Candidate, {
       headers: {
         'pro-api-key': 'h1r5pr0',
       },
