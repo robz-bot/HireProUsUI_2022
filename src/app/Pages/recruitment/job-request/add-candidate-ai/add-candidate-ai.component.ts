@@ -205,7 +205,8 @@ export class AddCandidateAiComponent implements OnInit {
           }
         });
 
-        this.rserv.updateAIShortlistResult(this.candidate).subscribe((data) => {
+        this.rserv.updateAIShortlistResult
+        (this.candidate).subscribe((data) => {
           console.log(data);
         });
       }
