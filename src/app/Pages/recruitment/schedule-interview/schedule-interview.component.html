@@ -221,7 +221,12 @@
                           <span
                             class="feedLblStyle lblShorlist"
                             *ngIf="item.round == 0"
-                            >Resume Shortlisted</span
+                            >Resume</span
+                          ><br/>
+                          <span
+                            class="feedLblStyle lblShorlist"
+                            *ngIf="item.round == 0"
+                            >Shortlisted</span
                           >
                           <span
                             class="feedLblStyle lblOpen"
@@ -246,7 +251,7 @@
                         </td>
 
                         <td>
-                          {{ item.updatedByName }} |
+                          {{ item.updatedByName }} |<br/>
                           {{ item.updatedDateTime + "Z" | date: "short" }}
                         </td>
                         <td>
