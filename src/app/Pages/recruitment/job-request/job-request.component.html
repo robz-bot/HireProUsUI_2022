@@ -236,7 +236,7 @@
                       <th>Business Unit</th>
                       <th>Recruitment Role</th>
                       <th>Progress</th>
-                      <th>Status</th>
+                      <!-- <th>Status</th> -->
                       <th>Requested By</th>
                       <th>Recruiter</th>
                       <th *ngIf="enableSubMenu('JobRequest_Add')">Clone</th>
@@ -246,6 +246,14 @@
                       >
                         Add
                       </th>
+                      <!-- Scrrening AI Candidates -->
+                      <th
+                      class="center"
+                      *ngIf="enableAddCandidate('Candidate_Add')"
+                    >
+                      Screening
+                    </th>
+
                       <th
                         *ngIf="
                           enableSubMenu('JobRequest_Edit') &&
@@ -300,8 +308,9 @@
                             {{ item.closedOpenings }} /
                             {{ item.noOfOpenings }} ({{ item.progress }}%)
                           </span>
-                        </td>
-                        <td>
+                          <br/>
+                        <!-- </td>
+                        <td> -->
                           <span
                             class="feedLblStyle lblOpen"
                             *ngIf="item.jobReqStatus == 'Yet to Start'"
@@ -397,25 +406,44 @@
                             class="btn btn-tbl-add btn-xs disabled"
                             data-toggle="tooltip"
                             data-placement="left"
-                            title="Cannot Add Candidate"
+                            title="Permission Denied"
                           >
                             <i class="fa fa-ban" aria-hidden="true"></i>
                           </a>
-                          <!-- Candiadte AI 29/10/2022 -->
-                          <a
-                            *ngIf="
-                              item.jobReqStatus == 'Yet to Start' ||
-                              item.jobReqStatus == 'In Progress'
-                            "
-                            class="btn btn-tbl-ai btn-xs"
-                            data-toggle="tooltip"
-                            data-placement="left"
-                            title="Candidate AI"
-                            (click)="gotoAICandidate(item)"
-                          >
-                          <i class="bi bi-robot"></i>
-                          </a>
                         </td>
+                        <td
+                        class="center"
+                        *ngIf="enableAddCandidate('Candidate_Add')"
+                      >
+                        <a
+                          *ngIf="
+                            item.jobReqStatus == 'Terminated' ||
+                            item.jobReqStatus == 'Closed' ||
+                            item.jobReqStatus == 'Hold' ||
+                            item.jobReqStatus == 'Completed'
+                          "
+                          class="btn btn-tbl-add btn-xs disabled"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          title="Permission Denied"
+                        >
+                          <i class="fa fa-ban" aria-hidden="true"></i>
+                        </a>
+                        <!-- Candiadte AI 29/10/2022 -->
+                        <a
+                          *ngIf="
+                            item.jobReqStatus == 'Yet to Start' ||
+                            item.jobReqStatus == 'In Progress'
+                          "
+                          class="btn btn-tbl-ai btn-xs"
+                          data-toggle="tooltip"
+                          data-placement="left"
+                          title="Candidate AI"
+                          (click)="gotoAICandidate(item)"
+                        >
+                        <i class="bi bi-robot"></i>
+                        </a>
+                      </td>
 
                         <td *ngIf="enableSubMenu('JobRequest_Edit')">
                           <!-- recruiterAdd -->
