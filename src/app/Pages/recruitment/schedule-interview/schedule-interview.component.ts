@@ -240,6 +240,9 @@ export class ScheduleInterviewComponent implements OnInit {
     this.interviewSchedule.timeZone = undefined;
     this.interviewSchedule.duration = undefined;
   }
+  gotoToBack() {
+    history.back();
+  }
   interviewSchedule: interviewSchedule = new interviewSchedule();
 
   datares: any;

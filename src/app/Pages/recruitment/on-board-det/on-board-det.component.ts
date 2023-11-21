@@ -435,7 +435,9 @@ export class OnBoardDetComponent implements OnInit {
     });
     this.enablebenchData = false;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   noManualType(event: Event) {
     event.preventDefault();
     event.stopPropagation();

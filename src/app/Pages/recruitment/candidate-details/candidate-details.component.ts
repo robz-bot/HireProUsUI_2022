@@ -414,7 +414,9 @@ export class CandidateDetailsComponent implements OnInit {
         }
       });
   }
-
+  gotoToBack() {
+    history.back();
+  }
   clearResumeFields() {
     this.jrForResumeCandidate = undefined;
   }

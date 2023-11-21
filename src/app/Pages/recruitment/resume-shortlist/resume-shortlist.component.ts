@@ -218,6 +218,9 @@ export class ResumeShortlistComponent implements OnInit {
       });
     }
   }
+  gotoToBack() {
+    history.back();
+  }
   /**
    * Enables approval condition
    * @param jrBuId

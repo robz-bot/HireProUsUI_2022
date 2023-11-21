@@ -544,6 +544,9 @@ export class InternalRound1Component implements OnInit {
   resetForm(f: NgForm) {
     f.resetForm();
   }
+  gotoToBack() {
+    history.back();
+  }
   noManualType(event: Event) {
     event.preventDefault();
     event.stopPropagation();
