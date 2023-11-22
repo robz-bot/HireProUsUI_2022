@@ -174,7 +174,9 @@ export class EmailConfigReportComponent implements OnInit {
       'EmailConfiguration_Report_' + this.getCurrentDateTime() + '.xlsx'
     );
   }
-
+  gotoToBack() {
+    history.back();
+  }
   getCurrentDateTime(): string {
     const pipe = new DatePipe('en-US');
     return pipe.transform(new Date(), 'yyyyMMddhhmmss');

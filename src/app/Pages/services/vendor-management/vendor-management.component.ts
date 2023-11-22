@@ -102,7 +102,9 @@ export class VendorManagementComponent implements OnInit {
   findDetails(data) {
     return this.vendorList.filter((x) => x.id === data.id);
   }
-
+  gotoToBack() {
+    history.back();
+  }
   Emails: any[];
   /**
    * Validates emails

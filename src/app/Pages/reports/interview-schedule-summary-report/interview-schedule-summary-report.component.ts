@@ -85,7 +85,9 @@ export class InterviewScheduleSummaryReportComponent implements OnInit {
     this.resetFilter();
     this.ShowFilterDiv = false;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   resetFilter() {
     this.searchModal.fromDateTime = undefined;
     this.searchModal.toDateTime = undefined;

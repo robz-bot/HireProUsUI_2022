@@ -212,6 +212,9 @@ export class ResourceManagementReportComponent implements OnInit {
       this.allWONum = data;
     });
   }
+  gotoToBack() {
+    history.back();
+  }
   /**
    * Handles key up
    * @param e
