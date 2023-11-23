@@ -201,7 +201,9 @@ export class CustomersComponent implements OnInit {
       }
     });
   }
-
+  gotoToBack() {
+    history.back();
+  }
   // Textbox validating Functions
   /**
    * Onlys alpha space

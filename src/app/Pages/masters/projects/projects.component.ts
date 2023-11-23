@@ -73,6 +73,9 @@ export class ProjectsComponent implements OnInit {
       console.log(this.projectList);
     });
   }
+  gotoToBack() {
+    history.back();
+  }
   /**
    * Searchs project
    * @param f

@@ -4,6 +4,15 @@
     <div class="tab-content tab-space">
       <div class="tab-pane active show" id="tab1" *ngIf="enableRegGrid == 1">
         <div class="row">
+          <div class="my-2">
+            <button
+              (click)="gotoToBack()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Back<span class="sr-only">Click To Back</span>
+            </button>
+          </div>
           <div class="col-md-12">
             <div class="card-box">
               <div class="card-body">
@@ -969,6 +978,15 @@
       </div>
       <div class="tab-pane active show" id="tab3" *ngIf="enableRegList == 1">
         <div class="row">
+          <div class="my-2">
+            <button
+              (click)="gotoToBack()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Back<span class="sr-only">Click To Back</span>
+            </button>
+          </div>
           <div class="col-md-12">
             <div class="card-box">
               <div class="card-body">

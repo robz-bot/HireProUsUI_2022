@@ -76,7 +76,9 @@ export class HireproRolesComponent implements OnInit {
     this.pageSize = event.target.value;
     this.page = 1;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   ngOnInit(): void {
     this.loadRoles();
     highlightMasters();

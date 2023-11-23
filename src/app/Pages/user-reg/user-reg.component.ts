@@ -72,7 +72,9 @@ export class UserRegComponent implements OnInit {
     var style = {};
     return style;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   gridStyle() {
     var style = {
       'background-color': '#188ae2 !important',
