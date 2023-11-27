@@ -292,8 +292,8 @@ export class HrRoundComponent implements OnInit {
       console.log(data);
       this.resumeRes = data;
       if (this.resumeRes.resume != null || this.resumeRes.resume != '') {
-        const pdfWindow = window.open('');
-
+        // const pdfWindow = window.open('');
+        const pdfWindow = window.open('', 'New Window', 'width=600,height=400');
         pdfWindow.document.write(
           '<title>View Resume</title><html><body><iframe' +
             " style='width: 100%;height: 100%' src='" +
