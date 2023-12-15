@@ -1,30 +1,22 @@
-/**
- * Copyright (C) 2021 Promantus Private Limited. All Rights Reserved
- * @author Robin Rajesh
- * @email robinrajesh@promantus.com
- * @create date 2021-10-09
- * @modify date 2021-10-09
- * @desc [description]
- */
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { log } from 'console';
 import { candidate } from 'src/app/Models/Candidate';
 import { vendor } from 'src/app/Models/vendor';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
 import { ImageServicesService } from 'src/app/Services/ImageServices/image-services.service';
-import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { RecStatusServiceService } from 'src/app/Services/RecStatusServices/rec-status-service.service';
+import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 
 @Component({
-  selector: 'app-selected-candidates-list',
-  templateUrl: './selected-candidates-list.component.html',
-  styleUrls: ['./selected-candidates-list.component.css'],
+  selector: 'app-offer-rejected',
+  templateUrl: './offer-rejected.component.html',
+  styleUrls: ['./offer-rejected.component.css']
 })
-export class SelectedCandidatesListComponent implements OnInit {
+export class OfferRejectedComponent implements OnInit {
+
   subMenuName: string;
   vendorUniqueId: string;
   isVendor: string;
@@ -41,7 +33,7 @@ export class SelectedCandidatesListComponent implements OnInit {
   ngOnInit(): void {
     this.vendorUniqueId = sessionStorage.getItem('currentVendorId');
     this.isVendor = sessionStorage.getItem('isVendor');
-    this.getSelectedCandidates();
+    this.getofferRejectedCandidates();
     this.subMenuName = sessionStorage.getItem('subMenuNames');
     this.loadAllJobRequestNumbers();
     this.loadActiveVendors();
@@ -69,7 +61,7 @@ export class SelectedCandidatesListComponent implements OnInit {
   handlePageChangeForSelCandi(event): void {
     //console.log(event);
     this.page = event;
-    //this.getSelectedCandidates();
+    //this.getofferRejectedCandidates();
   }
   /**
    * Handles page size change
@@ -85,17 +77,17 @@ export class SelectedCandidatesListComponent implements OnInit {
    * @param data
    * @returns
    */
-  findDetailsForselectedCandidates(data) {
+  findDetailsForofferRejectedCandidates(data) {
     return this.selectedCandidateList.filter((x) => x.id === data.id);
   }
   /**
    * Determines whether change selected candidates ref id on
    * @param id
    */
-  onChangeSelectedCandidatesRefId(id: string) {
+  onChangeofferRejectedCandidatesRefId(id: string) {
     console.log(id);
     this.rserv
-      .getCandidatesByJRNumAndRecStatusList(id, this.SelectedCandidates)
+      .getCandidatesByJRNumAndRecStatusList(id, this.offerRejectedCandidates)
       .subscribe((data) => {
         console.log(data);
         this.selectedCandidateList = data;
@@ -106,7 +98,7 @@ export class SelectedCandidatesListComponent implements OnInit {
    * @param f
    * @returns
    */
-  searchSelectedCandidates(f: NgForm) {
+  searchofferRejectedCandidates(f: NgForm) {
     if (
       (this.candidate.keyword == '' || this.candidate.keyword == undefined) &&
       (this.candidate.refId == undefined || this.candidate.refId == '') &&
@@ -131,14 +123,14 @@ export class SelectedCandidatesListComponent implements OnInit {
         .searchCandidateByRecStatusList(
           this.candidate.refId,
           this.candidate.keyword,
-          this.SelectedCandidates,
+          this.offerRejectedCandidates,
           this.vendorUniqueId
         )
         .subscribe((data) => {
           console.log(data);
           this.loader = 0;
           this.selectedCandidateList = data;
-          this.selectedCandidatesCount = this.selectedCandidateList.length;
+          this.offerRejectedCandidatesCount = this.selectedCandidateList.length;
 
           this.handlePageChangeForSelCandi(1);
         });
@@ -149,41 +141,40 @@ export class SelectedCandidatesListComponent implements OnInit {
   /**
    * Resets selected candidates
    */
-  resetSelectedCandidates() {
+  resetofferRejectedCandidates() {
     this.candidate.keyword = '';
     this.candidate.refId = undefined;
     this.candidate.vendorId = undefined;
-    this.getSelectedCandidates();
+    this.getofferRejectedCandidates();
   }
 
-  SelectedCandidates: string[] = ['24'];
+  offerRejectedCandidates: string[] = ['27'];
   selectedCandidateList: any;
-  selectedCandidatesCount: number;
+  offerRejectedCandidatesCount: number;
   /**
    * Gets selected candidates
    */
-  getSelectedCandidates() {
+  getofferRejectedCandidates() {
     this.candidate.refId = undefined;
     this.loader = 1;
     if (this.isVendor == '1') {
       this.rserv
         .getCandidatesByRecStatusListForVendor(
-          this.SelectedCandidates,
+          this.offerRejectedCandidates,
           this.vendorUniqueId
         )
         .subscribe((data) => {
           this.loader = 0;
           this.selectedCandidateList = data;
-          console.log(data,'sumesh');
-          this.selectedCandidatesCount = this.selectedCandidateList.length;
+          this.offerRejectedCandidatesCount = this.selectedCandidateList.length;
         });
     } else {
       this.rserv
-        .getCandidatesByRecStatusList(this.SelectedCandidates)
+        .getCandidatesByRecStatusList(this.offerRejectedCandidates)
         .subscribe((data) => {
           this.loader = 0;
           this.selectedCandidateList = data;
-          this.selectedCandidatesCount = this.selectedCandidateList.length;
+          this.offerRejectedCandidatesCount = this.selectedCandidateList.length;
         });
     }
   }
@@ -223,7 +214,7 @@ export class SelectedCandidatesListComponent implements OnInit {
         return;
       } else {
         this.alertify.deleteMsg('Candidate');
-        this.getSelectedCandidates();
+        this.getofferRejectedCandidates();
       }
     });
   }
@@ -332,4 +323,5 @@ export class SelectedCandidatesListComponent implements OnInit {
     console.log(candidateId);
     this._router.navigate(['hirepros/clone-candidate', candidateId]);
   }
+
 }
