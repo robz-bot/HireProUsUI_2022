@@ -26,5 +26,4 @@ export class OnboardDet {
   employeeIdByHR: string;
   email: string;
   contactNumber: string;
-  offerAccepted: string;
 }

@@ -7,5 +7,4 @@ export class candidateCount {
   shortlisted: number;
   totalTagged: number;
   uploaded: number;
-  offerRejected:number;
 }

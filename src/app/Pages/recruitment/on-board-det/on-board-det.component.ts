@@ -287,17 +287,14 @@ export class OnBoardDetComponent implements OnInit {
   addAPIData: any;
   addOnBoard(f: NgForm) {
     console.log(f);
-    if(this.onBoard.offerAccepted == "1") {
-      if (this.onBoard.email == null || this.onBoard.email == '') {
-        this.alertify.errorMsg('Email is Required!');
-        return;
-      }
-      if (!this.validateEmail(this.onBoard.email)) {
-        this.alertify.errorMsg('Email is Invalid!');
-        return;
-      }
+    if (this.onBoard.email == null || this.onBoard.email == '') {
+      this.alertify.errorMsg('Email is Required!');
+      return;
     }
-    
+    if (!this.validateEmail(this.onBoard.email)) {
+      this.alertify.errorMsg('Email is Invalid!');
+      return;
+    }
 
     this.loader = 1;
     this.onBoard.updatedBy = this.loggedInUserId;
@@ -305,7 +302,7 @@ export class OnBoardDetComponent implements OnInit {
     this.onBoard.candidateId = this.candidateId;
     this.onBoard.jrNumber = this.JRNum;
     this.onBoard.resourceId =
-    this.getResourceId == null ? '' : this.getResourceId;
+      this.getResourceId == null ? '' : this.getResourceId;
     this.onBoard.candidateType = this.getCandidateType;
     this.onBoard.buId = this.buIdOnOnboard;
     this.onBoard.contactNumber = this.getContactNumber;

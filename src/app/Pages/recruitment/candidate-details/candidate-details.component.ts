@@ -299,8 +299,6 @@ export class CandidateDetailsComponent implements OnInit {
   selectedCandidateTab: boolean = false;
   onboardedCandidateTab: boolean = false;
   droppedCandidateTab: boolean = false;
-  offerRejectedTab: boolean = false;
-
   /**
    * Shows uploaded candidate tab
    */
@@ -312,7 +310,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Shows shortlisted candidate tab
@@ -325,7 +322,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Showholded candidate tab
@@ -338,7 +334,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Shows rejected candidate tab
@@ -351,7 +346,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Shows selected candidate tab
@@ -364,7 +358,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = true;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Shows onboarded candidate tab
@@ -377,7 +370,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = true;
     this.droppedCandidateTab = false;
-    this.offerRejectedTab = false;
   }
   /**
    * Shows dropped candidate tab
@@ -390,20 +382,6 @@ export class CandidateDetailsComponent implements OnInit {
     this.selectedCandidateTab = false;
     this.onboardedCandidateTab = false;
     this.droppedCandidateTab = true;
-    this.offerRejectedTab = false;
-  }
- /**
-   * Show Offer Rejected Tab
-   */
-  showOfferRejectedTab(){
-    this.uploadCandidateTab = false;
-    this.shortlistedCandidateTab = false;
-    this.rejectedCandidateTab = false;
-    this.holdedCandidateTab = false;
-    this.selectedCandidateTab = false;
-    this.onboardedCandidateTab = false;
-    this.droppedCandidateTab = false;
-    this.offerRejectedTab = true;
   }
   jrForResumeCandidate: string;
   candidateDto: any;

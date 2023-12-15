@@ -9,7 +9,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { log } from 'console';
 import { candidate } from 'src/app/Models/Candidate';
 import { vendor } from 'src/app/Models/vendor';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
@@ -174,7 +173,6 @@ export class SelectedCandidatesListComponent implements OnInit {
         .subscribe((data) => {
           this.loader = 0;
           this.selectedCandidateList = data;
-          console.log(data,'sumesh');
           this.selectedCandidatesCount = this.selectedCandidateList.length;
         });
     } else {

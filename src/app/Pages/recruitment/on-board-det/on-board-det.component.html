@@ -180,10 +180,6 @@
                         <th>D.O.J</th>
                         <!-- <th>Joined</th> -->
                         <th>
-                          Offer
-                          Accepted
-                        </th>
-                        <th>
                           Docs.<br />
                           Verified
                         </th>
@@ -259,12 +255,12 @@
                         <td>{{ item.employeeId }}</td>
                         <td>{{ item.employeeIdByHR }}</td>
                         <td>{{ item.joiningDate }}</td>
-                        <td *ngIf="item.offerAccepted == 'true'">✔️</td>
-                        <td *ngIf="item.offerAccepted == 'false'">❌</td>
+                        <!-- <td *ngIf="item.joined == 1">✔️</td>
+                        <td *ngIf="item.joined == 0">❌</td> -->
                         <td *ngIf="item.docsVerified == 1">✔️</td>
                         <td *ngIf="item.docsVerified == 0">❌</td>
-                        
-                        <td *ngIf="item.offerAccepted === 'true'">
+
+                        <td>
                           <a
                             href="javascript:void(0)"
                             class="dropdown-toggle btn btn-tbl-edit btn-xs"
@@ -350,41 +346,6 @@
                               </div>
                             </li>
                           </ul> -->
-                        </td>
-                        <td *ngIf="item.offerAccepted !== 'true'">
-                          <a
-                            *ngIf="enableDeleteIcon('Delete')"
-                            href="javascript:;"
-                            class="dropdown-toggle btn btn-tbl-delete btn-xs"
-                            data-toggle="dropdown"
-                            data-hover="dropdown"
-                            data-close-others="true"
-                            aria-expanded="true"
-                          >
-                            <i class="fa fa-trash-o"></i>
-                          </a>
-                          <ul class="dropdown-menu animated slideInDown">
-                            <li>
-                              <div class="card-body">
-                                <label
-                                  >Sure You Want to Delete this Onboard Detail? </label
-                                ><br />
-                                <button
-                                  (click)="deleteOnboardDetail(item.id)"
-                                  type="button"
-                                  class="btn btn-circle btn-danger"
-                                >
-                                  Yes
-                                </button>
-                                <button
-                                  type="button"
-                                  class="btn btn-circle btn-info"
-                                >
-                                  No
-                                </button>
-                              </div>
-                            </li>
-                          </ul>
                         </td>
                       </tr>
                     </tbody>
@@ -679,33 +640,6 @@
             <div class="modal-body">
               <br />
               <div class="row col-md-12 col-sm-12">
-                <div class="col-md-6 col-sm-6">
-                  <label for="Customer">Is candidate accepted the offer?</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"
-                      ><i class="fa fa-user-edit"></i
-                    ></span>
-                    <select
-                      [(ngModel)]="onBoard.offerAccepted"
-                      name="offerAccepted"
-                      class="form-select"
-                    >
-                      <option
-                        class="dropdown-item"
-                        disabled
-                        selected
-                        value="undefined"
-                      >
-                        Select
-                      </option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <ng-container *ngIf="onBoard.offerAccepted == '1'">
-              <div class="row col-md-12 col-sm-12">
                 <!-- <div class="col-md-6 col-sm-6" *ngIf="!enablebenchData">
                   <label for="Customer"
                     >Employee ID By HR&nbsp;<span style="color: red"
@@ -944,7 +878,6 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
               <div class="row col-md-12 col-sm-12">
                 <div class="col-md-6 col-sm-6">
                   <br />
@@ -960,7 +893,7 @@
         </div>
       </div>
     </div>
-   
+
     <!-- Update Onboard Model -->
     <div
       class="modal fade"
