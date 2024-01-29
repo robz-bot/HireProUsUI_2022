@@ -241,6 +241,24 @@
                   </li>
                   <li class="nav-item">
                     <a
+                      href="#offer-rejected"
+                      data-toggle="tab"
+                      class=""
+                      id="innerNav"
+                      (click)="showOfferRejectedTab()"
+                    >
+                      Offer Rejected &nbsp;
+                      <span class="badge" style="background-color: #050505">
+                        {{
+                          CandidatesCount.offerRejected > 0
+                            ? CandidatesCount.offerRejected
+                            : 0
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
                       href="#onboarded-candidates"
                       data-toggle="tab"
                       class=""
@@ -290,6 +308,10 @@
                     id="selected-candidates"
                     *ngIf="selectedCandidateTab"
                   ></app-selected-candidates-list>
+                  <app-offer-rejected
+                    id="offer-rejected"
+                    *ngIf="offerRejectedTab"
+                  ></app-offer-rejected>
 
                   <app-onboarded-candidates-list
                     id="onboarded-candidates"
