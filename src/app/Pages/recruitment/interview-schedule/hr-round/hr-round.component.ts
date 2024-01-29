@@ -48,7 +48,7 @@ export class HrRoundComponent implements OnInit {
     highlightRecruitment();
     this.subMenuName = sessionStorage.getItem('subMenuNames');
 
-    this.getInterviewScheduledList();
+    
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');
     console.log(this.loggedInUserName);
@@ -60,6 +60,7 @@ export class HrRoundComponent implements OnInit {
     this.loadBu();
     this.loadRecruiters();
     this.getRecruitersList();
+    this.getInterviewScheduledList();
   }
   todayDate: Date;
   loadDate() {
@@ -479,7 +480,7 @@ export class HrRoundComponent implements OnInit {
   getInterviewScheduledList() {
     this.loader = 1;
     //console.log(this.ShortlistedCandidates);
-    this.rserv.getInterviewScheduledList('4').subscribe((data) => {
+    this.rserv.getInterviewScheduledList1('4',this.loggedInUserId).subscribe((data) => {
       console.log(data);
       this.loader = 0;
       this.interviewList = data;

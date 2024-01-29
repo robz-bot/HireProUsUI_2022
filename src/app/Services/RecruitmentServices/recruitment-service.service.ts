@@ -555,6 +555,19 @@ export class RecruitmentServiceService {
     );
   }
 
+//Dashboard schedule interviewId
+  // getMyInterviews1(userId: string, interviewerId: String): Observable<interviewSchedule[]> {
+  //   return this.httpClient.get<interviewSchedule[]>(
+  //     `${this.getMyInterviewsUrl}/${userId}/${interviewerId}`,
+  //     {
+  //       headers: {
+  //         'pro-api-key': 'h1r5pr0',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     }
+  //   );
+  // }
+
   updateResult(
     interviewSchedule: interviewSchedule
   ): Observable<interviewSchedule> {
@@ -731,6 +744,32 @@ export class RecruitmentServiceService {
     );
   }
 
+  //Interviewer Scheduler round 1
+  getInterviewScheduledList1(id: string, interviewerId: string): Observable<interviewSchedule[]> {
+    console.log("interviewerId: " + interviewerId);
+    
+    return this.httpClient.get<interviewSchedule[]>(
+      `${this.getInterviewScheduledListUrl}/${id}/${interviewerId}`,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
+  //Interviewer Scheduler round 2
+  // getInterviewScheduledList2(id: string, interviewerId: string): Observable<interviewSchedule[]> {
+  //   return this.httpClient.get<interviewSchedule[]>(
+  //     `${this.getInterviewScheduledListUrl}/${id}/${interviewerId}`,
+  //     {
+  //       headers: {
+  //         'pro-api-key': 'h1r5pr0',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     }
+  //   );
+  // }
   getForSchedule(id: string): Observable<interviewSchedule[]> {
     return this.httpClient.get<interviewSchedule[]>(
       `${this.getForScheduleUrl}/${id}`,
