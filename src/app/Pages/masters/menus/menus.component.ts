@@ -266,6 +266,10 @@ export class MenusComponent implements OnInit {
     }
     this.loadMenus();
   }
+
+  gotoToBack() {
+    history.back();
+  }
   /**
    * Clears menus field
    */

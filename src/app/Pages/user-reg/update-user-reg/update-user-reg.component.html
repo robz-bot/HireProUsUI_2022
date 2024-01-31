@@ -12,9 +12,9 @@
       <div class="card-body" id="bar-parent10">
         <form #f="ngForm" name="form" (ngSubmit)="updateUserReg(f)" novalidate>
           <br />
-          <div class="row col-md-12 col-sm-12">
+          <div class="row">
             <!-- UserName -->
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4">
               <label for="Customer"
                 >User Name (Email)&nbsp;<span style="color: red">*</span></label
               >
@@ -41,7 +41,7 @@
               </div>
             </div>
             <!-- Gender -->
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4">
               <label for="Customer"
                 >Gender&nbsp;<span style="color: red">*</span></label
               >
@@ -89,11 +89,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <br />
-          <div class="row col-md-12 col-sm-12">
             <!-- First Name -->
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4">
               <label for="Customer"
                 >First Name&nbsp;<span style="color: red">*</span></label
               >
@@ -122,8 +119,11 @@
                 </div>
               </div>
             </div>
+          </div>
+          <br />
+          <div class="row">
             <!-- Last Name -->
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4">
               <label for="Customer"
                 >Last Name&nbsp;<span style="color: red">*</span></label
               >
@@ -152,11 +152,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <br />
-          <div class="row col-md-12 col-sm-12">
             <!-- Contact Number -->
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-4">
               <label for="Customer"
                 >Contact Number&nbsp;<span style="color: red">*</span></label
               >
@@ -187,7 +184,7 @@
               </div>
             </div>
             <!-- Designation -->
-            <div class="col-md-3 col-sm-3">
+            <div class="col-md-4">
               <label for="Customer"
                 >Designation&nbsp;<span style="color: red">*</span></label
               >
@@ -216,8 +213,11 @@
                 </div>
               </div>
             </div>
-            <!-- Location -->
-            <div class="col-md-3 col-sm-3">
+          </div>
+          <br />
+          <!-- Location -->
+          <div class="row">
+            <div class="col-md-4">
               <label for="Customer"
                 >Location&nbsp;<span style="color: red">*</span></label
               >
@@ -246,11 +246,69 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-4">
+              <label for="Customer"
+                >Date of birth &nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-birthday-cake"></i
+                ></span>
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  [(ngModel)]="userReg.dateOfBirth"
+                  class="form-control"
+                  required
+                  #dateOfBirth="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && dateOfBirth.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && dateOfBirth.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="dateOfBirth.errors.required">
+                    Date Of Birth is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="Customer"
+                >Date of joining &nbsp;<span style="color: red">*</span></label
+              >
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-calendar"></i
+                ></span>
+                <input
+                  type="date"
+                  name="dateOfJoining"
+                  [(ngModel)]="userReg.dateOfJoining"
+                  class="form-control"
+                  required
+                  #dateOfJoining="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && dateOfJoining.invalid
+                  }"
+                />
+                <div
+                  *ngIf="f.submitted && dateOfJoining.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="dateOfJoining.errors.required">
+                    Date Of Joining is required
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <br />
-          <div class="row col-md-12 col-sm-12">
+          <div class="row">
             <!-- Business Unit -->
-            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="enableDeleteIcon('Delete')">
               <label for="Customer"
                 >Business Unit&nbsp;<span style="color: red">*</span>
               </label>
@@ -289,7 +347,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="!enableDeleteIcon('Delete')">
               <label for="Customer"
                 >Business Unit&nbsp;<span style="color: red">*</span>
               </label>
@@ -328,7 +386,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3">
+            <div class="col-md-3">
               <label for="Customer"
                 >Manager Name&nbsp;<span style="color: red">*</span>
               </label>
@@ -336,16 +394,16 @@
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-user"></i
                 ></span>
-               <input
-               disabled
-               value = "{{changedManagerName}}"
-               type="text"
-               class="form-control"
-             />  
+                <input
+                  disabled
+                  value="{{ changedManagerName }}"
+                  type="text"
+                  class="form-control"
+                />
               </div>
             </div>
             <!-- Role -->
-            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="enableDeleteIcon('Delete')">
               <label for="Customer">
                 Role&nbsp;<span style="color: red">*</span></label
               >
@@ -383,7 +441,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="!enableDeleteIcon('Delete')">
               <label for="Customer">
                 Role&nbsp;<span style="color: red">*</span></label
               >
@@ -423,7 +481,7 @@
               </div>
             </div>
             <!-- Status -->
-            <div class="col-md-3 col-sm-3" *ngIf="enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="enableDeleteIcon('Delete')">
               <label for="Customer">
                 Status&nbsp;<span style="color: red">*</span></label
               >
@@ -460,7 +518,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3 col-sm-3" *ngIf="!enableDeleteIcon('Delete')">
+            <div class="col-md-3" *ngIf="!enableDeleteIcon('Delete')">
               <label for="Customer">
                 Status&nbsp;<span style="color: red">*</span></label
               >
@@ -498,10 +556,9 @@
                 </div>
               </div>
             </div>
-            
           </div>
           <br />
-          <div class="row col-md-12 col-sm-12">
+          <div class="row">
             <!-- Skill Set -->
             <div class="col-md-12 col-sm-12">
               <label for="Customer">Skill Set </label>

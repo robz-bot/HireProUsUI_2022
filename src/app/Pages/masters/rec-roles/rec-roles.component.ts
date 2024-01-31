@@ -140,7 +140,9 @@ export class RecRolesComponent implements OnInit {
       //console.log(this.recrole);
     });
   }
-
+  gotoToBack() {
+    history.back();
+  }
   apidata: any;
   /**
    * Updaterecroles rec roles component

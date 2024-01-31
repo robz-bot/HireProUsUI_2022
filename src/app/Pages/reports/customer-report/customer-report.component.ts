@@ -115,6 +115,9 @@ export class CustomerReportComponent implements OnInit {
     const pipe = new DatePipe('en-US');
     return pipe.transform(new Date(), 'yyyyMMddhhmmss');
   }
+  gotoToBack() {
+    history.back();
+  }
   restBtn: boolean = false;
   searchCustomer() {
     if (

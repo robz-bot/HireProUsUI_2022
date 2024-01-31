@@ -74,7 +74,9 @@ export class RecRoleReportComponent implements OnInit {
     this.resetFilter();
     this.ShowFilterDiv = false;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   resetFilter() {
     this.loadrecroles();
     this.searchModal.recruitmentRoleName = undefined;

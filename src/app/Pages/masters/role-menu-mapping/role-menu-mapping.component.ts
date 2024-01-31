@@ -192,7 +192,9 @@ export class RoleMenuMappingComponent implements OnInit {
       this.savenewrole(this.roleMenuMapping);
     }
   }
-
+  gotoToBack() {
+    history.back();
+  }
   errMsg: string;
   errStatus: boolean = false;
   /**

@@ -121,7 +121,9 @@ export class ShortlistedCandidateReportComponent implements OnInit {
 
     this.getSelectedCandidates();
   }
-
+  gotoToBack() {
+    history.back();
+  }
   downloadSelectedCandidateDetails() {
     this.reportService
       .downloadSelectedCandidateDetails(this.selectedCandidateList)

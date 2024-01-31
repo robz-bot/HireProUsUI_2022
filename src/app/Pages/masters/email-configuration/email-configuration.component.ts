@@ -162,6 +162,9 @@
      }
      return valid_email;
    }
+   gotoToBack() {
+    history.back();
+  }
    /**
     * Adds newemail config
     * @param f

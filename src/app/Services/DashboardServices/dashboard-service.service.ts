@@ -14,7 +14,7 @@ import { apiUrl } from '../GlobalConstants';
   providedIn: 'root',
 })
 export class DashboardServiceService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   //Base URL
   private baseUrl: string = apiUrl.url;
 
@@ -29,6 +29,20 @@ export class DashboardServiceService {
   private getLatestJobRequestsUrl = this.baseUrl + 'getLatestJobRequests';
   private getBUsAndJobRequestCountUrl =
     this.baseUrl + 'getBUsAndJobRequestCount';
+  private getRecMenuCountsUrl =
+    this.baseUrl + 'getRecMenuCounts';
+
+  getRecMenuCounts(): Observable<any> {
+    return this.httpClient.get<any>(
+      `${this.getRecMenuCountsUrl}`,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
 
   getWidgetData(userId: string): Observable<WidgetData> {
     return this.httpClient.get<WidgetData>(

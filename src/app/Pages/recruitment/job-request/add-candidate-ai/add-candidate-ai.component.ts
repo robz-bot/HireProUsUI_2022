@@ -28,7 +28,7 @@ export class AddCandidateAiComponent implements OnInit {
     private alertify: AlertifyService,
     private pythonService: PythonServiceService,
     private vendorService: VendorServiceService
-  ) {}
+  ) { }
   id: string;
   jobReq: jobReq = new jobReq();
   @ViewChild('myInput')
@@ -176,43 +176,61 @@ export class AddCandidateAiComponent implements OnInit {
   }
 
   candidate: candidate = new candidate();
+  candidateLst: candidate[] = []
   moveToShortlist() {
     let uniqueArr = this.resCheckedShortlistArr.filter(
       (item, i, ar) => ar.indexOf(item) === i
     );
     console.log(uniqueArr);
     if (uniqueArr.length > 0) {
+      // for (var i = 0; i < uniqueArr.length; i++) {
+      //   this.candidate.id = uniqueArr[i].candidateId;
+      //   this.candidate.recStatus = '01';
+      //   this.candidate.createdBy = this.loggedInUserId;
+      //   this.candidate.updatedBy = this.loggedInUserId;
+      //   this.candidate.jrNumber = uniqueArr[i].jrNumber;
+      //   this.candidate.remarks = uniqueArr[i].remark;
+
+      //   this.shortlistArr.find((item, i, arr) => {
+      //     console.log('item: ');
+      //     console.log(item);
+      //     for (var j = 0; j < uniqueArr.length; j++) {
+      //       if (item === uniqueArr[j]) {
+      //         this.shortlistArr.splice(
+      //           this.shortlistArr.findIndex(
+      //             (e) => e.candidateId === uniqueArr[j].candidateId
+      //           ),
+      //           1
+      //         );
+      //       }
+      //     }
+      //   });
+
+      // }
+
+      var candidateLst = []
       for (var i = 0; i < uniqueArr.length; i++) {
-        this.candidate.id = uniqueArr[i].candidateId;
-        this.candidate.recStatus = '01';
-        this.candidate.createdBy = this.loggedInUserId;
-        this.candidate.updatedBy = this.loggedInUserId;
-        this.candidate.jrNumber = uniqueArr[i].jrNumber;
-        this.candidate.remarks = uniqueArr[i].remark;
-
-        this.shortlistArr.find((item, i, arr) => {
-          console.log('item: ');
-          console.log(item);
-          for (var j = 0; j < uniqueArr.length; j++) {
-            if (item === uniqueArr[j]) {
-              this.shortlistArr.splice(
-                this.shortlistArr.findIndex(
-                  (e) => e.candidateId === uniqueArr[j].candidateId
-                ),
-                1
-              );
-            }
-          }
-        });
-
-        this.rserv.updateShortlistResult(this.candidate).subscribe((data) => {
-          console.log(data);
-        });
+        var newCandidate = {};
+        newCandidate["id"] = uniqueArr[i].candidateId;
+        newCandidate["recStatus"] = '01';
+        newCandidate["createdBy"] = this.loggedInUserId;
+        newCandidate["updatedBy"] = this.loggedInUserId;
+        newCandidate["jrNumber"] = uniqueArr[i].jrNumber;
+        newCandidate["remarks"] = uniqueArr[i].remark;
+        console.log(newCandidate);
+        candidateLst.push(newCandidate)
       }
-      this.loader = 0;
-      this.alertify.successMsg1(
-        'Selected candidates shortlisted successfully!'
-      );
+      console.log(uniqueArr)
+      console.log(candidateLst)
+      this.rserv.updateAIShortlistResultLst
+        (candidateLst).subscribe((data) => {
+          console.log(data);
+          this.loader = 0;
+          this.alertify.successMsg1(
+            'Selected candidates shortlisted successfully!'
+          );
+        });
+
     } else {
       this.alertify.errorMsg('Select row to shortlist');
       return;

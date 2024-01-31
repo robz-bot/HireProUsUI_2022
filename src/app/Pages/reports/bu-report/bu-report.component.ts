@@ -84,7 +84,9 @@ export class BuReportComponent implements OnInit {
     this.searchModal.fromDateTime = undefined;
     this.searchModal.toDateTime = undefined;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   downloadBusinessUnitDetails() {
     this.loader = 1;
     console.log(this.buList);

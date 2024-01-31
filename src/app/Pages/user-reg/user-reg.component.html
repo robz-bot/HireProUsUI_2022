@@ -4,6 +4,15 @@
     <div class="tab-content tab-space">
       <div class="tab-pane active show" id="tab1" *ngIf="enableRegGrid == 1">
         <div class="row">
+          <div class="my-2">
+            <button
+              (click)="gotoToBack()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Back<span class="sr-only">Click To Back</span>
+            </button>
+          </div>
           <div class="col-md-12">
             <div class="card-box">
               <div class="card-body">
@@ -127,7 +136,7 @@
                               >
                                 {{
                                   item.fullName.length >= 23
-                                    ? (item.fullName | slice: 0:23) + "..."
+                                    ? (item.fullName | slice : 0 : 23) + "..."
                                     : item.fullName
                                 }}
                                 <!-- {{ item.fullName }} -->
@@ -152,7 +161,7 @@
                               >
                                 {{
                                   item.roleName.length >= 23
-                                    ? (item.roleName | slice: 0:23) + "..."
+                                    ? (item.roleName | slice : 0 : 23) + "..."
                                     : item.roleName
                                 }}
                                 <!-- {{ item.roleName }} -->
@@ -194,8 +203,8 @@
                                 >
                                   {{
                                     item.businessUnitName.length >= 23
-                                      ? (item.businessUnitName | slice: 0:23) +
-                                        "..."
+                                      ? (item.businessUnitName
+                                          | slice : 0 : 23) + "..."
                                       : item.businessUnitName
                                   }}
                                   <!-- {{ item.businessUnitName }} -->
@@ -220,7 +229,8 @@
                                 >
                                   {{
                                     item.designation.length >= 23
-                                      ? (item.designation | slice: 0:23) + "..."
+                                      ? (item.designation | slice : 0 : 23) +
+                                        "..."
                                       : item.designation
                                   }}
                                 </p>
@@ -244,7 +254,7 @@
                                 >
                                   {{
                                     item.location.length >= 23
-                                      ? (item.location | slice: 0:23) + "..."
+                                      ? (item.location | slice : 0 : 23) + "..."
                                       : item.location
                                   }}
                                   <!-- {{ item.location }} -->
@@ -271,7 +281,7 @@
                                     item.skillSet == null || item.skillSet == ""
                                       ? "-"
                                       : item.skillSet.length >= 23
-                                      ? (item.skillSet | slice: 0:23) + "..."
+                                      ? (item.skillSet | slice : 0 : 23) + "..."
                                       : item.skillSet
                                   }}
 
@@ -279,12 +289,58 @@
                                 </p>
                               </div>
                             </div>
+                            <div class="row col-md-12 col-sm-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-birthday-cake badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="Dob"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ Dob }}"
+                                >
+                                  {{
+                                    item.dateOfBirth.length >= 23
+                                      ? (item.dateOfBirth | slice : 0 : 23) + "..."
+                                      : item.dateOfBirth
+                                  }}
+                                  <!-- {{ item.location }} -->
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12">
+                              <div class="col-md-3 col-sm-3 col-lg-3">
+                                <i
+                                  class="fa fa-calendar badge BadgeColor"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="Doj"
+                                ></i>
+                              </div>
+                              <div class="col-md-9 col-sm-9 col-lg-9">
+                                <p
+                                  style="float: left"
+                                  data-toggle="tooltip"
+                                  data-placement="left"
+                                  title="{{ Doj }}"
+                                >
+                                  {{
+                                    item.dateOfJoining.length >= 23
+                                      ? (item.dateOfJoining | slice : 0 : 23) + "..."
+                                      : item.dateOfJoining
+                                  }}
+                                  <!-- {{ item.location }} -->
+                                </p>
+                              </div>
+                            </div>
                             <div
-                              class="
-                                profile-userbuttons
-                                row
-                                col-md-12 col-sm-12
-                              "
+                              class="profile-userbuttons row col-md-12 col-sm-12"
                             >
                               <div class="col-md-6 col-sm-6 right">
                                 <a href="javascript:;" *ngIf="item.sex == 0">
@@ -340,10 +396,7 @@
                                   data-hover="dropdown"
                                   data-close-others="true"
                                   aria-expanded="false"
-                                  class="
-                                    dropdown-toggle
-                                    btn btn-circle btn-tbl-delete btn-sm
-                                  "
+                                  class="dropdown-toggle btn btn-circle btn-tbl-delete btn-sm"
                                   ><i
                                     class="fa fa-trash-o"
                                     data-toggle="tooltip"
@@ -352,10 +405,7 @@
                                   ></i
                                 ></a>
                                 <ul
-                                  class="
-                                    dropdown-menu dropdown-menu-default
-                                    jello
-                                  "
+                                  class="dropdown-menu dropdown-menu-default jello"
                                   style="left: -200px"
                                 >
                                   <li>
@@ -461,8 +511,8 @@
                     (ngSubmit)="saveNewUser(f)"
                     novalidate
                   >
-                    <div class="row col-md-12 col-sm-12">
-                      <div class="col-md-6 col-sm-6">
+                    <div class="row">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >User Name (Email)&nbsp;<span style="color: red"
                             >*</span
@@ -493,7 +543,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Gender&nbsp;<span style="color: red">*</span></label
                         >
@@ -547,10 +597,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <br />
-                    <div class="row col-md-12 col-sm-12">
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >First Name&nbsp;<span style="color: red"
                             >*</span
@@ -582,7 +629,10 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6 col-sm-6">
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Last Name&nbsp;<span style="color: red"
                             >*</span
@@ -614,10 +664,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <br />
-                    <div class="row col-md-12 col-sm-12">
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Contact Number&nbsp;<span style="color: red"
                             >*</span
@@ -650,7 +697,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Designation&nbsp;<span style="color: red"
                             >*</span
@@ -683,8 +730,8 @@
                       </div>
                     </div>
                     <br />
-                    <div class="row col-md-12 col-sm-12">
-                      <div class="col-md-6 col-sm-6">
+                    <div class="row">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Business Unit&nbsp;<span style="color: red">*</span>
                         </label>
@@ -719,17 +766,6 @@
                               {{ item.businessUnitName }}
                             </option>
                           </select>
-                          <!-- <ng-select
-                            style="z-index: 9999 !important"
-                            [multiple]="true"
-                            [items]="bulist"
-                            bindLabel="businessUnitName"
-                            placeholder="Select Business Unit"
-                            [(ngModel)]="selectedBUForAdd"
-                            name="businessUnitId"
-                            maxSelectedItems="3"
-                          >
-                          </ng-select> -->
                           <div
                             *ngIf="f.submitted && businessUnitId.invalid"
                             class="invalid-feedback"
@@ -740,23 +776,23 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-3 col-sm-3">
+                      <div class="col-md-4">
                         <label for="Customer"
-                            >Manager Name&nbsp;<span style="color: red">*</span>
+                          >Manager Name&nbsp;<span style="color: red">*</span>
                         </label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">
+                          <span class="input-group-text" id="basic-addon1">
                             <i class="fa fa-user"></i
-                            ></span>
-                            <input
+                          ></span>
+                          <input
                             disabled
-                            value = "{{changedManagerName}}"
+                            value="{{ changedManagerName }}"
                             type="text"
                             class="form-control"
-                        />  
+                          />
                         </div>
-                        </div>
-                      <div class="col-md-3 col-sm-3">
+                      </div>
+                      <div class="col-md-4">
                         <label for="Customer">
                           Role&nbsp;<span style="color: red">*</span></label
                         >
@@ -802,23 +838,8 @@
                       </div>
                     </div>
                     <br />
-                    <div class="row col-md-12 col-sm-12">
-                      <div class="col-md-6 col-sm-6">
-                        <label for="Customer">Skill Set </label>
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1"
-                            ><i class="fa fa-list"></i
-                          ></span>
-                          <textarea
-                            name="skillSet"
-                            [(ngModel)]="userReg.skillSet"
-                            class="form-control"
-                            rows="2"
-                          >
-                          </textarea>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-6">
+                    <div class="row">
+                      <div class="col-md-4">
                         <label for="Customer"
                           >Location&nbsp;<span style="color: red"
                             >*</span
@@ -849,6 +870,86 @@
                           </div>
                         </div>
                       </div>
+                      <div class="col-md-4">
+                        <label for="Customer"
+                          >Date of birth &nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-birthday-cake"></i
+                          ></span>
+                          <input
+                            type="date"
+                            name="dateOfBirth"
+                            [(ngModel)]="userReg.dateOfBirth"
+                            class="form-control"
+                            required
+                            #dateOfBirth="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && dateOfBirth.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && dateOfBirth.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="dateOfBirth.errors.required">
+                              Date Of Birth is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="Customer"
+                          >Date of joining &nbsp;<span style="color: red"
+                            >*</span
+                          ></label
+                        >
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-calendar"></i
+                          ></span>
+                          <input
+                            type="date"
+                            name="dateOfJoining"
+                            [(ngModel)]="userReg.dateOfJoining"
+                            class="form-control"
+                            required
+                            #dateOfJoining="ngModel"
+                            [ngClass]="{
+                              'is-invalid': f.submitted && dateOfJoining.invalid
+                            }"
+                          />
+                          <div
+                            *ngIf="f.submitted && dateOfJoining.invalid"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="dateOfJoining.errors.required">
+                              Date Of Joining is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        <label for="Customer">Skill Set </label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"
+                            ><i class="fa fa-list"></i
+                          ></span>
+                          <textarea
+                            name="skillSet"
+                            [(ngModel)]="userReg.skillSet"
+                            class="form-control"
+                            rows="2"
+                          >
+                          </textarea>
+                        </div>
+                      </div>
                     </div>
                     <br />
                     <div class="row col-md-12 col-sm-12">
@@ -877,6 +978,15 @@
       </div>
       <div class="tab-pane active show" id="tab3" *ngIf="enableRegList == 1">
         <div class="row">
+          <div class="my-2">
+            <button
+              (click)="gotoToBack()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Back<span class="sr-only">Click To Back</span>
+            </button>
+          </div>
           <div class="col-md-12">
             <div class="card-box">
               <div class="card-body">
@@ -1032,16 +1142,13 @@
                           <td *ngIf="item.panelMember == 0">❌</td>
                           <td *ngIf="item.panelMember == 1">✔️</td>
                           <td>
-                            {{ item.updatedDateTime + "Z" | date: "short" }}
+                            {{ item.updatedDateTime + "Z" | date : "short" }}
                           </td>
                           <td>
                             <ul class="nav navbar-nav pull-left">
                               <li class="dropdown dropdown-user">
                                 <a
-                                  class="
-                                    dropdown-toggle
-                                    btn btn-tbl-edit btn-xs
-                                  "
+                                  class="dropdown-toggle btn btn-tbl-edit btn-xs"
                                   href="javascript:void(0);"
                                   (click)="updateUserReg(item.id)"
                                 >
@@ -1064,10 +1171,7 @@
                                   data-toggle="dropdown"
                                   data-hover="dropdown"
                                   data-close-others="true"
-                                  class="
-                                    dropdown-toggle
-                                    btn btn-tbl-delete btn-xs
-                                  "
+                                  class="dropdown-toggle btn btn-tbl-delete btn-xs"
                                   aria-expanded="false"
                                   ><i
                                     class="fa fa-trash-o"
@@ -1077,10 +1181,7 @@
                                   ></i
                                 ></a>
                                 <ul
-                                  class="
-                                    dropdown-menu dropdown-menu-default
-                                    jello
-                                  "
+                                  class="dropdown-menu dropdown-menu-default jello"
                                 >
                                   <li>
                                     <div class="card-body">

@@ -108,7 +108,9 @@ export class VendorReportComponent implements OnInit {
       this.saveAsBlob(data);
     });
   }
-
+  gotoToBack() {
+    history.back();
+  }
   getCurrentDateTime(): string {
     const pipe = new DatePipe('en-US');
     return pipe.transform(new Date(), 'yyyyMMddhhmmss');

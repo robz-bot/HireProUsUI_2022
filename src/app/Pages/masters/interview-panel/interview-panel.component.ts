@@ -63,7 +63,9 @@ export class InterviewPanelComponent implements OnInit {
     this.pageSize = event.target.value;
     this.page = 1;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   BUs: BusinessUnit[];
   /**
    * Loadbus interview panel component

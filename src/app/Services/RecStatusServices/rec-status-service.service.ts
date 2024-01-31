@@ -113,5 +113,9 @@ export class RecStatusServiceService {
       //console.log(recStatus);
       return 'Dropped';
     }
+    if (recStatus == '27') {
+      //console.log(recStatus);
+      return 'Offer Rejected';
+    }
   }
 }

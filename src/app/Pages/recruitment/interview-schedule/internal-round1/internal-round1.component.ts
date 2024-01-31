@@ -45,6 +45,7 @@ export class InternalRound1Component implements OnInit {
   ngOnInit(): void {
     //this.PanelMember = sessionStorage.getItem('PanelMember');
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
+    console.log(this.loggedInUserId);
     this.loggedInUserName = sessionStorage.getItem('currentUserName');
     console.log(this.loggedInUserName);
     this.loggedInUserRole = sessionStorage.getItem('Role');
@@ -59,8 +60,11 @@ export class InternalRound1Component implements OnInit {
     this.getInterviewScheduledList();
   }
   checkInterviewer(interviewerId: string): boolean {
+    console.log("checking interviewerId with loggedInUserId " + interviewerId);
     var result = false;
     if (interviewerId == this.loggedInUserId) {
+      
+      
       result = true;
       return result;
     }
@@ -321,7 +325,8 @@ export class InternalRound1Component implements OnInit {
       console.log(data);
       this.resumeRes = data;
       if (this.resumeRes.resume != null || this.resumeRes.resume != '') {
-        const pdfWindow = window.open('');
+        // const pdfWindow = window.open('');
+        const pdfWindow = window.open('', 'New Window', 'width=600,height=400');
 
         pdfWindow.document.write(
           '<title>View Resume</title><html><body><iframe' +
@@ -512,7 +517,8 @@ export class InternalRound1Component implements OnInit {
   getInterviewScheduledList() {
     this.loader = 1;
     //console.log(this.ShortlistedCandidates);
-    this.rserv.getInterviewScheduledList('1').subscribe((data) => {
+    console.log("Logged user id " + this.loggedInUserId);
+    this.rserv.getInterviewScheduledList1('1',this.loggedInUserId).subscribe((data) => {
       console.log(data);
       this.loader = 0;
       this.interviewList = data;
@@ -543,6 +549,9 @@ export class InternalRound1Component implements OnInit {
   }
   resetForm(f: NgForm) {
     f.resetForm();
+  }
+  gotoToBack() {
+    history.back();
   }
   noManualType(event: Event) {
     event.preventDefault();

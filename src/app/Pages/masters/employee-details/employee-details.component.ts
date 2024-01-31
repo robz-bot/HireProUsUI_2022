@@ -139,6 +139,9 @@
    showFilter() {
      this.employeeDetFilter = true;
    }
+   gotoToBack() {
+    history.back();
+  }
    allEmpIds: any;
    /**
     * Gets all employee ids

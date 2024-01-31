@@ -103,7 +103,9 @@ export class JobReqStatusReportComponent implements OnInit {
     this.resetFilter();
     this.ShowFilterDiv = false;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   resetFilter() {
     this.loadbu();
     this.searchModal.buId = undefined;

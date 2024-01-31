@@ -355,7 +355,9 @@ export class JobRequestComponent implements OnInit {
   resetForm(anyForm: NgForm) {
     anyForm.resetForm();
   }
-
+  gotoToBack() {
+    history.back();
+  }
   gotoAICandidate(item: any) {
     this._router.navigate(['hirepros/add-candidate-ai', item.referenceNumber]);
   }

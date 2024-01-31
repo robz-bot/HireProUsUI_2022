@@ -9,6 +9,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { log } from 'console';
 import { candidate } from 'src/app/Models/Candidate';
 import { vendor } from 'src/app/Models/vendor';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
@@ -173,6 +174,7 @@ export class SelectedCandidatesListComponent implements OnInit {
         .subscribe((data) => {
           this.loader = 0;
           this.selectedCandidateList = data;
+          console.log(data,'sumesh');
           this.selectedCandidatesCount = this.selectedCandidateList.length;
         });
     } else {
@@ -273,8 +275,8 @@ export class SelectedCandidatesListComponent implements OnInit {
       console.log(data);
       this.resumeRes = data;
       if (this.resumeRes.resume != null || this.resumeRes.resume != '') {
-        const pdfWindow = window.open('');
-
+        // const pdfWindow = window.open('');
+        const pdfWindow = window.open('', 'New Window', 'width=600,height=400');
         pdfWindow.document.write(
           '<title>View Resume</title><html><body><iframe' +
             " style='width: 100%;height: 100%' src='" +

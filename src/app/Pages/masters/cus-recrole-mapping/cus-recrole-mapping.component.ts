@@ -92,7 +92,9 @@ export class CusRecroleMappingComponent implements OnInit {
     console.log(item);
     this.cus.id = item.id;
   }
-
+  gotoToBack() {
+    history.back();
+  }
   cus: customer = new customer();
   /**
    * Determines whether change customer on

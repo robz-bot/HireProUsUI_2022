@@ -3,6 +3,15 @@
   <div class="tab-content tab-space">
     <div class="tab-content tab-space">
       <div class="tab-pane active show" id="tab1">
+        <div class="my-4">
+          <button
+            (click)="gotoToBack()"
+            type="button"
+            class="btn btn-primary"
+          >
+            Back<span class="sr-only">Click To Back</span>
+          </button>
+        </div> 
         <div class="row">
           <div class="col-md-12">
             <div class="card-box">
@@ -221,7 +230,12 @@
                           <span
                             class="feedLblStyle lblShorlist"
                             *ngIf="item.round == 0"
-                            >Resume Shortlisted</span
+                            >Resume</span
+                          ><br/>
+                          <span
+                            class="feedLblStyle lblShorlist"
+                            *ngIf="item.round == 0"
+                            >Shortlisted</span
                           >
                           <span
                             class="feedLblStyle lblOpen"
@@ -246,7 +260,7 @@
                         </td>
 
                         <td>
-                          {{ item.updatedByName }} |
+                          {{ item.updatedByName }} |<br/>
                           {{ item.updatedDateTime + "Z" | date: "short" }}
                         </td>
                         <td>

@@ -1,13 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PythonServiceService {
   constructor(private httpClient: HttpClient) {}
-  private baseUrl: string = 'http://127.0.0.1:5000/';
+     private baseUrl: string = environment.pythonApiUrl;
+   //old Prod url
   // private baseUrl: string = 'http://52.91.195.253:5000/';
+   //new Prod url
+  // private baseUrl: string = 'http://210.18.155.153:5000/';
+
+
 
   private resumeAnalyseUrl = this.baseUrl + 'parse_table';
 

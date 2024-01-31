@@ -179,7 +179,9 @@ export class BuComponent implements OnInit {
     this.bu.businessUnitName = ' ';
     this.bu.buShortName = '';
   }
-
+  gotoToBack() {
+    history.back();
+  }
   deleteData: any;
   /**
    * Deletebus bu component

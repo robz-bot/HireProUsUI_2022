@@ -7,6 +7,7 @@
  * @desc [description]
  */
 import { Component, OnInit } from '@angular/core';
+import { DashboardServiceService } from 'src/app/Services/DashboardServices/dashboard-service.service';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
 declare function highlightRecruitment();
 
@@ -20,10 +21,11 @@ export class RecruitmentMenusComponent implements OnInit {
   mainMenuName: string;
   isVendor: string;
   currentUserId: string;
-  constructor(private _gmenu: GlobalMenuMappingServicesService) {}
+  constructor(private _gmenu: GlobalMenuMappingServicesService, private dashboardService: DashboardServiceService) { }
 
   ngOnInit(): void {
     highlightRecruitment();
+    this.getRecMenuCounts()
     this.isVendor = sessionStorage.getItem('isVendor');
     if (this.isVendor == '0') {
       this.mainMenuName = sessionStorage.getItem('mainMenuNames');
@@ -31,8 +33,8 @@ export class RecruitmentMenusComponent implements OnInit {
 
 
     }
-      this.currentUserId = sessionStorage.getItem('currentUserId');
-    
+    this.currentUserId = sessionStorage.getItem('currentUserId');
+
   }
   ////////////////////
   mainMenuArr: Array<string> = [];
@@ -45,5 +47,16 @@ export class RecruitmentMenusComponent implements OnInit {
   subMenuAccess(subMenu: string): boolean {
     return this._gmenu.subMenuAccess2(this.subMenuName, subMenu);
   }
+
+  menuCounts:any
+  getRecMenuCounts() {
+    this.dashboardService
+      .getRecMenuCounts()
+      .subscribe((data) => {
+        console.log(data);
+        this.menuCounts=data
+      });
+  }
+
   ///////////////////////
 }

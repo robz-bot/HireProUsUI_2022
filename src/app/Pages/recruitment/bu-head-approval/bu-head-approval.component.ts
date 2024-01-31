@@ -86,10 +86,10 @@ export class BuHeadApprovalComponent implements OnInit {
       console.log(data);
       this.resumeRes = data;
       if (this.resumeRes.resume != null || this.resumeRes.resume != '') {
-        const pdfWindow = window.open('');
+        const pdfWindow = window.open('', 'New Window', 'width=600,height=400');
 
         pdfWindow.document.write(
-          '<title>View Resume</title><html><body><iframe' +
+          `<title>View Resume</title><html><body><iframe` +
             " style='width: 100%;height: 100%' src='" +
             this.resumeRes.resume +
             "'></iframe></body></html>"
@@ -98,6 +98,13 @@ export class BuHeadApprovalComponent implements OnInit {
         this.alertify.errorMsg('Resume Not Uploaded');
       }
     });
+  }
+
+  /**
+   * Goto to back
+   */
+  gotoToBack() {
+    history.back();
   }
 
   /**
