@@ -1,4 +1,5 @@
-<section id="what-we-do" *ngIf="isVendor == '0'">
+<br/>
+<section id="what-we-do" class="my-5" *ngIf="isVendor == '0'">
   <div class="container">
     <div class="container-fluid">
       <h2 class="section-title">Recruitment Process</h2>
@@ -9,7 +10,7 @@
           *ngIf="subMenuAccess('Job Request')"
         >
           <div class="card">
-            <div class="card-block block-1">
+            <div class="card-block block-1 my-3">
               <h5 class="card-title">Job Request</h5>
               <!-- <p class="card-text">Manage All Job Requests</p> -->
               <a
@@ -27,7 +28,7 @@
           *ngIf="subMenuAccess('Candidate Details')"
         >
           <div class="card">
-            <div class="card-block block-2">
+            <div class="card-block block-2 my-3">
               <h5 class="card-title">Candidate Details</h5>
               <!-- <p class="card-text">Manage All Candidate Details</p> -->
               <a
@@ -45,7 +46,7 @@
           *ngIf="subMenuAccess('Resume Shortlist')"
         >
           <div class="card">
-            <div class="card-block block-3">
+            <div class="card-block block-3 my-3">
               <h5 class="card-title">Resume Shortlist</h5>
               <!-- <p class="card-text">To Shortlist the Resume</p> -->
               <a
@@ -63,7 +64,7 @@
           *ngIf="subMenuAccess('Interview Process')"
         >
           <div class="card">
-            <div class="card-block block-4">
+            <div class="card-block block-4 my-3">
               <h5 class="card-title">Schedule Interview</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
               <a
@@ -81,7 +82,7 @@
           *ngIf="subMenuAccess('Interview Process')"
         >
           <div class="card">
-            <div class="card-block block-5">
+            <div class="card-block block-5 my-3">
               <h5 class="card-title">Interview Process</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
               <a
@@ -99,7 +100,7 @@
           *ngIf="subMenuAccess('BU Head Approval')"
         >
           <div class="card">
-            <div class="card-block block-6">
+            <div class="card-block block-6 my-1">
               <h5 class="card-title">BU Head Approval</h5>
               <p class="card-text">Yet to approve: {{menuCounts.BUCount}}</p>
               <a
@@ -117,7 +118,7 @@
           *ngIf="subMenuAccess('Onboard Details')"
         >
           <div class="card">
-            <div class="card-block block-7">
+            <div class="card-block block-7 my-3">
               <h5 class="card-title">Onboard Details</h5>
               <!-- <p class="card-text">To Onboard the Selected Candidates</p> -->
               <a
@@ -144,7 +145,7 @@
           <div class="card">
             <div class="card-block block-1">
               <h5 class="card-title">Job Request</h5>
-              <!-- <p class="card-text">Manage All Job Requests</p> -->
+              <!-- <p class="card-text"  >Manage All Job Requests</p> -->
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/vendor-job-request"
