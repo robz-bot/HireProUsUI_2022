@@ -46,7 +46,6 @@ export class CustomerRoundComponent implements OnInit {
   ngOnInit(): void {
     highlightRecruitment();
 
-    this.getInterviewScheduledList();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');
     console.log(this.loggedInUserName);
@@ -59,6 +58,7 @@ export class CustomerRoundComponent implements OnInit {
     this.getTimeZone();
     this.loadBu();
     this.loadRecruiters();
+    this.getInterviewScheduledList();
   }
   todayDate: Date;
   loadDate() {
