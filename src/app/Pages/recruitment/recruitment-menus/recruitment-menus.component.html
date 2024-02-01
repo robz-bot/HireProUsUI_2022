@@ -102,7 +102,7 @@
           <div class="card">
             <div class="card-block block-6 my-1">
               <h5 class="card-title">BU Head Approval</h5>
-              <p class="card-text">Yet to approve: {{menuCounts.BUCount}}</p>
+              <p class="card-text">Yet to approve: {{menuCounts?.BUCount == undefined? 0:menuCounts.BUCount}}</p>
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/bu-head-approval"
