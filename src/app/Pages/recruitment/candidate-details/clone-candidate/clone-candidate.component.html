@@ -51,7 +51,7 @@
                     [(ngModel)]="candidate.firstName"
                     name="firstName"
                     type="text"
-                    maxlength="14"
+
                     class="form-control"
                     required
                     #firstName="ngModel"
@@ -81,7 +81,7 @@
                     [(ngModel)]="candidate.lastName"
                     name="lastName"
                     type="text"
-                    maxlength="14"
+
                     class="form-control"
                     required
                     #lastName="ngModel"
@@ -115,7 +115,7 @@
                     name="contactNumber"
                     type="text"
                     (keypress)="onlyNumber($event)"
-                    maxlength="14"
+
                     class="form-control"
                     required
                     #contactNumber="ngModel"

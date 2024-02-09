@@ -57,7 +57,7 @@
                     [(ngModel)]="candidate.firstName"
                     name="firstName"
                     type="text"
-                    maxlength="14"
+
                     class="form-control"
                     required
                     #firstName="ngModel"
@@ -88,7 +88,7 @@
                     [(ngModel)]="candidate.lastName"
                     name="lastName"
                     type="text"
-                    maxlength="14"
+
                     class="form-control"
                     required
                     #lastName="ngModel"
@@ -122,7 +122,7 @@
                     [(ngModel)]="candidate.contactNumber"
                     name="contactNumber"
                     type="text"
-                    maxlength="14"
+
                     (keypress)="onlyNumber($event)"
                     class="form-control"
                     required
@@ -388,7 +388,7 @@
                     class="form-control"
                     (change)="onResumeChanged($event)"
                   /><br>
-                 
+
                 </div>
                 <span style="color: silver; font-size: 14px">
                   * Please upload the file with maximum size of 256 KB.
