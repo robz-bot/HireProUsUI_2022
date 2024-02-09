@@ -7,6 +7,7 @@
  * @desc [description]
  */
 import { Component, OnInit } from '@angular/core';
+import { ConsoleService } from '@ng-select/ng-select/lib/console.service';
 import { DashboardServiceService } from 'src/app/Services/DashboardServices/dashboard-service.service';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
 declare function highlightRecruitment();
@@ -53,27 +54,27 @@ export class RecruitmentMenusComponent implements OnInit {
   BUCounts: any;
   JRCounts: any;
   CandiatesCounts: any;
-  ResumeShortlistedCount: any;
-  ScheduleInterviewCount: any;
-  OnboardCandidateCount: any;
-  YettoOnboardCount: any;
+  ResumeShortlistedCounts: any;
+  ScheduleInterviewCounts: any;
+  CandidatesOnboardCounts: any;
+  InterviewProcessCandiatesCounts: any;
   getRecMenuCounts() {
     this.dashboardService.getRecMenuCounts(this.loggedInUserId).subscribe((data) => {
       console.log(data);
       this.BUCounts = data.BUCount;
       this.JRCounts = data.JobReq;
       this.CandiatesCounts = data.CandidatesCount;
-      this.ResumeShortlistedCount = data.ResumeShortlistedCount;
-      this.ScheduleInterviewCount = data.ScheduleInterviewCount;
-      this.OnboardCandidateCount = data.OnboardCandidateCount;
-      this.YettoOnboardCount = data.YettoOnboardCount;
+      this.ResumeShortlistedCounts = data.ResumeShortlistedCount;
+      this.ScheduleInterviewCounts= data.ScheduleInterviewCount;
+      this.CandidatesOnboardCounts = data.CandidatesOnboardCount;
+      this.InterviewProcessCandiatesCounts = data.InterviewProcessCandiatesCount;
       console.log(this.BUCounts)
       console.log(this.JRCounts)
       console.log(this.CandiatesCounts)
-      console.log(this.ResumeShortlistedCount)
-      console.log(this.ScheduleInterviewCount)
-      console.log(this.OnboardCandidateCount)
-      console.log(this.YettoOnboardCount)
+      console.log(this.ResumeShortlistedCounts)
+      console.log(this.ScheduleInterviewCounts)
+      console.log(this.CandidatesOnboardCounts)  
+      console.log(this.InterviewProcessCandiatesCounts) 
 
     });
   }

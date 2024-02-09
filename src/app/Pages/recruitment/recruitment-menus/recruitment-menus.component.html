@@ -1,4 +1,4 @@
-<br/>
+<br />
 <section id="what-we-do" class="my-5" *ngIf="isVendor == '0'">
   <div class="container">
     <div class="container-fluid">
@@ -9,7 +9,11 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Job Request')"
         >
-          <div class="card" (mouseenter)="showJobFooter()" (mouseleave)="hideJobFooter()">
+          <div
+            class="card"
+            (mouseenter)="showJobFooter()"
+            (mouseleave)="hideJobFooter()"
+          >
             <div class="card-block block-1 my-3">
               <h5 class="card-title">Job Request</h5>
               <!-- <p class="card-text">Manage All Job Requests</p> -->
@@ -21,27 +25,43 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <div class="card-footer bg-light" *ngIf="isJobFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isJobFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
                   <td>Opened</td>
-                  <td><span class="badge bg-primary">{{JRCounts.open}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.open }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Inprogress</td>
-                  <td><span class="badge bg-primary">{{JRCounts.inprogress}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      JRCounts.inprogress
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Holded</td>
-                  <td><span class="badge bg-primary">{{JRCounts.hold}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.hold }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Terminated</td>
-                  <td><span class="badge bg-primary">{{JRCounts.terminated}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      JRCounts.terminated
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Closed</td>
-                  <td><span class="badge bg-primary">{{JRCounts.closed}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.closed }}</span>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -51,7 +71,11 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Candidate Details')"
         >
-          <div class="card" (mouseenter)="showCandidateFooter()" (mouseleave)="hideCandidateFooter()">
+          <div
+            class="card"
+            (mouseenter)="showCandidateFooter()"
+            (mouseleave)="hideCandidateFooter()"
+          >
             <div class="card-block block-2 my-3">
               <h5 class="card-title">Candidate Details</h5>
               <!-- <p class="card-text">Manage All Candidate Details</p> -->
@@ -63,49 +87,87 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <div class="card-footer bg-light" *ngIf="isCandidateFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isCandidateFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
                   <td>Uploaded</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.uploaded}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.uploaded
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Shorlisted</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.shortlisted}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.shortlisted
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Holded</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.hold}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.hold
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Rejected</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.rejected}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.rejected
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Dropped</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.selected}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.dropped
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Selected</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.onboarded}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.selected
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Offer Rejected</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.dropped}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.offerRejected
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Onboarded</td>
-                  <td><span class="badge bg-primary">{{CandiatesCounts.offerRejected}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.onboarded
+                    }}</span>
+                  </td>
                 </tr>
               </table>
             </div>
-        </div>
+          </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Resume Shortlist')"
         >
-          <div class="card" (mouseenter)="showResumeFooter()" (mouseleave)="hideResumeFooter()">
+          <div
+            class="card"
+            (mouseenter)="showResumeFooter()"
+            (mouseleave)="hideResumeFooter()"
+          >
             <div class="card-block block-3 my-3">
               <h5 class="card-title">Resume Shortlist</h5>
               <!-- <p class="card-text">To Shortlist the Resume</p> -->
@@ -117,11 +179,17 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <div class="card-footer bg-light" *ngIf="isResumeFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isResumeFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
                   <td>Yet to shortlist</td>
-                  <td><span class="badge bg-primary">{{ResumeShortlistedCount}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ResumeShortlistedCounts
+                    }}</span>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -131,7 +199,11 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Interview Process')"
         >
-          <div class="card" (mouseenter)="showScheduleFooter()" (mouseleave)="hideScheduleFooter()">
+          <div
+            class="card"
+            (mouseenter)="showScheduleFooter()"
+            (mouseleave)="hideScheduleFooter()"
+          >
             <div class="card-block block-4 my-3">
               <h5 class="card-title">Schedule Interview</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
@@ -143,23 +215,41 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <div class="card-footer bg-light" *ngIf="isScheduleFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isScheduleFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
-                  <td>To Schedule IR 1</td>
-                  <td><span class="badge bg-primary">{{ScheduleInterviewCount.IR1}}</span></td>
+                  <td>Yet To Schedule TR 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR1
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td>To Schedule IR 2</td>
-                  <td><span class="badge bg-primary">{{ScheduleInterviewCount.IR2}}</span></td>
+                  <td>Yet To Schedule TR 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR2
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td>To Schedule Customer Round</td>
-                  <td><span class="badge bg-primary">{{ScheduleInterviewCount.CustomerRound}}</span></td>
+                  <td>Yet To Schedule Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.CustomerRound
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td>To Schedule HR Round</td>
-                  <td><span class="badge bg-primary">{{ScheduleInterviewCount.HR}}</span></td>
+                  <td>Yet To Schedule HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.HR
+                    }}</span>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -169,7 +259,11 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Interview Process')"
         >
-          <div class="card" (mouseenter)="showInterviewFooter()" (mouseleave)="hideInterviewFooter()">
+          <div
+            class="card"
+            (mouseenter)="showInterviewFooter()"
+            (mouseleave)="hideInterviewFooter()"
+          >
             <div class="card-block block-5 my-3">
               <h5 class="card-title">Interview Process</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
@@ -181,59 +275,138 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <!-- <div class="card-footer bg-light" *ngIf="isInterviewFooterVisible" >
-              <p>Internal Round 1</p>
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isInterviewFooterVisible">
+              <!-- <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
-                  <td>To Schedule</td>
-                  <td><span class="badge bg-primary">2</span></td>
+                  <td>Scheduled TR 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR1
+                    }}</span>
+                  </td>
                 </tr>
+
                 <tr>
-                  <td>Scheduled</td>
-                  <td><span class="badge bg-primary">2</span></td>
+                  <td>Scheduled TR 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR2
+                    }}</span>
+                  </td>
                 </tr>
+
+                <tr>
+                  <td>Scheduled CR</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListCR3
+                    }}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Scheduled HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListHR4
+                    }}</span>
+                  </td>
+                </tr>
+              </table> -->
+
+                <table class="table table-sm table-borderless table-responsive-sm">
+                  <p>Technical Round 1</p>
+                  <tr>
+                    <td>Yet to Schedule TR 1</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        ScheduleInterviewCounts.IR1
+                      }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Scheduled TR 1</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        InterviewProcessCandiatesCounts.interviewProcessListIR1
+                      }}</span>
+                    </td>
+                  </tr>
                 </table>
-                <p>Internal Round 2</p>
-              <table class="table table-sm table-borderless table-responsive-sm">
-                <tr>
-                  <td>To Schedule</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-                <tr>
-                  <td>Scheduled</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-              </table>
-              <p>Customer Round</p>
-              <table class="table table-sm table-borderless table-responsive-sm">
-                <tr>
-                  <td>To Schedule</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-                <tr>
-                  <td>Scheduled</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-              </table>
-              <p>HR Round</p>
-              <table class="table table-sm table-borderless table-responsive-sm">
-                <tr>
-                  <td>To Schedule</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-                <tr>
-                  <td>Scheduled</td>
-                  <td><span class="badge bg-primary">2</span></td>
-                </tr>
-              </table>
-            </div> -->
+
+                <table class="table table-sm table-borderless table-responsive-sm">
+                  <p>Technical Round 2</p>
+                  <tr>
+                    <td>Yet to Schedule TR 2</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        ScheduleInterviewCounts.IR2
+                      }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Scheduled TR 2</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        InterviewProcessCandiatesCounts.interviewProcessListIR2
+                      }}</span>
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="table table-sm table-borderless table-responsive-sm">
+                  <p>Customer Round</p>
+                  <tr>
+                    <td>Yet to Schedule CR</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        ScheduleInterviewCounts.CustomerRound
+                      }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Scheduled CR</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        InterviewProcessCandiatesCounts.interviewProcessListCR3
+                      }}</span>
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="table table-sm table-borderless table-responsive-sm">
+                  <p>HR Round</p>
+                  <tr>
+                    <td>Yet to Schedule HR</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        ScheduleInterviewCounts.HR
+                      }}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Scheduled HR Round</td>
+                    <td>
+                      <span class="badge bg-primary">{{
+                        InterviewProcessCandiatesCounts.interviewProcessListHR4
+                      }}</span>
+                    </td>
+                  </tr>
+                </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('BU Head Approval')"
         >
-          <div class="card" (mouseenter)="showBuFooter()" (mouseleave)="hideBuFooter()">
+          <div
+            class="card"
+            (mouseenter)="showBuFooter()"
+            (mouseleave)="hideBuFooter()"
+          >
             <div class="card-block block-6 my-3">
               <h5 class="card-title">BU Head Approval</h5>
               <!-- <p class="card-text">Yet to approve: {{menuCounts?.BUCount == undefined? 0:menuCounts.BUCount}}</p> -->
@@ -245,11 +418,15 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <div class="card-footer bg-light" *ngIf="isBuFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isBuFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
                   <td>Yet to approve:</td>
-                  <td><span class="badge bg-primary">{{BUCounts}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{ BUCounts }}</span>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -259,7 +436,11 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Onboard Details')"
         >
-          <div class="card" (mouseenter)="showOnboardFooter()" (mouseleave)="hideOnboardFooter()">
+          <div
+            class="card"
+            (mouseenter)="showOnboardFooter()"
+            (mouseleave)="hideOnboardFooter()"
+          >
             <div class="card-block block-7 my-3">
               <h5 class="card-title">Onboard Details</h5>
               <!-- <p class="card-text">To Onboard the Selected Candidates</p> -->
@@ -271,18 +452,28 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
-            <!-- <div class="card-footer bg-light" *ngIf="isOnboardFooterVisible" >
-              <table class="table table-sm table-borderless table-responsive-sm">
+            <div class="card-footer bg-light" *ngIf="isOnboardFooterVisible">
+              <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
                 <tr>
                   <td>Yet to Onboard</td>
-                  <td><span class="badge bg-primary">{{OnboardCandidateCount}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandidatesOnboardCounts.AlreadyOnboardedCount
+                    }}</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>Already Onboarded</td>
-                  <td><span class="badge bg-primary">{{YettoOnboardCount}}</span></td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandidatesOnboardCounts.YettoOnboardCount
+                    }}</span>
+                  </td>
                 </tr>
               </table>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
