@@ -986,4 +986,15 @@ export class RecruitmentServiceService {
       }
     );
   }
+
+
+  private resumingHoldingCandidateUrl = this.baseUrl + 'resumingHoldingCandidate';
+  resumingHoldingCandidate(candidateDto: any): Observable<Object> {
+    return this.httpClient.post(`${this.resumingHoldingCandidateUrl}`, candidateDto, {
+      headers: {
+        'pro-api-key': 'h1r5pr0',
+      },
+    });
+  }
+
 }
