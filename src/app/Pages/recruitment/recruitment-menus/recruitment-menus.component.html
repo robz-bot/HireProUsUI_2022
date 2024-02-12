@@ -27,6 +27,7 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isJobFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
@@ -89,6 +90,7 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isCandidateFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
@@ -170,7 +172,7 @@
           >
             <div class="card-block block-3 my-3">
               <h5 class="card-title">Resume Shortlist</h5>
-              <!-- <p class="card-text">To Shortlist the Resume</p> -->
+              <!-- <p class="card-text">to shortlist the Resume</p> -->
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/resume-shortlist"
@@ -181,6 +183,7 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isResumeFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
@@ -217,10 +220,11 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isScheduleFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
-                  <td>Yet To Schedule TR 1</td>
+                  <td>Yet to schedule Techinal Round 1</td>
                   <td>
                     <span class="badge bg-primary">{{
                       ScheduleInterviewCounts.IR1
@@ -228,7 +232,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Yet To Schedule TR 2</td>
+                  <td>Yet to schedule Technical Round 2</td>
                   <td>
                     <span class="badge bg-primary">{{
                       ScheduleInterviewCounts.IR2
@@ -236,7 +240,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Yet To Schedule Customer Round</td>
+                  <td>Yet to schedule Customer Round</td>
                   <td>
                     <span class="badge bg-primary">{{
                       ScheduleInterviewCounts.CustomerRound
@@ -244,7 +248,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Yet To Schedule HR Round</td>
+                  <td>Yet to schedule HR Round</td>
                   <td>
                     <span class="badge bg-primary">{{
                       ScheduleInterviewCounts.HR
@@ -280,7 +284,7 @@
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
-                  <td>Scheduled TR 1</td>
+                  <td>Scheduled Technical Round 1</td>
                   <td>
                     <span class="badge bg-primary">{{
                       InterviewProcessCandiatesCounts.interviewProcessListIR1
@@ -289,7 +293,7 @@
                 </tr>
 
                 <tr>
-                  <td>Scheduled TR 2</td>
+                  <td>Scheduled Technical Round 2</td>
                   <td>
                     <span class="badge bg-primary">{{
                       InterviewProcessCandiatesCounts.interviewProcessListIR2
@@ -298,7 +302,7 @@
                 </tr>
 
                 <tr>
-                  <td>Scheduled CR</td>
+                  <td>Scheduled Customer Round</td>
                   <td>
                     <span class="badge bg-primary">{{
                       InterviewProcessCandiatesCounts.interviewProcessListCR3
@@ -316,85 +320,97 @@
                 </tr>
               </table> -->
 
-                <table class="table table-sm table-borderless table-responsive-sm">
-                  <p>Technical Round 1</p>
-                  <tr>
-                    <td>Yet to Schedule TR 1</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        ScheduleInterviewCounts.IR1
-                      }}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Scheduled TR 1</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        InterviewProcessCandiatesCounts.interviewProcessListIR1
-                      }}</span>
-                    </td>
-                  </tr>
-                </table>
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Technical Round 1</p>
+                <tr>
+                  <td>Yet to schedule Technical Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR1
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Technical Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR1
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
 
-                <table class="table table-sm table-borderless table-responsive-sm">
-                  <p>Technical Round 2</p>
-                  <tr>
-                    <td>Yet to Schedule TR 2</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        ScheduleInterviewCounts.IR2
-                      }}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Scheduled TR 2</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        InterviewProcessCandiatesCounts.interviewProcessListIR2
-                      }}</span>
-                    </td>
-                  </tr>
-                </table>
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Technical Round 2</p>
+                <tr>
+                  <td>Yet to schedule Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR2
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR2
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
 
-                <table class="table table-sm table-borderless table-responsive-sm">
-                  <p>Customer Round</p>
-                  <tr>
-                    <td>Yet to Schedule CR</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        ScheduleInterviewCounts.CustomerRound
-                      }}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Scheduled CR</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        InterviewProcessCandiatesCounts.interviewProcessListCR3
-                      }}</span>
-                    </td>
-                  </tr>
-                </table>
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Customer Round</p>
+                <tr>
+                  <td>Yet to schedule Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.CustomerRound
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListCR3
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
 
-                <table class="table table-sm table-borderless table-responsive-sm">
-                  <p>HR Round</p>
-                  <tr>
-                    <td>Yet to Schedule HR</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        ScheduleInterviewCounts.HR
-                      }}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Scheduled HR Round</td>
-                    <td>
-                      <span class="badge bg-primary">{{
-                        InterviewProcessCandiatesCounts.interviewProcessListHR4
-                      }}</span>
-                    </td>
-                  </tr>
-                </table>
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>HR Round</p>
+                <tr>
+                  <td>Yet to schedule HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.HR
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListHR4
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
@@ -420,6 +436,7 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isBuFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>
@@ -454,6 +471,7 @@
             </div>
             <div class="card-footer bg-light" *ngIf="isOnboardFooterVisible">
               <table
+                style="font-size: 12px"
                 class="table table-sm table-borderless table-responsive-sm"
               >
                 <tr>

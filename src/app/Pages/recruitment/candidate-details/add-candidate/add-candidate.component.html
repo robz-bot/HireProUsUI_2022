@@ -57,7 +57,6 @@
                     [(ngModel)]="candidate.firstName"
                     name="firstName"
                     type="text"
-
                     class="form-control"
                     required
                     #firstName="ngModel"
@@ -88,7 +87,6 @@
                     [(ngModel)]="candidate.lastName"
                     name="lastName"
                     type="text"
-
                     class="form-control"
                     required
                     #lastName="ngModel"
@@ -122,7 +120,6 @@
                     [(ngModel)]="candidate.contactNumber"
                     name="contactNumber"
                     type="text"
-
                     (keypress)="onlyNumber($event)"
                     class="form-control"
                     required
@@ -387,8 +384,7 @@
                     type="file"
                     class="form-control"
                     (change)="onResumeChanged($event)"
-                  /><br>
-
+                  /><br />
                 </div>
                 <span style="color: silver; font-size: 14px">
                   * Please upload the file with maximum size of 256 KB.
@@ -468,13 +464,21 @@
                 * Please upload the image with maximum size of 256 KB.
               </span>
               <br />
+              <div class="d-flex justify-content-center">
+                <input
+                  (click)="confirm()"
+                  type="submit"
+                  class="btn btn-circle btn-primary me-2"
+                  value="confirm"
+                />
 
-              <!-- <input
-                (click)="cancel()"
-                type="submit"
-                class="btn btn-circle btn-secondary"
-                value="cancel"
-              /> -->
+                <input
+                  (click)="cancel()"
+                  type="submit"
+                  class="btn btn-circle btn-primary"
+                  value="cancel"
+                />
+              </div>
             </form>
           </div>
         </div>
