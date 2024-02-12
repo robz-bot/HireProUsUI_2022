@@ -6,9 +6,10 @@
  * @modify date 2021-10-09
  * @desc [description]
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as EventEmitter from 'events';
 import { candidate } from 'src/app/Models/Candidate';
 import { vendor } from 'src/app/Models/vendor';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
@@ -332,5 +333,23 @@ export class HoldedCandidatesListComponent implements OnInit {
   cloneCandidate(candidateId: string) {
     console.log(candidateId);
     this._router.navigate(['hirepros/clone-candidate', candidateId]);
+  }
+  
+  resumingHoldingCandidate(item: any) {
+    this.rserv.resumingHoldingCandidate(item).subscribe((res: any) => {
+      console.log(res);
+      if (res.status == 0) {
+        this.alertify.successMsg(
+          'Candidate -' +
+            item.firstName +
+            ' ' +
+            item.lastName +
+            ' resumed successfully'
+        );
+        this.getHoldedCandidates();
+      }else{
+        this.alertify.errorMsg("Something went wrong.")
+      }
+    });
   }
 }

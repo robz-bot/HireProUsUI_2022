@@ -109,6 +109,25 @@ export class AddCandidateComponent implements OnInit {
       return;
     }
     this.imageType = this.selectedImgFile.name.split('.')[1];
+    // const formData = new FormData();
+    // formData.append(
+    //   'image',
+    //   this.selectedImgFile,
+    //   PrefixConstant.resumePrefix + this.savedCandidateId
+    // );
+    // this.iserv
+    //   .newImage(
+    //     formData,
+    //     PrefixConstant.imagePrefix + this.savedCandidateId,
+    //     this.imageType
+    //   )
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //   });
+    // this.cancel();
+  }
+
+  confirm() {
     const formData = new FormData();
     formData.append(
       'image',
@@ -124,8 +143,20 @@ export class AddCandidateComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
       });
-    this.cancel();
+    closeModal();
+    console.log(this.multipleCandidate);
+    if (this.multipleCandidate) {
+      // window.location.reload();
+      this.multipleCandidate = true;
+    } else {
+      if (confirm('Do you want to add one more Candidate?') == true) {
+        this.multipleCandidate = true;
+      } else {
+        this._router.navigateByUrl('hirepros/candidate-details');
+      }
+    }
   }
+
   /**
    * Validates email
    * @param email

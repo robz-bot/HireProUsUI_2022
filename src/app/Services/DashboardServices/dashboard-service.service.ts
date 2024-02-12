@@ -32,9 +32,9 @@ export class DashboardServiceService {
   private getRecMenuCountsUrl =
     this.baseUrl + 'getRecMenuCounts';
 
-  getRecMenuCounts(): Observable<any> {
+  getRecMenuCounts(userId:any): Observable<any> {
     return this.httpClient.get<any>(
-      `${this.getRecMenuCountsUrl}`,
+      `${this.getRecMenuCountsUrl}/${userId}`,
       {
         headers: {
           'pro-api-key': 'h1r5pr0',

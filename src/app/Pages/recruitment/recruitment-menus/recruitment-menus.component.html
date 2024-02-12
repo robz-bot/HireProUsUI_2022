@@ -1,4 +1,5 @@
-<section id="what-we-do" *ngIf="isVendor == '0'">
+<br />
+<section id="what-we-do" class="my-5" *ngIf="isVendor == '0'">
   <div class="container">
     <div class="container-fluid">
       <h2 class="section-title">Recruitment Process</h2>
@@ -8,8 +9,12 @@
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Job Request')"
         >
-          <div class="card">
-            <div class="card-block block-1">
+          <div
+            class="card"
+            (mouseenter)="showJobFooter()"
+            (mouseleave)="hideJobFooter()"
+          >
+            <div class="card-block block-1 my-3">
               <h5 class="card-title">Job Request</h5>
               <!-- <p class="card-text">Manage All Job Requests</p> -->
               <a
@@ -20,14 +25,59 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isJobFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Opened</td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.open }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Inprogress</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      JRCounts.inprogress
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Holded</td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.hold }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Terminated</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      JRCounts.terminated
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Closed</td>
+                  <td>
+                    <span class="badge bg-primary">{{ JRCounts.closed }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Candidate Details')"
         >
-          <div class="card">
-            <div class="card-block block-2">
+          <div
+            class="card"
+            (mouseenter)="showCandidateFooter()"
+            (mouseleave)="hideCandidateFooter()"
+          >
+            <div class="card-block block-2 my-3">
               <h5 class="card-title">Candidate Details</h5>
               <!-- <p class="card-text">Manage All Candidate Details</p> -->
               <a
@@ -38,16 +88,91 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isCandidateFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Uploaded</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.uploaded
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shorlisted</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.shortlisted
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Holded</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.hold
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Rejected</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.rejected
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Dropped</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.dropped
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Selected</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.selected
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Offer Rejected</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.offerRejected
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Onboarded</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandiatesCounts.onboarded
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Resume Shortlist')"
         >
-          <div class="card">
-            <div class="card-block block-3">
+          <div
+            class="card"
+            (mouseenter)="showResumeFooter()"
+            (mouseleave)="hideResumeFooter()"
+          >
+            <div class="card-block block-3 my-3">
               <h5 class="card-title">Resume Shortlist</h5>
-              <!-- <p class="card-text">To Shortlist the Resume</p> -->
+              <!-- <p class="card-text">to shortlist the Resume</p> -->
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/resume-shortlist"
@@ -56,14 +181,33 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isResumeFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Yet to shortlist</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ResumeShortlistedCounts
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Interview Process')"
         >
-          <div class="card">
-            <div class="card-block block-4">
+          <div
+            class="card"
+            (mouseenter)="showScheduleFooter()"
+            (mouseleave)="hideScheduleFooter()"
+          >
+            <div class="card-block block-4 my-3">
               <h5 class="card-title">Schedule Interview</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
               <a
@@ -74,14 +218,57 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isScheduleFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Yet to schedule Techinal Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR1
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Yet to schedule Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR2
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Yet to schedule Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.CustomerRound
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Yet to schedule HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.HR
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Interview Process')"
         >
-          <div class="card">
-            <div class="card-block block-5">
+          <div
+            class="card"
+            (mouseenter)="showInterviewFooter()"
+            (mouseleave)="hideInterviewFooter()"
+          >
+            <div class="card-block block-5 my-3">
               <h5 class="card-title">Interview Process</h5>
               <!-- <p class="card-text">Manage Interview Scheduling and Result</p> -->
               <a
@@ -92,16 +279,153 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isInterviewFooterVisible">
+              <!-- <table
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Scheduled Technical Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR1
+                    }}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Scheduled Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR2
+                    }}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Scheduled Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListCR3
+                    }}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Scheduled HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListHR4
+                    }}</span>
+                  </td>
+                </tr>
+              </table> -->
+
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Technical Round 1</p>
+                <tr>
+                  <td>Yet to schedule Technical Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR1
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Technical Round 1</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR1
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Technical Round 2</p>
+                <tr>
+                  <td>Yet to schedule Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.IR2
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Technical Round 2</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListIR2
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>Customer Round</p>
+                <tr>
+                  <td>Yet to schedule Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.CustomerRound
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled Customer Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListCR3
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <p>HR Round</p>
+                <tr>
+                  <td>Yet to schedule HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      ScheduleInterviewCounts.HR
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Scheduled HR Round</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      InterviewProcessCandiatesCounts.interviewProcessListHR4
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('BU Head Approval')"
         >
-          <div class="card">
-            <div class="card-block block-6">
+          <div
+            class="card"
+            (mouseenter)="showBuFooter()"
+            (mouseleave)="hideBuFooter()"
+          >
+            <div class="card-block block-6 my-3">
               <h5 class="card-title">BU Head Approval</h5>
-              <p class="card-text">Yet to approve: {{menuCounts.BUCount}}</p>
+              <!-- <p class="card-text">Yet to approve: {{menuCounts?.BUCount == undefined? 0:menuCounts.BUCount}}</p> -->
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/bu-head-approval"
@@ -110,14 +434,31 @@
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
             </div>
+            <div class="card-footer bg-light" *ngIf="isBuFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Yet to approve:</td>
+                  <td>
+                    <span class="badge bg-primary">{{ BUCounts }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div
           class="col-sm-3 col-lg-3 col-md-3"
           *ngIf="subMenuAccess('Onboard Details')"
         >
-          <div class="card">
-            <div class="card-block block-7">
+          <div
+            class="card"
+            (mouseenter)="showOnboardFooter()"
+            (mouseleave)="hideOnboardFooter()"
+          >
+            <div class="card-block block-7 my-3">
               <h5 class="card-title">Onboard Details</h5>
               <!-- <p class="card-text">To Onboard the Selected Candidates</p> -->
               <a
@@ -127,6 +468,29 @@
                 class="read-more"
                 >More Details<i class="fa fa-angle-double-right ml-2"></i
               ></a>
+            </div>
+            <div class="card-footer bg-light" *ngIf="isOnboardFooterVisible">
+              <table
+                style="font-size: 12px"
+                class="table table-sm table-borderless table-responsive-sm"
+              >
+                <tr>
+                  <td>Yet to Onboard</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandidatesOnboardCounts.AlreadyOnboardedCount
+                    }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Already Onboarded</td>
+                  <td>
+                    <span class="badge bg-primary">{{
+                      CandidatesOnboardCounts.YettoOnboardCount
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
@@ -144,7 +508,7 @@
           <div class="card">
             <div class="card-block block-1">
               <h5 class="card-title">Job Request</h5>
-              <!-- <p class="card-text">Manage All Job Requests</p> -->
+              <!-- <p class="card-text"  >Manage All Job Requests</p> -->
               <a
                 href="javascript:void(0)"
                 routerLink="/hirepros/vendor-job-request"
