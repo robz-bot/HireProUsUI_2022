@@ -288,8 +288,12 @@ export class AddCandidateComponent implements OnInit {
       // window.location.reload();
       this.multipleCandidate = true;
     } else {
-      this._router.navigateByUrl('hirepros/candidate-details');
-    }
+      if (confirm('Do you want to add one more Candidate?') == true) {
+        this.multipleCandidate = true;
+      } else {
+        this._router.navigateByUrl('hirepros/candidate-details');
+      }
+    } 
   }
 
   // Textbox validating Functions
