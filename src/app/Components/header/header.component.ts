@@ -26,7 +26,9 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private lserv: LoginServicesService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.activeLink = this.activatedRoute.snapshot.firstChild.routeConfig.path;
+  }
   cUser: string;
   cVendor: string;
   loggedInUserRole: string;
@@ -35,6 +37,7 @@ export class HeaderComponent implements OnInit {
   currentUserId: string;
   isVendor: string;
   disablePass: boolean = false;
+  activeLink: string;
   ngOnInit(): void {
     highlightDashboard();
     this.isVendor = sessionStorage.getItem('isVendor');
@@ -47,6 +50,15 @@ export class HeaderComponent implements OnInit {
     this.loggedInUserRole = sessionStorage.getItem('Role');
 
     this.cVendor = sessionStorage.getItem('currentVendor');
+    const storedActiveLink = localStorage.getItem('activeLink');
+    if (storedActiveLink) {
+      this.activeLink = storedActiveLink;
+    }
+  }
+
+  setActiveLink(link: string) {
+    this.activeLink = link;
+    localStorage.setItem('activeLink', link); // Save active link in local storage
   }
 
   mainMenuArr: Array<string> = [];

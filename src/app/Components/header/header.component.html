@@ -15,14 +15,17 @@
           <li class="nav-item" *ngIf="mainMenuAccess('Dashboard')">
             <a
               id="dashboard"
-              class="nav-link active"
+              class="nav-link"
               routerLink="/hirepros/dashboard"
+              (click)="setActiveLink('dashboard')"
+              [routerLinkActive]="['active']"
             >
               <i class="fa fa-th" aria-hidden="true"></i>&nbsp;Dashboard</a
             >
           </li>
           <li class="nav-item" *ngIf="mainMenuAccess('Configurations')">
-            <a id="masters" routerLink="/hirepros/master-menus" class="nav-link"
+            <a id="masters" routerLink="/hirepros/master-menus" class="nav-link" 
+              (click)="setActiveLink('Configurations')" [routerLinkActive]="['active']"
               ><i class="fas fa-cog" aria-hidden="true"></i
               >&nbsp;Configurations</a
             >
@@ -33,6 +36,8 @@
               href="javascript:void(0)"
               routerLink="/hirepros/services-menu"
               class="nav-link"
+              (click)="setActiveLink('services')"
+              [routerLinkActive]="['active']"
             >
               <i class="fa fa-handshake-o" aria-hidden="true"></i
               >&nbsp;Services</a
@@ -43,11 +48,17 @@
               id="recruitment"
               class="nav-link"
               routerLink="/hirepros/recruitment-menus"
+              (click)="setActiveLink('Recruitment')"
+              [routerLinkActive]="['active']"
               ><i class="fa fa-users-cog"></i>&nbsp;Recruitment</a
             >
           </li>
           <li class="nav-item dropdown" *ngIf="mainMenuAccess('Reports')">
-            <a id="reports" class="nav-link" (click)="gotoSelectReport()"
+            <a id="reports" class="nav-link"
+              routerLink="/hirepros/select-report"  
+            (click)="setActiveLink('Reports')"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact: true}"
               ><i class="fa fa-line-chart"></i>&nbsp;Reports</a
             >
           </li>
