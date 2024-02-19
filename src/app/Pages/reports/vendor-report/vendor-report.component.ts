@@ -9,6 +9,7 @@ import { employeeDetails } from 'src/app/Models/EmployeeDetails';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 import { vendor } from 'src/app/Models/vendor';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
+declare function highlightReports(): any;
 @Component({
   selector: 'app-vendor-report',
   templateUrl: './vendor-report.component.html',
@@ -24,6 +25,7 @@ export class VendorReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    highlightReports();
     this.getAllVendors();
     this.getAllVendorsIds();
     this.loadDate();

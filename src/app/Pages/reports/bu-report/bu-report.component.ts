@@ -5,6 +5,7 @@ import { MasterserviceService } from 'src/app/Services/MasterServices/masterserv
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
 import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
+declare function highlightReports(): any;
 @Component({
   selector: 'app-bu-report',
   templateUrl: './bu-report.component.html',
@@ -18,6 +19,7 @@ export class BuReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    highlightReports();
     this.loadbu();
     this.loadDate();
   }

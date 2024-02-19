@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.servi
 import { MasterserviceService } from 'src/app/Services/MasterServices/masterservice.service';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
 import * as FileSaver from 'file-saver';
+declare function highlightReports(): any;
 
 @Component({
   selector: 'app-customer-report',
@@ -41,6 +42,7 @@ export class CustomerReportComponent implements OnInit {
     this.page = 1;
   }
   ngOnInit(): void {
+    highlightReports();
     this.loadCustomer();
     this.loadDate();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');

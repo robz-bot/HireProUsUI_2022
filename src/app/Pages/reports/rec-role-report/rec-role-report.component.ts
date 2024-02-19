@@ -5,6 +5,7 @@ import { MasterserviceService } from 'src/app/Services/MasterServices/masterserv
 import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
+declare function highlightReports(): any;
 
 @Component({
   selector: 'app-rec-role-report',
@@ -39,6 +40,7 @@ export class RecRoleReportComponent implements OnInit {
     this.page = 1;
   }
   ngOnInit(): void {
+    highlightReports();
     this.loadrecroles();
     this.loadDate();
   }

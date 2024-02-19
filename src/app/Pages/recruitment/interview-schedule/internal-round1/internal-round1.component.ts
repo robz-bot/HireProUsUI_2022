@@ -22,6 +22,7 @@ import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.servi
 import { searchInterviewSchedule } from 'src/app/Models/searchInterviewSchedule';
 declare function closeModal(): any;
 declare function closeFilter(): any;
+declare function highlightRecruitment(): any;
 @Component({
   selector: 'app-internal-round1',
   templateUrl: './internal-round1.component.html',
@@ -43,6 +44,7 @@ export class InternalRound1Component implements OnInit {
   //PanelMember: string;
   loggedInUserId: any;
   ngOnInit(): void {
+    highlightRecruitment();
     //this.PanelMember = sessionStorage.getItem('PanelMember');
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     console.log(this.loggedInUserId);

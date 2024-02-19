@@ -22,6 +22,7 @@ import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/
 import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-reg-services.service';
 declare function closeModal(): any;
 declare function closeFilter(): any;
+declare function highlightRecruitment(): any;
 @Component({
   selector: 'app-schedule-interview',
   templateUrl: './schedule-interview.component.html',
@@ -40,9 +41,10 @@ export class ScheduleInterviewComponent implements OnInit {
     private _gmenu: GlobalMenuMappingServicesService,
     private mserv: MasterserviceService,
     private userv: UserRegServicesService
-  ) {}
+   ) {}
 
   ngOnInit(): void {
+    highlightRecruitment();
     this.loggedInUserRole = sessionStorage.getItem('Role');
     this.subMenuName = sessionStorage.getItem('subMenuNames');
     this.loggedInUserId = sessionStorage.getItem('currentUserId');

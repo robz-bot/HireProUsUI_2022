@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
 import { BusinessUnit } from 'src/app/Models/BusinessUnit';
+declare function highlightReports(): any;
 
 @Component({
   selector: 'app-email-config-report',
@@ -26,6 +27,7 @@ export class EmailConfigReportComponent implements OnInit {
   datares: any;
   ngOnInit(): void {
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
+    highlightReports();
     this.loademailConfig();
     this.loadPurpose();
     this.loadBu();

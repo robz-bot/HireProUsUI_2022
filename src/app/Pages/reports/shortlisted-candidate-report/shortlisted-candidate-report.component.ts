@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { vendor } from 'src/app/Models/vendor';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
+declare function highlightReports(): any;
 @Component({
   selector: 'app-shortlisted-candidate-report',
   templateUrl: './shortlisted-candidate-report.component.html',
@@ -24,6 +25,7 @@ export class ShortlistedCandidateReportComponent implements OnInit {
   isVendor: string;
   ngOnInit(): void {
     //document.getElementById('reports').classList.add('active');
+    highlightReports();
     this.loadActiveVendors();
     this.getSelectedCandidates();
     this.isVendor = sessionStorage.getItem('isVendor');
