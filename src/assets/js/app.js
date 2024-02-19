@@ -4,35 +4,35 @@ function highlightDashboard() {
   $("#dashboard").addClass("active");
   $("#masters").removeClass("active");
   $("#services").removeClass("active");
-  $("#recruitment").removeClass("active");
+  $("#projectmanagement").removeClass("active");
   $("#reports").removeClass("active");
 }
 function highlightMasters() {
   $("#dashboard").removeClass("active");
   $("#masters").addClass("active");
   $("#services").removeClass("active");
-  $("#recruitment").removeClass("active");
-  $("#reports").removeClass("active");
-}
-function highlightRecruitment() {
-  $("#dashboard").removeClass("active");
-  $("#masters").removeClass("active");
-  $("#services").removeClass("active");
-  $("#recruitment").addClass("active");
+  $("#projectmanagement").removeClass("active");
   $("#reports").removeClass("active");
 }
 function highlightService() {
   $("#dashboard").removeClass("active");
   $("#masters").removeClass("active");
   $("#services").addClass("active");
-  $("#recruitment").removeClass("active");
+  $("#projectmanagement").removeClass("active");
+  $("#reports").removeClass("active");
+}
+function highlightProjectManagement() {
+  $("#dashboard").removeClass("active");
+  $("#masters").removeClass("active");
+  $("#services").removeClass("active");
+  $("#projectmanagement").addClass("active");
   $("#reports").removeClass("active");
 }
 function highlightReports() {
   $("#dashboard").removeClass("active");
   $("#masters").removeClass("active");
   $("#services").removeClass("active");
-  $("#recruitment").removeClass("active");
+  $("#projectmanagement").removeClass("active");
   $("#reports").addClass("active");
 }
 

@@ -15,7 +15,7 @@ import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/
 import { RecStatusServiceService } from 'src/app/Services/RecStatusServices/rec-status-service.service';
 import { jobReq } from 'src/app/Models/JobRequest';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-resume-shortlist',
@@ -35,7 +35,7 @@ export class ResumeShortlistComponent implements OnInit {
   ) {}
   loggedInUserId: string;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.vendorUniqueId = sessionStorage.getItem('currentVendorId');
     this.subMenuName = sessionStorage.getItem('subMenuNames');
     this.loadCandidates();

@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsoleService } from '@ng-select/ng-select/lib/console.service';
 import { DashboardServiceService } from 'src/app/Services/DashboardServices/dashboard-service.service';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
-declare function highlightRecruitment();
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-recruitment-menus',
@@ -30,7 +30,7 @@ export class RecruitmentMenusComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
-    highlightRecruitment();
+    highlightService();
     this.getRecMenuCounts();
     this.isVendor = sessionStorage.getItem('isVendor');
     if (this.isVendor == '0') {

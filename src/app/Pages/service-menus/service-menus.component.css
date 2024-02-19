@@ -57,6 +57,9 @@ section .section-title {
 #what-we-do .card .block-2:before {
   content: "\f507";
 }
+#what-we-do .card .block-3:before {
+  content: "\f509";
+}
 
 #what-we-do .card:hover .card-block:before {
   -webkit-transform: rotate(360deg);
