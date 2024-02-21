@@ -228,7 +228,7 @@
                   <i class="fa fa-clone" aria-hidden="true"></i>
                 </a>
               </td> -->
-              <td *ngIf="enableEditCandidate('Candidate_Edit')" class="d-flex">
+              <td *ngIf="enableEditCandidate('Candidate_Edit')">
                 <a
                   *ngIf="
                     (enableEditCandidate('Candidate_Edit') ||
@@ -284,37 +284,17 @@
                     </div>
                   </li>
                 </ul>
-                <div>
-                  <a
-                    class="btn btn-tbl-play btn-xs"
-                    data-toggle="dropdown"
-                    title="Forwarding Resumed Candidate"
-                    href="javascript:"
-                    data-toggle="dropdown"
-                    data-hover="dropdown"
-                    data-close-others="true"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-default jello">
-                    <li>
-                      <div class="card-body">
-                        <label>Sure You Want to Resume this Candidate? </label
-                        ><br />
-                        <button
-                          type="button"
-                          class="btn btn-circle btn-danger"
-                          (click)="resumingHoldingCandidate(item)"
-                        >
-                          Yes
-                        </button>
-                        <button type="button" class="btn btn-circle btn-info">
-                          No
-                        </button>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                <a
+                  class="btn btn-tbl-plus btn-xs"
+                  data-toggle="tooltip"
+                  title="Back to Resume Shortlist"
+                  href="javascript:"
+                  data-hover="dropdown"
+                  data-close-others="true"
+                  (click)="resumingHoldingCandidate(item)"
+                >
+                  <i class="fa fa-play"></i>
+                </a>
               </td>
             </tr>
 

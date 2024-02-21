@@ -22,8 +22,8 @@
                 >
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1"
-                    ><i class="fa fa-user-edit"></i></span
-                  >
+                    ><i class="fa fa-user-edit"></i
+                  ></span>
                   <select
                     class="form-select"
                     name="customerId"
@@ -44,7 +44,7 @@
                       Select Customer
                     </option>
                     <option *ngFor="let item of cuslist" value="{{ item.id }}">
-                      {{ item.customerName | orderBy : "item.customerName" }},
+                      {{ item.customerName | orderBy: "item.customerName" }},
                       {{ item.location }}
                     </option>
                   </select>
@@ -94,7 +94,7 @@
                       Select Customer
                     </option>
                     <option *ngFor="let item of cuslist" value="{{ item.id }}">
-                      {{ item.customerName | orderBy : "item.customerName" }},
+                      {{ item.customerName | orderBy: "item.customerName" }},
                       {{ item.location }}
                     </option>
                   </select>
@@ -197,10 +197,7 @@
                     >
                       Select Business Unit
                     </option>
-                    <option
-                      *ngFor="let item of selectedBUList"
-                      value="{{ item.id }}"
-                    >
+                    <option *ngFor="let item of selectedBUList" value="{{ item.id }}">
                       {{ item.businessUnitName }}
                     </option>
                   </select>
@@ -412,7 +409,7 @@
                       *ngFor="let item of payFrequencyList"
                       value="{{ item.name }}"
                     >
-                      {{ item.name | orderBy : "name" }}
+                      {{ item.name | orderBy: "name" }}
                     </option>
                   </select>
                   <div
@@ -513,7 +510,7 @@
                   ></span>
                   <input
                     (keydown)="noManualType($event)"
-                    min="{{ todayDate | date : 'yyyy-MM-dd' }}"
+                    min="{{ todayDate | date: 'yyyy-MM-dd' }}"
                     type="date"
                     name="projectStartDate"
                     class="form-control"
@@ -755,9 +752,6 @@
                     class="form-select"
                     name="status"
                     [(ngModel)]="jobReq.jobReqStatus"
-                    (change)="statusRemarks($event)"
-                    [attr.data-toggle]="showModal ? 'modal' : null"
-                    [attr.data-target]="showModal ? '#exampleModal' : null"
                   >
                     <option
                       class="dropdown-item"
@@ -920,74 +914,10 @@
         <br />
       </div>
     </div>
-    <!-- Status Change Modal -->
-    <!-- <div class="status"> -->
-      <div
-      class="modal fade show"
-      data-backdrop="static"
-      data-keyboard="false"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-primary">
-            <h4 class="modal-title" id="exampleModalLabel">
-              Remarks for JR Status
-            </h4>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              (click)="closeShowModal()"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p class="text-danger">Since, you have selected Job Request Status as Hold/closed/Terminated Remark is mandatory.</p>
-            <form enctype="">
-              <br />
-              <label for="Customer"
-                >Remarks&nbsp;<span style="color: red">*</span></label
-              >
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"
-                  ><i class="fa fa-align-left"></i
-                ></span>
-                <textarea
-                  name="optionalSkills"
-                  type="textarea"
-                  rows="3"
-                  class="form-control"
-                  [(ngModel)]="StatusRemarks"
-                ></textarea>
-              </div>
-              <br />
-              <div>
-                <input
-                  type="submit"
-                  class="btn btn-circle btn-primary me-2"
-                  value="Submit"
-                  (click)="submitTextarea()"
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- </div> -->
-    
     <!-- Add Rec Role Modal -->
     <div
-      *ngIf="showModal"
       class="modal fade"
-      id="exampleModal1"
+      id="exampleModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"

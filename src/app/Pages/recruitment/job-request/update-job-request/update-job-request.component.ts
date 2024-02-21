@@ -249,25 +249,11 @@ export class UpdateJobRequestComponent implements OnInit {
     event.stopPropagation();
     return false;
   }
-  
   //Update Job Request
   updateJobReq(f: NgForm) {
     //consolelog(f.form.value);
-
-    if (this.jobReq.jobReqStatus == 'Hold' || 'Closed' || 'Terminated') {
-      if (
-        this.jobReq.jobReqStatusRemarks == null ||
-        this.jobReq.jobReqStatusRemarks == undefined
-      ) {
-        // this.showModal = true;
-        this.alertify.errorMsg('JR Status Remarks Required');
-        return;
-      }
-    }
-
     if (f.form.valid) {
       this.loader = 1;
-      // this.jobReq.status != "In Progress" || "Open";
       this.jobReq.createdBy = this.currentUserId;
       this.jobReq.updatedBy = this.currentUserId;
       this.rserv.updateJobRequest(this.jobReq).subscribe((data) => {
@@ -279,48 +265,5 @@ export class UpdateJobRequestComponent implements OnInit {
         }
       });
     }
-  }
-
-  //hold/closed/terminate JR reasonsor remarks
-
-  showModal = false;
-  statusRemarks(event: any) {
-    const dropDownValue = event.target.value;
-    console.log(dropDownValue);
-    if (
-      dropDownValue === 'Closed' ||
-      dropDownValue === 'Hold' ||
-      dropDownValue === 'Terminated'
-    ) {
-      // console.log('functioning successfully');
-      this.showModal = true;
-    } else {
-      this.showModal = false;
-    }
-  }
-
-  closeShowModal() {
-    this.showModal = false;
-  }
-
-  StatusRemarks: string = '';
-  submitTextarea() {
-    if (this.StatusRemarks.trim() === '') {
-      this.showModal = true;
-      this.alertify.errorMsg('JR Status Remarks Required');
-    } else {
-      this.loader = 1;
-
-      this.rserv.updateJobRequest(this.jobReq).subscribe((data) => {
-        this.jobReq.jobReqStatusRemarks = this.StatusRemarks;
-        console.log('StatusRemarks', this.jobReq.jobReqStatusRemarks);
-        console.log(this.StatusRemarks);
-        // console.log('Data', data);
-        this.loader = 0;
-        this.alertify.successMsg('JR Status Remarks Updated');
-      });
-      // this.StatusRemarks = '';
-    }
-    closeModal();
   }
 }
