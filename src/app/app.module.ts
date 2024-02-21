@@ -102,8 +102,10 @@ import { UpdateEntryComponent } from './Pages/ResourseEntry/update-entry/update-
 import { LevelupupdateEntryComponent } from './Pages/leveluplogin/levelupupdate-entry/levelupupdate-entry.component';
 import { AddCandidateAiComponent } from './Pages/recruitment/job-request/add-candidate-ai/add-candidate-ai.component';
 import { OfferRejectedComponent } from './Pages/recruitment/candidate-details/offer-rejected/offer-rejected.component';
+import { ProjectManagementComponent } from './Pages/project-management/project-management.component';
 import { ProjectAllocationComponent } from './Pages/project-management/project-allocation/project-allocation.component';
 import { ProjectTeamComponent } from './Pages/project-management/project-team/project-team.component';
+import { SiteMaintenanceComponent } from './Components/site-maintenance/site-maintenance.component';
 
 
 @NgModule({
@@ -199,8 +201,10 @@ import { ProjectTeamComponent } from './Pages/project-management/project-team/pr
     LevelupupdateEntryComponent,
     AddCandidateAiComponent,
     OfferRejectedComponent,
+    ProjectManagementComponent,
     ProjectAllocationComponent,
     ProjectTeamComponent,
+    SiteMaintenanceComponent,
    
     
   ],
