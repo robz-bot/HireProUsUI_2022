@@ -39,6 +39,7 @@ export class jobReq {
   payFrequency: string;
   currency: string;
   monthOrYear: string;
+  jobReqStatusRemarks:string;
 
   vendorId: string;
   addedByVendor: number;
