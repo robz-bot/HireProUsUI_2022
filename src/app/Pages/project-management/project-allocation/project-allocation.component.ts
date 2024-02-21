@@ -14,4 +14,8 @@ export class ProjectAllocationComponent implements OnInit {
     highlightProjectManagement();
   }
 
+  gotoToBack() {
+    history.back();
+  }
+
 }

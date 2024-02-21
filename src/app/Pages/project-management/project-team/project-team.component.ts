@@ -14,4 +14,8 @@ export class ProjectTeamComponent implements OnInit {
     highlightProjectManagement();
   }
 
+  gotoToBack() {
+    history.back();
+  }
+
 }
