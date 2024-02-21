@@ -10,6 +10,9 @@ section .section-title {
   margin-bottom: 50px;
   text-transform: uppercase;
 }
+section .section-title .back-btn {
+  float: left;
+}
 #what-we-do {
   /* background: #ffffff; */
 }

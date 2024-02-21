@@ -133,6 +133,10 @@ export class RecruitmentMenusComponent implements OnInit {
     this.isBuFooterVisible = false;
   }
 
+  gotoToBack() {
+    history.back();
+  }
+
   isOnboardFooterVisible = false;
   showOnboardFooter() {
     this.isOnboardFooterVisible = true;
