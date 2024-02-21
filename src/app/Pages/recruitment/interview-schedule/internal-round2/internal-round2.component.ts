@@ -21,7 +21,7 @@ import { searchInterviewSchedule } from 'src/app/Models/searchInterviewSchedule'
 import { MasterserviceService } from 'src/app/Services/MasterServices/masterservice.service';
 import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-reg-services.service';
 declare function closeModal(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function closeFilter(): any;
 @Component({
   selector: 'app-internal-round2',
@@ -45,7 +45,7 @@ export class InternalRound2Component implements OnInit {
   //changed loggedInUserId from any to string 
   loggedInUserId: any;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     
     this.loggedInUserId = sessionStorage.getItem('currentUserId');

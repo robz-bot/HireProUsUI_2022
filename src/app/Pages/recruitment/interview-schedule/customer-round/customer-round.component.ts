@@ -23,7 +23,7 @@ import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-re
 
 declare function closeModal(): any;
 declare function closeFilter(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-customer-round',
   templateUrl: './customer-round.component.html',
@@ -44,7 +44,7 @@ export class CustomerRoundComponent implements OnInit {
   loggedInUserRole: string;
   loggedInUserId: any;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');

@@ -23,7 +23,7 @@ import { MasterserviceService } from 'src/app/Services/MasterServices/masterserv
 declare function closeFilter(): any;
 
 declare function closeModal(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-hr-round',
@@ -45,7 +45,7 @@ export class HrRoundComponent implements OnInit {
   loggedInUserRole: string;
   loggedInUserId: any;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.subMenuName = sessionStorage.getItem('subMenuNames');
 
     
