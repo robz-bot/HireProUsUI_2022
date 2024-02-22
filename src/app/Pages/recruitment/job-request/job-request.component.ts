@@ -27,7 +27,7 @@ import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-ser
 
 declare function closeModal(): any;
 declare function closeFilter(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-job-request',
@@ -54,8 +54,7 @@ export class JobRequestComponent implements OnInit {
   subMenuName: string;
 
   ngOnInit(): void {
-    highlightRecruitment();
-
+    highlightService();
     this.loadJobReq();
     this.loadroles();
     this.loadcustomers();

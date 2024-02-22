@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';
 import { JobReq } from 'src/app/Services/GlobalConstants';
 declare function openModal(): any;
 declare function closeModal(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-add-candidate',
   templateUrl: './add-candidate.component.html',
@@ -40,7 +40,7 @@ export class AddCandidateComponent implements OnInit {
   isVendor: string;
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');

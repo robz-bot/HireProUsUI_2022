@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { vendor } from 'src/app/Models/vendor';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
+declare function highlightService(): any;
 declare function closeFilter(): any;
 @Component({
   selector: 'app-vendor-management',
@@ -19,6 +20,7 @@ export class VendorManagementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    highlightService();
     this.getAllVendors();
     this.getAllVendorsIds();
   }

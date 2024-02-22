@@ -9,11 +9,7 @@
     <div class="tab-pane active show" *ngIf="listEmp">
       <div class="row">
         <div class="my-4">
-          <button
-            (click)="gotoToBack()"
-            type="button"
-            class="btn btn-primary"
-          >
+          <button (click)="gotoToBack()" type="button" class="btn btn-primary">
             Back<span class="sr-only">Click To Back</span>
           </button>
         </div>
@@ -255,7 +251,10 @@
                     >
                   </div>
                   <div class="col-sm-2 col-md-2">
-                    <ul class="nav navbar-nav pull-right">
+                    <ul
+                      class="nav navbar-nav pull-right"
+                      *ngIf="subMenuAccess('New Resource')"
+                    >
                       <li class="dropdown dropdown-user">
                         <a
                           class="dropdown-toggle btn btn-primary btn-sm"
@@ -729,7 +728,6 @@
                         ></span>
                         <input
                           (keypress)="onlyNumber($event)"
-
                           type="text"
                           class="form-control"
                           name="contactNumber"
@@ -1506,7 +1504,6 @@
                         ></span>
                         <input
                           (keypress)="onlyNumber($event)"
-
                           type="text"
                           class="form-control"
                           name="contactNumber"

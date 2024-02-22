@@ -21,7 +21,7 @@ import { MasterserviceService } from 'src/app/Services/MasterServices/masterserv
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-reg-services.service';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function closeModal(): any;
 
 @Component({
@@ -51,7 +51,7 @@ export class AddJobRequestComponent implements OnInit {
   jobReq: jobReq = new jobReq();
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loadRecruiters();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
@@ -191,6 +191,7 @@ export class AddJobRequestComponent implements OnInit {
       this.cuslist = this.cuslist.sort((a, b) =>
         a.customerName.localeCompare(b.customerName)
       );
+      console.log(this.cuslist)
     });
   }
 

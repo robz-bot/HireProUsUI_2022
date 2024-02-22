@@ -15,7 +15,7 @@ import { ImageServicesService } from 'src/app/Services/ImageServices/image-servi
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 declare function openModal(): any;
 declare function closeModal(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-update-candidate',
   templateUrl: './update-candidate.component.html',
@@ -39,7 +39,7 @@ export class UpdateCandidateComponent implements OnInit {
   isVendor: string;
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');

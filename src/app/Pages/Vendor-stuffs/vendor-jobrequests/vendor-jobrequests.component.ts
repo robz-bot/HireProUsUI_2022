@@ -10,7 +10,7 @@ import { RecruitmentServiceService } from './../../../Services/RecruitmentServic
 
 declare function closeModal(): any;
 declare function closeFilter(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-vendor-jobrequests',
   templateUrl: './vendor-jobrequests.component.html',

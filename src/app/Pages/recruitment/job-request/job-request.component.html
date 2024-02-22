@@ -4,21 +4,16 @@
     <div class="page-title-breadcrumb"></div>
   </div>
   <div class="my-4">
-    <button
-      (click)="gotoToBack()"
-      type="button"
-      class="btn btn-primary"
-    >
+    <button (click)="gotoToBack()" type="button" class="btn btn-primary">
       Back<span class="sr-only">Click To Back</span>
     </button>
-  </div> 
+  </div>
   <div class="tab-content tab-space">
     <div class="tab-pane active show" id="tab1">
       <div class="row">
         <div class="col-md-12">
           <div class="card-box">
             <div class="card-body">
-             
               <div class="table-scrollable">
                 <div class="row col-md-12 col-sm-12">
                   <div
@@ -258,11 +253,11 @@
                       </th>
                       <!-- Scrrening AI Candidates -->
                       <th
-                      class="center"
-                      *ngIf="enableAddCandidate('Candidate_Add')"
-                    >
-                      Screening
-                    </th>
+                        class="center"
+                        *ngIf="enableAddCandidate('Candidate_Add')"
+                      >
+                        Screening
+                      </th>
 
                       <th
                         *ngIf="
@@ -318,8 +313,8 @@
                             {{ item.closedOpenings }} /
                             {{ item.noOfOpenings }} ({{ item.progress }}%)
                           </span>
-                          <br/>
-                        <!-- </td>
+                          <br />
+                          <!-- </td>
                         <td> -->
                           <span
                             class="feedLblStyle lblOpen"
@@ -351,6 +346,14 @@
                             *ngIf="item.jobReqStatus == 'Hold'"
                             >Hold</span
                           >
+                          <div title={{item.jobReqStatusRemarks}}>
+                            <span>{{
+                              item.jobReqStatusRemarks?.length > 20
+                                ? item.jobReqStatusRemarks.substring(0, 30) +
+                                  "..."
+                                : item.jobReqStatusRemarks
+                            }}</span>
+                          </div>
                         </td>
                         <td>
                           {{ item.requesterName }}
@@ -422,38 +425,38 @@
                           </a>
                         </td>
                         <td
-                        class="center"
-                        *ngIf="enableAddCandidate('Candidate_Add')"
-                      >
-                        <a
-                          *ngIf="
-                            item.jobReqStatus == 'Terminated' ||
-                            item.jobReqStatus == 'Closed' ||
-                            item.jobReqStatus == 'Hold' ||
-                            item.jobReqStatus == 'Completed'
-                          "
-                          class="btn btn-tbl-add btn-xs disabled"
-                          data-toggle="tooltip"
-                          data-placement="left"
-                          title="Permission Denied"
+                          class="center"
+                          *ngIf="enableAddCandidate('Candidate_Add')"
                         >
-                          <i class="fa fa-ban" aria-hidden="true"></i>
-                        </a>
-                        <!-- Candiadte AI 29/10/2022 -->
-                        <a
-                          *ngIf="
-                            item.jobReqStatus == 'Yet to Start' ||
-                            item.jobReqStatus == 'In Progress'
-                          "
-                          class="btn btn-tbl-ai btn-xs"
-                          data-toggle="tooltip"
-                          data-placement="left"
-                          title="Candidate AI"
-                          (click)="gotoAICandidate(item)"
-                        >
-                        <i class="bi bi-robot"></i>
-                        </a>
-                      </td>
+                          <a
+                            *ngIf="
+                              item.jobReqStatus == 'Terminated' ||
+                              item.jobReqStatus == 'Closed' ||
+                              item.jobReqStatus == 'Hold' ||
+                              item.jobReqStatus == 'Completed'
+                            "
+                            class="btn btn-tbl-add btn-xs disabled"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Permission Denied"
+                          >
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                          </a>
+                          <!-- Candiadte AI 29/10/2022 -->
+                          <a
+                            *ngIf="
+                              item.jobReqStatus == 'Yet to Start' ||
+                              item.jobReqStatus == 'In Progress'
+                            "
+                            class="btn btn-tbl-ai btn-xs"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Candidate AI"
+                            (click)="gotoAICandidate(item)"
+                          >
+                            <i class="bi bi-robot"></i>
+                          </a>
+                        </td>
 
                         <td *ngIf="enableSubMenu('JobRequest_Edit')">
                           <!-- recruiterAdd -->
@@ -598,7 +601,7 @@
                             Tagged for both Primary & Secondary Vendor(s)
                           </td>
                           <td>
-                            {{ details.updatedDateTime | date: shortDate }}
+                            {{ details.updatedDateTime | date : shortDate }}
                           </td>
                         </tr>
                       </ng-container>

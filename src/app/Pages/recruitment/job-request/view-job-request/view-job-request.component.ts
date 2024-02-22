@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { jobReq } from 'src/app/Models/JobRequest';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-view-job-request',
   templateUrl: './view-job-request.component.html',
@@ -28,7 +28,7 @@ export class ViewJobRequestComponent implements OnInit {
   id: string;
   jobReq: jobReq = new jobReq();
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.subMenuName = sessionStorage.getItem('subMenuNames');
 
     this.id = this.aroute.snapshot.params['id'];

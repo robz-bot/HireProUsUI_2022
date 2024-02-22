@@ -10,7 +10,7 @@
       </div>
       <!--  -->
       <!--  -->
-      <div class="col-md-6 col-sm-6 col-lg-6">
+      <div class="col-md-7 col-sm-7 col-lg-7">
         <ul class="nav nav-pills">
           <li class="nav-item" *ngIf="mainMenuAccess('Dashboard')">
             <a
@@ -30,7 +30,7 @@
               >&nbsp;Configurations</a
             >
           </li>
-          <li class="nav-item" *ngIf="mainMenuAccess('Services')">
+          <li class="nav-item" *ngIf="mainMenuAccess('Human Resource')">
             <a
               id="services"
               href="javascript:void(0)"
@@ -40,17 +40,17 @@
               [routerLinkActive]="['active']"
             >
               <i class="fa fa-handshake-o" aria-hidden="true"></i
-              >&nbsp;Services</a
+              >&nbsp;Human Resource</a
             >
           </li>
-          <li class="nav-item dropdown" *ngIf="mainMenuAccess('Recruitment')">
+          <li class="nav-item dropdown" *ngIf="mainMenuAccess('Project Management')">
             <a
-              id="recruitment"
+              id="projectmanagement"
               class="nav-link"
-              routerLink="/hirepros/recruitment-menus"
-              (click)="setActiveLink('Recruitment')"
+              routerLink="/hirepros/project-management"
+              (click)="setActiveLink('Project Management')"
               [routerLinkActive]="['active']"
-              ><i class="fa fa-users-cog"></i>&nbsp;Recruitment</a
+              ><i class="fa fa-users-cog"></i>&nbsp;Project Management</a
             >
           </li>
           <li class="nav-item dropdown" *ngIf="mainMenuAccess('Reports')">
@@ -65,7 +65,7 @@
         </ul>
       </div>
       <div
-        class="col-md-5 col-sm-5 col-lg-5 name"
+        class="col-md-4 col-sm-4 col-lg-4 name"
         style="margin: auto; padding: 0px"
       >
         <span

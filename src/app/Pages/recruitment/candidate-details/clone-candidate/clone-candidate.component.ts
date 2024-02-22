@@ -6,7 +6,7 @@ import { PrefixConstant } from 'src/app/Services/GlobalConstants';
 import { ImageServicesService } from 'src/app/Services/ImageServices/image-services.service';
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 declare function closeModal(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-clone-candidate',
@@ -29,7 +29,7 @@ export class CloneCandidateComponent implements OnInit {
   candidate: any;
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserName = sessionStorage.getItem('currentUserName');

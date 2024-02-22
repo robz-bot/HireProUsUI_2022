@@ -21,7 +21,7 @@ import { onBoardSearch } from 'src/app/Models/onBoardSearch';
 import { candidate } from 'src/app/Models/Candidate';
 declare function closeModal(): any;
 declare function closeFilter(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-on-board-det',
   templateUrl: './on-board-det.component.html',
@@ -42,7 +42,7 @@ export class OnBoardDetComponent implements OnInit {
   loggedInUserRole: string;
   loggedInUserId: any;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.vendorUniqueId = sessionStorage.getItem('currentVendorId');
     this.getAllOnBoards();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');

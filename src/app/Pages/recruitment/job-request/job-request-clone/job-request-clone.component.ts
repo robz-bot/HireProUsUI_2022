@@ -21,7 +21,7 @@ import { MasterserviceService } from 'src/app/Services/MasterServices/masterserv
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-reg-services.service';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function closeModal(): any;
 @Component({
   selector: 'app-job-request-clone',
@@ -46,7 +46,7 @@ export class JobRequestCloneComponent implements OnInit {
   loader: number = 0;
   jobReq: jobReq = new jobReq();
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loadroles();
     this.loadcustomers();
