@@ -334,10 +334,12 @@ export class HoldedCandidatesListComponent implements OnInit {
     console.log(candidateId);
     this._router.navigate(['hirepros/clone-candidate', candidateId]);
   }
-  
+
+  resumeCandidateData: any;
   resumingHoldingCandidate(item: any) {
     this.rserv.resumingHoldingCandidate(item).subscribe((res: any) => {
-      console.log(res);
+      this.resumeCandidateData = res;
+      console.log(this.resumeCandidateData);
       if (res.status == 0) {
         this.alertify.successMsg(
           'Candidate -' +
