@@ -305,11 +305,16 @@
                                   data-placement="left"
                                   title="{{ Dob }}"
                                 >
+                                <ng-container *ngIf="item.dateOfBirth != null || item.dateOfBirth  !=undefined">
                                   {{
-                                    item.dateOfBirth.length >= 23
+                                    item.dateOfBirth?.length >= 23 
                                       ? (item.dateOfBirth | slice : 0 : 23) + "..."
                                       : item.dateOfBirth
                                   }}
+                                </ng-container>
+                                <ng-container *ngIf="item.dateOfBirth == null || item.dateOfBirth  ==undefined">
+                                  -
+                                </ng-container>
                                   <!-- {{ item.location }} -->
                                 </p>
                               </div>
@@ -330,11 +335,16 @@
                                   data-placement="left"
                                   title="{{ Doj }}"
                                 >
+                                <ng-container *ngIf="item.dateOfJoining != null || item.dateOfJoining  !=undefined">
                                   {{
                                     item.dateOfJoining.length >= 23
                                       ? (item.dateOfJoining | slice : 0 : 23) + "..."
                                       : item.dateOfJoining
                                   }}
+                                </ng-container>
+                                <ng-container *ngIf="item.dateOfJoining == null || item.dateOfJoining  ==undefined">
+                                  -
+                                </ng-container>
                                   <!-- {{ item.location }} -->
                                 </p>
                               </div>
