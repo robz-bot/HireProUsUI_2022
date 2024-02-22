@@ -424,6 +424,203 @@ export class EmployeeDetailsComponent implements OnInit {
 
       if (this.empDet.projectId == undefined || this.empDet.projectId == null) {
         this.empDet.projectId = 0;
+       }
+
+       this.rmserv.addResourceMgmt(this.empDet).subscribe((data) => {
+         console.log(data);
+         this.addResData = data;
+         this.loader = 0;
+         if (this.addResData.status == 1) {
+           this.alertify.errorMsg(this.addResData.message);
+         } else {
+           f.resetForm();
+           this.getAllResourceMgmts();
+           this.showListEmp();
+           this.alertify.successMsg('Record');
+           this.getAllWorkOrderNumbers();
+           this.getAllEmployeeIds();
+         }
+       });
+     }
+   }
+   /**
+    * Gets emp det by id
+    * @param id
+    */
+   getEmpDetById(id) {
+     this.rmserv.getResourceMgmt(id).subscribe((data) => {
+       console.log(data);
+       this.updateEmpDet = data;
+       if (this.updateEmpDet.projectAllocation == 'Yes') {
+         this.enableOther = true;
+         this.enableBu = false;
+         //this.updateEmpDet.projectId = undefined;
+         this.changedCustomerName = this.updateEmpDet.customerName;
+         this.changedBuName = this.updateEmpDet.buName;
+         this.changedBuId = this.updateEmpDet.buId;
+         this.changedCusId = this.updateEmpDet.customerId;
+
+       } else {
+         this.enableBu = true;
+         this.enableOther = false;
+         this.enableProjectOther = true;
+         this.enableProject = false;
+         this.updateEmpDet.projectId = undefined;
+         this.updateEmpDet.projectId = undefined;
+         this.changedCustomerName = '';
+         this.changedBuName = '';
+       }
+     });
+   }
+   toupdateStatusId: string;
+   /**
+    * Gets id
+    * @param id
+    */
+   getId(id: string) {
+     this.toupdateStatusId = id;
+
+     this.rmserv.getResourceMgmt(id).subscribe((data) => {
+       console.log(data);
+       this.statusUpdate = data;
+     });
+   }
+
+   updateStatusResData: any;
+   statusUpdate: employeeDetails = new employeeDetails();
+   /**
+    * Updates emp status
+    * @param f
+    */
+   updateEmpStatus(f: NgForm) {
+     if (f.valid) {
+       this.statusUpdate.id = this.toupdateStatusId;
+
+       this.rmserv
+         .updateResourceMgmtStatus(this.statusUpdate)
+         .subscribe((data) => {
+           this.updateStatusResData = data;
+           this.loader = 0;
+           if (this.updateStatusResData.status == 1) {
+             this.alertify.errorMsg(this.updateStatusResData.message);
+           } else {
+             f.resetForm();
+             closeModal();
+             this.getAllResourceMgmts();
+             this.alertify.updatedMsg('Record');
+           }
+         });
+     }
+   }
+
+   updateEmpDet: employeeDetails = new employeeDetails();
+   updateResData: any;
+   /**
+    * Updates employee
+    * @param f
+    * @returns
+    */
+   updateEmployee(f: NgForm) {
+     if (f.valid) {
+       if (this.updateEmpDet.contactNumber.length < 10) {
+         this.alertify.errorMsg('Contact Number should be atleast 10 digits');
+         return;
+       }
+
+       if (!this.validateEmail(this.updateEmpDet.email)) {
+         this.alertify.errorMsg('Email is Invalid!');
+         return;
+       }
+
+       this.loader = 1;
+       this.updateEmpDet.customerId = this.changedCusId;
+       this.updateEmpDet.buId =
+         this.changedBuId == null || this.changedBuId == undefined
+           ? this.updateEmpDet.buId
+           : this.changedBuId;
+       this.updateEmpDet.updatedBy = this.loggedInUserId;
+       this.empDet.employeeId = this.empDet.employeeIdByHR;
+
+       this.rmserv.updateResourceMgmt(this.updateEmpDet).subscribe((data) => {
+         console.log(data);
+         this.updateResData = data;
+         this.loader = 0;
+         if (this.updateResData.status == 1) {
+           this.alertify.errorMsg(this.updateResData.message);
+         } else {
+           f.resetForm();
+           this.getAllResourceMgmts();
+           this.showListEmp();
+           this.alertify.updatedMsg('Record');
+           this.getAllWorkOrderNumbers();
+           this.getAllEmployeeIds();
+         }
+       });
+     }
+   }
+
+   deleteData: any;
+   /**
+    * Deletes resource mgmt by id
+    * @param id
+    * @param empId
+    */
+   deleteResourceMgmtById(id, empId) {
+     this.loader = 1;
+     console.log(id);
+     this.rmserv.deleteResourceMgmtById(id).subscribe((data) => {
+       this.loader = 0;
+       this.deleteData = data;
+       if (this.deleteData.status == 1) {
+         this.alertify.errorMsg(this.deleteData.message);
+       } else {
+         console.log(data);
+         this.alertify.deleteMsg(empId);
+         this.getAllResourceMgmts();
+       }
+     });
+   }
+
+   // Textbox validating Functions
+   /**
+    * Onlys alpha space
+    * @param event
+    */
+   onlyAlphaSpace(event) {
+     var inputValue = event.charCode;
+     if (
+       !(inputValue >= 65 && inputValue <= 90) &&
+       !(inputValue >= 97 && inputValue <= 122) &&
+       inputValue != 32 &&
+       inputValue != 0
+     ) {
+       event.preventDefault();
+     }
+   }
+   /**
+    * Onlys number
+    * @param event
+    */
+   onlyNumber(event) {
+     var inputValue = event.charCode;
+     if (!(inputValue >= 33 && inputValue <= 57)) {
+       event.preventDefault();
+     }
+   }
+
+   todayDate: Date;
+   loadDate() {
+     this.todayDate = new Date();
+     console.log(this.todayDate);
+   }
+
+   // Textbox validating Functions
+  /**
+   * Onlys uppercase and lowecase letters
+   * @param event
+   */
+  onlyAlphaLowerCase(event) {
+
       }
 
       this.rmserv.addResourceMgmt(this.empDet).subscribe((data) => {
@@ -586,6 +783,7 @@ export class EmployeeDetailsComponent implements OnInit {
    * @param event
    */
   onlyAlphaSpace(event) {
+
     var inputValue = event.charCode;
     if (
       !(inputValue >= 65 && inputValue <= 90) &&
@@ -596,6 +794,74 @@ export class EmployeeDetailsComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+  onPasteFirstName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.empDet.firstName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteLastName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.empDet.lastName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteUpdateFirstName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.updateEmpDet.firstName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteUpdateLastName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.updateEmpDet.lastName = filteredText;
+    event.preventDefault();
+  }
+
+  onPaste(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122 && char.charCodeAt(0) != 32 && char.charCodeAt(0) != 0)
+      .join('');
+      this.searchModal.fullName = filteredText;
+    //candidate.keyword
+    
+    event.preventDefault();
+  }
+ }
   /**
    * Onlys number
    * @param event

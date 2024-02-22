@@ -82,6 +82,8 @@
                   class="form-control"
                   [(ngModel)]="candidateSearch.keyword"
                   (keyup)="handleKeyUp($event)"
+                  (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPaste($event)"
                 />&nbsp;&nbsp;
                 <input
                   type="button"

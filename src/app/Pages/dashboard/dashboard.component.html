@@ -42,7 +42,16 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4 col-md-4"></div>
+      <div class="col-sm-4 col-md-4">
+        <button
+                (click)="gotoProTimesheet()"
+                type="button"
+                class="btn btn-primary btn-sm"
+                style="float: inline-end;"  
+              >
+                Pro-Timesheet
+              </button>
+      </div>
     </div>
     <br />
     <div class="row col-sm-12 col-md-12" *ngIf="disableTable">

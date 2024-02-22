@@ -67,6 +67,7 @@ import { VendorJobrequestsComponent } from './Pages/Vendor-stuffs/vendor-jobrequ
 import { VendorForgetPasswordComponent } from './Pages/Vendor-stuffs/vendor-forget-password/vendor-forget-password.component';
 import { VendorChangePasswordComponent } from './Pages/Vendor-stuffs/vendor-change-password/vendor-change-password.component';
 import { CustomerReportComponent } from './Pages/reports/customer-report/customer-report.component';
+import { UserReportComponent} from './Pages/reports/user-report/user-report.component';
 import { BuReportComponent } from './Pages/reports/bu-report/bu-report.component';
 import { RecRoleReportComponent } from './Pages/reports/rec-role-report/rec-role-report.component';
 import { EmailConfigReportComponent } from './Pages/reports/email-config-report/email-config-report.component';
@@ -295,6 +296,10 @@ const routes: Routes = [
       {
         path: 'resource-management-report',
         component: ResourceManagementReportComponent,
+      },
+      {
+        path: 'user-report',
+        component: UserReportComponent,
       },
       {
         path: 'customer-report',

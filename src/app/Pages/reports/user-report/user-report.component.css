@@ -1,0 +1,10 @@
+.lblOpen {
+    background: #38b6ff;
+    border: 1px solid #38b6ff;
+    color: white;
+  }
+
+  .lblCommentStyle {
+    color: #d70d48;
+    border: 1px solid #4099ff;
+}
