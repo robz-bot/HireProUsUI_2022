@@ -49,6 +49,8 @@
                 name="keyword"
                 placeholder="Candidate Name"
                 [(ngModel)]="candidate.keyword"
+                (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPaste($event)"
               />
 
               &nbsp;

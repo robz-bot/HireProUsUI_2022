@@ -102,6 +102,7 @@ import { UpdateEntryComponent } from './Pages/ResourseEntry/update-entry/update-
 import { LevelupupdateEntryComponent } from './Pages/leveluplogin/levelupupdate-entry/levelupupdate-entry.component';
 import { AddCandidateAiComponent } from './Pages/recruitment/job-request/add-candidate-ai/add-candidate-ai.component';
 import { OfferRejectedComponent } from './Pages/recruitment/candidate-details/offer-rejected/offer-rejected.component';
+import { UserReportComponent } from './Pages/reports/user-report/user-report.component';
 
 
 @NgModule({
@@ -197,6 +198,7 @@ import { OfferRejectedComponent } from './Pages/recruitment/candidate-details/of
     LevelupupdateEntryComponent,
     AddCandidateAiComponent,
     OfferRejectedComponent,
+    UserReportComponent,
    
     
   ],

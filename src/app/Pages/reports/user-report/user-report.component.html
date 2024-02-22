@@ -1,0 +1,337 @@
+<div class="container-fluid my-0">
+    <div class="page-bar mb-0">
+      <div class="page-title-breadcrumb">
+        <div class="pull-left"></div>
+      </div>
+    </div>
+  
+    <div class="tab-content tab-space">
+      <div class="tab-pane active show" id="tab1">
+        <div class="row">
+          <div class="my-4">
+            <button
+              (click)="gotoToBack()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Back<span class="sr-only">Click To Back</span>
+            </button>
+          </div>
+          <div class="col-md-12">
+            <div class="card-box">
+              <div class="card-body">
+                <div class="table-scrollable">
+                  <div class="row col-md-12 col-sm-12">
+                    <div
+                      class="col-sm-4 col-md-4 text-muted"
+                      style="font-size: 14px"
+                    >
+                      Reports / Users Report
+                    </div>
+                    <div class="col-sm-2 col-md-2"></div>
+                    <div class="col-sm-4 col-md-4">
+                      <a
+                        (click)="showFilter()"
+                        class="dropdown-toggle btn btn-primary btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-filter"></i>Filter
+                      </a>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <a
+                        (click)="downloadUsersDetails()"
+                        class="dropdown-toggle btn btn-success btn-sm"
+                        style="font-size: 12px"
+                      >
+                        <i class="fa fa-download" aria-hidden="true"></i> Excel
+                      </a>
+                    </div>
+                  </div>
+                  <br />
+                  <div *ngIf="ShowFilterDiv">
+                    
+                    <div class="row col-md-12 col-sm-12">
+                      <!-- Business Unit -->
+                      <div class="col-md-3 col-sm-3">
+                        <label for="Business Unit">Business Unit</label>
+                      <select
+                        class="form-select"
+                        name="buId"
+                        [(ngModel)]="searchModal.buId"
+                      >
+                        <option disabled selected value="undefined">
+                          Select Business Unit
+                        </option>
+                        <option
+                          *ngFor="let item of bulist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.businessUnitName }}
+                        </option>
+                      </select>
+                      </div>
+<!-- Role -->
+<div class="col-md-3 col-sm-3">
+  <label for="Role">Role</label>
+  <select
+                        class="form-select"
+                        name="roleId"
+                        [(ngModel)]="searchModal.roleId"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Role
+                        </option>
+                        <option
+                          *ngFor="let item of rolelist"
+                          value="{{ item.id }}"
+                        >
+                          {{ item.roleName }}
+                        </option>
+                      </select>
+</div>
+
+<!-- Panel Ueser -->
+<div class="col-md-3 col-sm-3">
+  <label for="PanelMember">Panel Member</label>
+  <select
+                        class="form-select"
+                        name="panelMember"
+                        [(ngModel)]="searchModal.panelMember"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Panel User
+                        </option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                      </select>
+                        </div>
+                        <!-- Gender-->
+<div class="col-md-3 col-sm-3">
+  <label for="Gender">Gender</label>
+  <select
+                        class="form-select"
+                        name="sex"
+                        [(ngModel)]="searchModal.sex"
+                      >
+                        <option
+                          class="dropdown-item"
+                          disabled
+                          selected
+                          value="undefined"
+                        >
+                          Select Gender
+                        </option>
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                      </select>
+                        </div>
+                        </div>
+<br/>
+<div class="row col-md-12 col-sm-12">
+                      <!-- FullName -->
+                      <div class="col-md-3 col-sm-3">
+                        <label for="FirstName">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          [(ngModel)]="searchModal.name"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                        (paste)="onPaste($event)"
+                          required
+                          placeholder="Search by Name..."
+                        />
+                      </div>
+                      <!-- Location -->
+                      <div class="col-md-3 col-sm-3">
+                        <label for="Location">Location</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="location"
+                          [(ngModel)]="searchModal.location"
+                          required
+                          placeholder="Search by Location..."
+                        />
+                      </div>
+                      <!-- Email -->
+                      <div class="col-md-3 col-sm-3">
+                        <label for="Status">Email</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="email"
+                          [(ngModel)]="searchModal.email"
+                          required
+                          placeholder="Search by Email..."
+                        />
+                      </div>
+                     
+                      <div class="col-md-3 col-sm-3"></div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12">
+                      <div class="col-md-4 col-sm-4"></div>
+                      <div class="col-md-4 col-sm-4">
+                        <label for="FullName">&nbsp;</label>
+                        <a
+                          class="dropdown-toggle btn btn-primary btn-sm"
+                          style="font-size: 12px"
+                          (click)="searchUser()"
+                        >
+                          <i class="fa fa-search"></i>Search
+                        </a>
+                        &nbsp;&nbsp;
+                        <a
+                          class="dropdown-toggle btn btn-secondary btn-sm"
+                          style="font-size: 12px"
+                          (click)="resetFilter()"
+                        >
+                          <i class="fa fa-refresh" style="color: white"></i
+                          ><span style="color: white">Reset</span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a
+                          (click)="closeFilter()"
+                          class="dropdown-toggle btn btn-danger btn-sm"
+                          style="font-size: 12px"
+                        >
+                          <i class="fa fa-times" style="color: white"></i
+                          ><span style="color: white">close</span>
+                        </a>
+                      </div>
+                      <div class="col-md-4 col-sm-4"></div>
+                    </div>
+                    <br />
+                  </div>
+  
+                  <table class="table table-hover table-checkable full-width">
+                    <thead class="bg-listHeader">
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Business Unit</th>
+                        <th>Interviewer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="odd gradeX"
+                        *ngFor="
+                          let item of userReglist
+                            | paginate
+                              : {
+                                  itemsPerPage: pageSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                };
+                          let i = index
+                        "
+                      >
+                        <td class="user-circle-img sorting_1">
+                          {{ (page - 1) * pageSize + i + 1 }}
+                        </td>
+                        <td>{{ item.firstName }}</td>
+                        
+                        <td>
+                            <span
+                              *ngIf="item.sex == 1"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Male"
+                              class="badge headerBadgeColor2"
+                            >
+                              M
+                            </span>
+                            <span
+                              *ngIf="item.sex == 0"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Female"
+                              class="badge headerBadgeColor1"
+                            >
+                              F
+                            </span>
+                          </td>
+                          <td>{{ item.location }}</td>
+                        <td >
+                          <span
+                          class="feedLblStyle lblOpen"
+                          *ngIf="item.active == 1"
+                          >Active</span
+                        >
+                          
+                            <span
+                            class="feedLblStyle lblCommentStyle"
+                            *ngIf="item.active == 0"
+                            >In-Active</span
+                          >
+                          </td>
+                          <td>{{ item.roleName }}</td>
+                          <td>
+                            {{ item.businessUnitName }} |
+                            {{ item.designation }}
+                          </td>
+                          <td *ngIf="item.panelMember == 0">❌</td>
+                          <td *ngIf="item.panelMember == 1">✔️</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br />
+                  <div
+                    class="row col-md-12 col-sm-12 col-lg-12"
+                    style="height: 32px"
+                  >
+                    <div
+                      class="col-md-4 col-sm-4 col-lg-4"
+                      style="font-size: 14px"
+                    >
+                      Items per Page:
+                      <select (change)="handlePageSizeChange($event)">
+                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                          {{ size }}
+                        </option>
+                      </select>
+                    </div>
+                    <div
+                      class="col-md-4 col-sm-4 col-lg-4 text-muted"
+                      style="font-size: 14px"
+                    >
+                      Total No.of Record(s):
+                      {{ userListLength }}
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+                      <pagination-controls
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        responsive="true"
+                        (pageChange)="handlePageChange($event)"
+                      ></pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="preloader" *ngIf="loader == 1">
+      <div id="loader"></div>
+    </div>
+  </div>
+  

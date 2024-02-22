@@ -44,7 +44,8 @@
                     [(ngModel)]="candidate.firstName"
                     name="firstName"
                     type="text"
-
+                    (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPasteFirstName($event)"
                     class="form-control"
                     required
                     #firstName="ngModel"
@@ -75,7 +76,8 @@
                     [(ngModel)]="candidate.lastName"
                     name="lastName"
                     type="text"
-
+                    (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPasteLastName($event)"
                     class="form-control"
                     required
                     #lastName="ngModel"

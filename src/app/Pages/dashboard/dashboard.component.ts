@@ -440,6 +440,13 @@ export class DashboardComponent implements OnInit {
     this._router.navigateByUrl('hirepros/my-interviews');
   }
   /**
+   * Goto Pro-Timesheet
+   * added on 15/2/2024
+   */
+  gotoProTimesheet() {
+    this._router.navigateByUrl('hirepros/dashboard');
+  }
+  /**
    * Goto bench candidate list
    * @param refNumber
    */

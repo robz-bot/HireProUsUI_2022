@@ -37,6 +37,8 @@
                           class="form-control"
                           name="fullName"
                           [(ngModel)]="searchModal.fullName"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                          (paste)="onPaste($event)"
                           required
                           placeholder="Search by Full Name"
                         />
@@ -70,6 +72,8 @@
                                       class="form-control"
                                       name="fullName"
                                       [(ngModel)]="searchModal.fullName"
+                                      (keypress)="onlyAlphaLowerCase($event)"
+                                      (paste)="onPaste($event)"
                                       required
                                       placeholder="Search by Full Name"
                                     />
@@ -661,9 +665,12 @@
                         <input
                           type="text"
                           class="form-control"
+                        
                           name="firstName"
                           required
                           [(ngModel)]="empDet.firstName"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                          (paste)="onPasteFirstName($event)"
                           #firstName="ngModel"
                           [ngClass]="{
                             'is-invalid': addf.submitted && firstName.invalid
@@ -693,6 +700,8 @@
                           name="lastName"
                           required
                           [(ngModel)]="empDet.lastName"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPasteLastName($event)"
                           #lastName="ngModel"
                           [ngClass]="{
                             'is-invalid': addf.submitted && lastName.invalid
@@ -1437,6 +1446,8 @@
                           name="firstName"
                           required
                           [(ngModel)]="updateEmpDet.firstName"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                          (paste)="onPasteUpdateFirstName($event)"
                           #firstName="ngModel"
                           [ngClass]="{
                             'is-invalid': updatef.submitted && firstName.invalid
@@ -1466,6 +1477,8 @@
                           name="lastName"
                           required
                           [(ngModel)]="updateEmpDet.lastName"
+                          (keypress)="onlyAlphaLowerCase($event)"
+                          (paste)="onPasteUpdateLastName($event)"
                           #lastName="ngModel"
                           [ngClass]="{
                             'is-invalid': updatef.submitted && lastName.invalid

@@ -101,6 +101,8 @@
                 <input
                   name="firstName"
                   [(ngModel)]="userReg.firstName"
+                  (keypress)="onlyAlphaLowerCase($event)"
+                  (paste)="onPasteFirstName($event)"
                   type="text"
                   class="form-control"
                   required="required"
@@ -134,6 +136,8 @@
                 <input
                   name="lastName"
                   [(ngModel)]="userReg.lastName"
+                  (keypress)="onlyAlphaLowerCase($event)"
+                  (paste)="onPasteLastName($event)"
                   type="text"
                   class="form-control"
                   required="required"

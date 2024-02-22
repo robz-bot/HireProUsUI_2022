@@ -610,6 +610,8 @@
                           <input
                             name="firstName"
                             [(ngModel)]="userReg.firstName"
+                            (keypress)="onlyAlphaLowerCase($event)"
+                            (paste)="onPasteFirstName($event)"
                             type="text"
                             maxlength="25"
                             class="form-control"
@@ -645,6 +647,8 @@
                           <input
                             name="lastName"
                             [(ngModel)]="userReg.lastName"
+                            (keypress)="onlyAlphaLowerCase($event)"
+                            (paste)="onPasteLastName($event)"
                             type="text"
                             maxlength="25"
                             class="form-control"
@@ -1399,8 +1403,10 @@
                         type="text"
                         maxlength="35"
                         class="form-control"
-                        name="keyword"
+                        name="name"
                         [(ngModel)]="searchUser.name"
+                        (keypress)="onlyAlphaLowerCase($event)"
+                        (paste)="onPaste($event)"
                         placeholder="Search by Name..."
                       />
                     </div>

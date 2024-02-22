@@ -55,6 +55,8 @@
                   ></span>
                   <input
                     [(ngModel)]="candidate.firstName"
+                    (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPasteFirstName($event)"
                     name="firstName"
                     type="text"
                     class="form-control"
@@ -85,6 +87,8 @@
                   ></span>
                   <input
                     [(ngModel)]="candidate.lastName"
+                    (keypress)="onlyAlphaLowerCase($event)"
+                    (paste)="onPasteLastName($event)"
                     name="lastName"
                     type="text"
                     class="form-control"

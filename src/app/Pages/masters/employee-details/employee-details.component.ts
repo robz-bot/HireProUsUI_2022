@@ -589,4 +589,87 @@ cusList: customer[];
      this.todayDate = new Date();
      console.log(this.todayDate);
    }
+
+   // Textbox validating Functions
+  /**
+   * Onlys uppercase and lowecase letters
+   * @param event
+   */
+  onlyAlphaLowerCase(event) {
+    var inputValue = event.charCode;
+    if (
+      !(inputValue >= 65 && inputValue <= 90) &&
+      !(inputValue >= 97 && inputValue <= 122) &&
+      inputValue != 32 &&
+      inputValue != 0
+    ) {
+      event.preventDefault();
+    }
+  }
+  onPasteFirstName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.empDet.firstName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteLastName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.empDet.lastName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteUpdateFirstName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.updateEmpDet.firstName = filteredText;
+    event.preventDefault();
+  }
+
+  onPasteUpdateLastName(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122)
+      .join('');
+      this.updateEmpDet.lastName = filteredText;
+    event.preventDefault();
+  }
+
+  onPaste(event: ClipboardEvent): void {
+    
+    const pastedData = event.clipboardData?.getData('text/plain');
+
+    // Allow only text (letters) in the pasted data
+    const filteredText = pastedData
+      ?.split('')
+      .filter(char => char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122 && char.charCodeAt(0) != 32 && char.charCodeAt(0) != 0)
+      .join('');
+      this.searchModal.fullName = filteredText;
+    //candidate.keyword
+    
+    event.preventDefault();
+  }
  }

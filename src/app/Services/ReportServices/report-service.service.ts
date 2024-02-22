@@ -10,6 +10,7 @@ import { jobReqSearch } from 'src/app/Models/jobReqSearch';
 import { recrole } from 'src/app/Models/RecRoles';
 import { vendor } from 'src/app/Models/vendor';
 import { apiUrl } from '../GlobalConstants';
+import { UserReg } from 'src/app/Models/UserReg';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,38 @@ export class ReportServiceService {
   constructor(private httpClient: HttpClient) {}
   //Base URL
   private baseUrl: string = apiUrl.url;
+
+  ////21-02-2024 Created User Report Started \\\\
+  private downloadUsersDetailsUrl = this.baseUrl + 'downloadUsersReportsDetails';
+  private searchUsersForDownloadUrl =
+    this.baseUrl + 'searchUsersReports';
+
+  downloadUsersDetails(userDto: UserReg[]): Observable<Object> {
+    return this.httpClient.put(
+      `${this.downloadUsersDetailsUrl}`,
+      userDto,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+        },
+        responseType: 'blob',
+      }
+    );
+  }
+
+  searchUsersForDownload(userDto: UserReg): Observable<UserReg[]> {
+    return this.httpClient.post<UserReg[]>(
+      `${this.searchUsersForDownloadUrl}`,
+      userDto,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+        },
+      }
+    );
+  }
+
+  ////21-02-2024 Created User Report end \\\\\
 
   private downloadCustomerDetailsUrl = this.baseUrl + 'downloadCustomerDetails';
   private searchCustomerForDownloadUrl =
