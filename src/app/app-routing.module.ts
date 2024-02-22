@@ -4,6 +4,9 @@ import { CloneCandidateComponent } from './Pages/recruitment/candidate-details/c
 import { MyJobRequestsComponent } from './Pages/dashboard/my-job-requests/my-job-requests.component';
 import { MyInterviewsListComponent } from './Pages/dashboard/my-interviews-list/my-interviews-list.component';
 import { ServiceMenusComponent } from './Pages/service-menus/service-menus.component';
+import { ProjectManagementComponent } from './Pages/project-management/project-management.component';
+import { ProjectAllocationComponent } from './Pages/project-management/project-allocation/project-allocation.component';
+import { ProjectTeamComponent } from './Pages/project-management/project-team/project-team.component';
 import { AddBenchCandidateComponent } from './Pages/recruitment/job-request/add-bench-candidate/add-bench-candidate.component';
 import { AddBenchCandidateListComponent } from './Pages/recruitment/job-request/add-bench-candidate-list/add-bench-candidate-list.component';
 import { EmployeeDetailsComponent } from './Pages/masters/employee-details/employee-details.component';
@@ -340,6 +343,18 @@ const routes: Routes = [
       {
         path: 'update-vendor/:id',
         component: UpdateVendorComponent,
+      },
+      {
+        path: 'project-management',
+        component: ProjectManagementComponent,
+      },
+      {
+        path: 'project-allocation',
+        component: ProjectAllocationComponent,
+      },
+      {
+        path: 'project-team',
+        component: ProjectTeamComponent,
       },
     ],
   },

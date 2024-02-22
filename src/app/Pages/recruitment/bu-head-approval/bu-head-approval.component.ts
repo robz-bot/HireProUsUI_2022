@@ -14,7 +14,7 @@ import { interviewSchedule } from 'src/app/Models/InterviewSchedule';
 import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.service';
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { searchInterviewSchedule } from 'src/app/Models/searchInterviewSchedule';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-bu-head-approval',
   templateUrl: './bu-head-approval.component.html',
@@ -34,7 +34,7 @@ export class BuHeadApprovalComponent implements OnInit {
   loggedInUserBUId: any;
   subMenuName: string;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.getForSchedule();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserBUId = sessionStorage.getItem('currentUserBUId');

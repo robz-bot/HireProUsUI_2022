@@ -7,7 +7,7 @@ import { ReportServiceService } from 'src/app/Services/ReportServices/report-ser
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 import * as FileSaver from 'file-saver';
 import { ImageServicesService } from 'src/app/Services/ImageServices/image-services.service';
-
+declare function highlightReports(): any;
 @Component({
   selector: 'app-candidate-report',
   templateUrl: './candidate-report.component.html',
@@ -25,6 +25,7 @@ export class CandidateReportComponent implements OnInit {
 
   isVendor: string;
   ngOnInit(): void {
+    highlightReports();
     this.getCandidatesList();
     this.isVendor = sessionStorage.getItem('isVendor');
     this.vendorUniqueId = sessionStorage.getItem('currentVendorId');

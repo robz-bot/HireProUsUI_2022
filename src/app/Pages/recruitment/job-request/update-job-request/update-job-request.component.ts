@@ -24,6 +24,7 @@ import { vendor } from 'src/app/Models/vendor';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 declare function highlightRecruitment(): any;
 declare function closeModal(): any;
+declare function highlightReports(): any;
 @Component({
   selector: 'app-update-job-request',
   templateUrl: './update-job-request.component.html',

@@ -14,7 +14,7 @@
  import { LoginServicesService } from 'src/app/Services/LoginServices/login-services.service';
  import { MasterserviceService } from 'src/app/Services/MasterServices/masterservice.service';
  declare function closeModal(): any;
-
+ declare function highlightMasters(): any;
 
  @Component({
    selector: 'app-email-configuration',
@@ -31,6 +31,7 @@
    loader: number = 0;
    datares: any;
    ngOnInit(): void {
+     highlightMasters();
      this.loggedInUserId = sessionStorage.getItem('currentUserId');
      this.loadBu();
      this.loademailConfig();

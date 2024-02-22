@@ -13,7 +13,7 @@ import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { vendor } from 'src/app/Models/vendor';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
-
+declare function highlightReports(): any;
 declare function closeModal(): any;
 declare function closeFilter(): any;
 declare function redirectToList(): any;
@@ -34,6 +34,7 @@ export class JobReqStatusReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    highlightReports();
     this.loadJobReq();
     this.loadbu();
     this.loadActiveVendors();

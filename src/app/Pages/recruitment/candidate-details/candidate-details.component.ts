@@ -18,7 +18,7 @@ import { candidateCount } from 'src/app/Models/candidatesCount';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
 import { vendor } from 'src/app/Models/vendor';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function closeModal(): any;
 import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
@@ -48,7 +48,7 @@ export class CandidateDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.vendorUniqueId = sessionStorage.getItem('currentVendorId');
     this.isVendor = sessionStorage.getItem('isVendor');
-    highlightRecruitment();
+    highlightService();
     this.subMenuName = sessionStorage.getItem('subMenuNames');
     this.showUploadedCandidateTab();
     this.getCandidatesCount();

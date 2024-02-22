@@ -7,6 +7,7 @@ import { ResourceMgntServiceService } from 'src/app/Services/ResourceMgntService
 import * as FileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { ReportServiceService } from 'src/app/Services/ReportServices/report-service.service';
+declare function highlightReports(): any;
 @Component({
   selector: 'app-resource-management-report',
   templateUrl: './resource-management-report.component.html',
@@ -20,6 +21,7 @@ export class ResourceManagementReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    highlightReports();
     this.getAllResourceMgmts();
     this.getAllWorkOrderNumbers();
     this.getAllEmployeeIds();

@@ -13,6 +13,7 @@ import { AlertifyService } from 'src/app/Services/AlertifyService/alertify.servi
 import { MasterserviceService } from 'src/app/Services/MasterServices/masterservice.service';
 import { customer } from 'src/app/Models/Customers';
 declare function closeModal(): any;
+declare function highlightMasters(): any;
 @Component({
   selector: 'app-cus-recrole-mapping',
   templateUrl: './cus-recrole-mapping.component.html',
@@ -26,6 +27,7 @@ export class CusRecroleMappingComponent implements OnInit {
   loader: number = 0;
   loggedInUserId: string;
   ngOnInit(): void {
+    highlightMasters();
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
 
     this.CustomersWithRecRoles();
