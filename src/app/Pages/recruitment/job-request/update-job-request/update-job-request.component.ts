@@ -22,7 +22,7 @@ import { UserRegServicesService } from 'src/app/Services/UserRegServices/user-re
 import { recRoleByCustomer } from 'src/app/Models/cus-recrole-map';
 import { vendor } from 'src/app/Models/vendor';
 import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-service.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function closeModal(): any;
 declare function highlightReports(): any;
 @Component({
@@ -47,7 +47,7 @@ export class UpdateJobRequestComponent implements OnInit {
   loader: number = 0;
   jobReq: jobReq = new jobReq();
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.currentUserId = sessionStorage.getItem('currentUserId');
     this.currentUserBUId = sessionStorage.getItem('currentUserBUId');

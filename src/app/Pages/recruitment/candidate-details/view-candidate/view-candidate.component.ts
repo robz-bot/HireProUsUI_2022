@@ -15,7 +15,7 @@ import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/
 import { PrefixConstant } from 'src/app/Services/GlobalConstants';
 import { ImageServicesService } from 'src/app/Services/ImageServices/image-services.service';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function CandidateResumeUpdate(): any;
 declare function CandidateImageUpdate(): any;
 @Component({
@@ -38,7 +38,7 @@ export class ViewCandidateComponent implements OnInit {
   id: string;
   candidate: candidate;
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
     this.loader = 1;
     this.id = this.aroute.snapshot.params['id'];
     this.loadCandiateDetails();

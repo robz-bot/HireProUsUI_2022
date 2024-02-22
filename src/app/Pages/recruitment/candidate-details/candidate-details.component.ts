@@ -288,7 +288,7 @@ export class CandidateDetailsComponent implements OnInit {
   loadAllJobRequestNumbers() {
     this.rserv.getAllJobRequestNumbers().subscribe((data) => {
       this.JobRequestNumbersList = data;
-      //console.log(this.JobRequestNumbersList);
+      console.log(this.JobRequestNumbersList);
     });
   }
 

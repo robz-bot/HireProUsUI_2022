@@ -26,7 +26,7 @@ import { VendorServiceService } from 'src/app/Services/VendorServices/vendor-ser
 
 declare function closeModal(): any;
 declare function closeFilter(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 
 @Component({
   selector: 'app-my-job-requests',
@@ -55,7 +55,7 @@ export class MyJobRequestsComponent implements OnInit {
   subMenuName: string;
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.loggedInUserId = sessionStorage.getItem('currentUserId');
     this.loggedInUserId = this.aroute.snapshot.params['userId'];

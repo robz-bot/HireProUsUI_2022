@@ -12,7 +12,7 @@ import { candidate } from './../../../../Models/Candidate';
 import { RecruitmentServiceService } from 'src/app/Services/RecruitmentServices/recruitment-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 @Component({
   selector: 'app-candidate-history',
   templateUrl: './candidate-history.component.html',
@@ -32,7 +32,7 @@ export class CandidateHistoryComponent implements OnInit {
   loader: number = 0;
 
   ngOnInit(): void {
-    highlightRecruitment();
+    highlightService();
 
     this.jrNumber = this.aroute.snapshot.params['jr'];
     this.candidateId = this.aroute.snapshot.params['id'];

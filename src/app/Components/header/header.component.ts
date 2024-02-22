@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalMenuMappingServicesService } from 'src/app/Services/GlobalMenuMappingServices/global-menu-mapping-services.service';
 declare function highlightDashboard(): any;
 declare function highlightMasters(): any;
-declare function highlightRecruitment(): any;
+declare function highlightService(): any;
 declare function highlightReports(): any;
 
 @Component({
@@ -173,9 +173,9 @@ export class HeaderComponent implements OnInit {
   /**
    * Recs tab
    */
-  recTab() {
-    highlightRecruitment();
-  }
+  // recTab() {
+  //   highlightRecruitment();
+  // }
   /**
    * Masters tab
    */
