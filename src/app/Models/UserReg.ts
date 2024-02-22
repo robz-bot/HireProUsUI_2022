@@ -35,7 +35,8 @@ export class UserReg {
   active: string;
   managerId: string;
   managerName:string;
-
+  buId:string
+  name:string
   dateOfJoining:string;
   dateOfBirth:string;
 }
