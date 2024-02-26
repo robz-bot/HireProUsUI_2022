@@ -43,9 +43,9 @@ export class DashboardComponent implements OnInit {
   mainMenuName: string;
   subMenuName: string;
   vendorUniqueId: string;
+  timesheetURL: string = environment.timesheet;
   ngOnInit(): void {
     highlightDashboard();
-
     this.cUser = sessionStorage.getItem('currentUserName');
     this.loggedInUserRole = sessionStorage.getItem('Role');
     this.mainMenuName = sessionStorage.getItem('mainMenuNames');
