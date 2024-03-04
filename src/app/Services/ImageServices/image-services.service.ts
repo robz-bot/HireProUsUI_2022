@@ -53,12 +53,31 @@ export class ImageServicesService {
 
   //Resume Upload URL
   private getResumeUrl = this.baseUrl + 'getResume';
+  private getBotmindsPDFUrl = this.baseUrl + 'getBotmindsPDF';
+  private getAllBotmindsPDFsUrl = this.baseUrl + 'getAllPDF';
   private uploadResumeUrl = this.baseUrl + 'uploadResume';
+  private uploadBotmindsPdfUrl = this.baseUrl + 'uploadPDF';
   private deleteResumeUrl = this.baseUrl + 'deleteResume';
 
   resume: resume[];
   getResume(resumeName: string): Observable<resume[]> {
     return this.httpClient.get<resume[]>(`${this.getResumeUrl}/${resumeName}`, {
+      headers: {
+        'pro-api-key': 'h1r5pr0',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  getAllBotmindsPDFs(): Observable<resume[]> {
+    return this.httpClient.get<resume[]>(`${this.getAllBotmindsPDFsUrl}`, {
+      headers: {
+        'pro-api-key': 'h1r5pr0',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  getBotmindsPDF(resumeName: string): Observable<resume[]> {
+    return this.httpClient.get<resume[]>(`${this.getBotmindsPDFUrl}/${resumeName}`, {
       headers: {
         'pro-api-key': 'h1r5pr0',
         'Content-Type': 'application/json',
@@ -75,6 +94,24 @@ export class ImageServicesService {
 
     return this.httpClient.post(
       `${this.uploadResumeUrl}/${resumeName}/${resumeType}`,
+      resume,
+      {
+        headers: {
+          'pro-api-key': 'h1r5pr0',
+        },
+      }
+    );
+  }
+
+  newBotmindsPDF(
+    resume: any,
+    resumeName: string,
+    resumeType: string
+  ): Observable<Object> {
+    //console.log(image);
+
+    return this.httpClient.post(
+      `${this.uploadBotmindsPdfUrl}/${resumeName}/${resumeType}`,
       resume,
       {
         headers: {

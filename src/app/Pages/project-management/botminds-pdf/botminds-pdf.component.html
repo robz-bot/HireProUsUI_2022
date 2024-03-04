@@ -1,0 +1,114 @@
+<section id="what-we-do m-1 p-3">
+  <!-- <div class="container"> -->
+  <div class="container">
+    <h3 class="section-title m-3">BOTMINDS- PDF UPLOAD</h3>
+    <div class="card-box">
+      <div class="card-body w-100">
+          <div class="row d-flex align-content-center justify-content-center">
+            <div class="col-sm-6 col-md-6 col-lg-4">
+            <div class="m-0 p-0 d-flex align-content-center justify-content-center">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-file-o"></i
+                ></span>
+                <input
+                  #resumeId
+                  accept=".zip"
+                  type="file"
+                  class="form-control"
+                  (change)="onResumeChanged($event)"
+                />
+              </div>
+              <div>
+                <button class="mx-2 btn btn-primary" (click)="onUpload()">
+                  Upload
+                </button>
+              </div>
+            </div>
+          </div>
+            <!-- <div class="col-sm-3 col-md-3 col-lg-3"></div> -->
+            <div class="col-sm-3 col-md-3 col-lg-3">
+              <!-- <div> -->
+              <span style="font-size: 12px" class="text-danger">
+                * Please upload the file with maximum size of 256 KB.
+              </span>
+              <!-- </div> -->
+            </div>
+        </div>
+        <table
+          class="my-2 table table-hover table-checkable full-width"
+          id="example4"
+        >
+          <thead class="bg-listHeader">
+            <tr>
+              <th>#</th>
+              <th>PDF Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="odd gradeX"
+              *ngFor="
+                let item of PDFList
+                  | paginate
+                    : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                      };
+                let i = index
+              "
+            >
+              <td class="user-circle-img sorting_1">{{ i + 1 }}</td>
+              <td>{{ item.pdfName }}</td>
+              <td>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-light btn-tbl-pdf btn-xs "
+                  (click)="getResume(item.pdfName)"
+                >
+                  <i class="fa fa-file-pdf-o text-danger" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row col-md-12 col-sm-12 col-lg-12" style="height: 29px">
+          <div class="col-md-4 col-sm-4 col-lg-4" style="font-size: 14px">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <div
+            class="col-md-4 col-sm-4 col-lg-4 text-muted"
+            style="font-size: 14px"
+          >
+            Total No.of Record(s):
+            {{ PDFList.length }}
+          </div>
+          <div class="col-md-4 col-sm-4 col-lg-4 pull-right">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              responsive="true"
+              (pageChange)="handlePageChange($event)"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row col-sm-12 col-md-12 col-lg-12">
+        <ul>
+          <li>
+            //Zip name hera
+          </li>
+        </ul>
+      </div> -->
+  </div>
+  <!-- </div> -->
+</section>

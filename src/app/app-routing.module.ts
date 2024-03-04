@@ -82,6 +82,7 @@ import { AddEntryComponent } from './Pages/ResourseEntry/add-entry/add-entry.com
 import { UpdateEntryComponent } from './Pages/ResourseEntry/update-entry/update-entry.component';
 import { LevelupupdateEntryComponent } from './Pages/leveluplogin/levelupupdate-entry/levelupupdate-entry.component';
 import { AddCandidateAiComponent } from './Pages/recruitment/job-request/add-candidate-ai/add-candidate-ai.component';
+import { BotmindsPdfComponent } from './Pages/project-management/botminds-pdf/botminds-pdf.component';
 
 const routes: Routes = [
   {
@@ -352,6 +353,10 @@ const routes: Routes = [
       {
         path: 'project-management',
         component: ProjectManagementComponent,
+      },
+      {
+        path: 'botminds-pdf',
+        component: BotmindsPdfComponent,
       },
       {
         path: 'project-allocation',

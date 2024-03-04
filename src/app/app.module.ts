@@ -107,6 +107,7 @@ import { ProjectManagementComponent } from './Pages/project-management/project-m
 import { ProjectAllocationComponent } from './Pages/project-management/project-allocation/project-allocation.component';
 import { ProjectTeamComponent } from './Pages/project-management/project-team/project-team.component';
 import { SiteMaintenanceComponent } from './Components/site-maintenance/site-maintenance.component';
+import { BotmindsPdfComponent } from './Pages/project-management/botminds-pdf/botminds-pdf.component';
 
 
 @NgModule({
@@ -207,6 +208,7 @@ import { SiteMaintenanceComponent } from './Components/site-maintenance/site-mai
     ProjectAllocationComponent,
     ProjectTeamComponent,
     SiteMaintenanceComponent,
+    BotmindsPdfComponent
    
     
   ],
