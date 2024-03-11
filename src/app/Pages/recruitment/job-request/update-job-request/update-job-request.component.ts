@@ -249,21 +249,35 @@ export class UpdateJobRequestComponent implements OnInit {
     event.stopPropagation();
     return false;
   }
-  
+
   //Update Job Request
   updateJobReq(f: NgForm) {
     //consolelog(f.form.value);
 
-    if (this.jobReq.jobReqStatus == 'Hold' || 'Closed' || 'Terminated') {
-      if (
-        this.jobReq.jobReqStatusRemarks == null ||
-        this.jobReq.jobReqStatusRemarks == undefined
-      ) {
-        // this.showModal = true;
+    // if (this.jobReq.jobReqStatus == 'Hold' || 'Closed' || 'Terminated') {
+    //   if (
+    //     this.jobReq.jobReqStatusRemarks == null ||
+    //     this.jobReq.jobReqStatusRemarks == undefined
+
+    //   ) {
+    //     this.alertify.errorMsg('JR Status Remarks Required poda dei');
+    //     // return;
+    //   }
+    //   }
+
+    if (
+      this.jobReq.jobReqStatus === 'Hold' ||
+      this.jobReq.jobReqStatus === 'Closed' ||
+      this.jobReq.jobReqStatus === 'Terminated'
+    ) {
+      if (!this.jobReq.jobReqStatusRemarks) {
         this.alertify.errorMsg('JR Status Remarks Required');
         return;
-      }
-    }
+      } 
+    }else{
+      this.jobReq.jobReqStatusRemarks = "";
+      // this.jobReq.jobReqStatusRemarks = null;
+  }
 
     if (f.form.valid) {
       this.loader = 1;
@@ -281,7 +295,7 @@ export class UpdateJobRequestComponent implements OnInit {
     }
   }
 
-  //hold/closed/terminate JR reasonsor remarks
+  //hold/closed/terminate JR reasons or remarks
 
   showModal = false;
   statusRemarks(event: any) {
@@ -306,7 +320,8 @@ export class UpdateJobRequestComponent implements OnInit {
   StatusRemarks: string = '';
   submitTextarea() {
     if (this.StatusRemarks.trim() === '') {
-      this.showModal = true;
+      console.log('StatusRemarks', this.StatusRemarks);
+      // this.showModal = true;
       this.alertify.errorMsg('JR Status Remarks Required');
     } else {
       this.loader = 1;
@@ -314,10 +329,9 @@ export class UpdateJobRequestComponent implements OnInit {
       this.rserv.updateJobRequest(this.jobReq).subscribe((data) => {
         this.jobReq.jobReqStatusRemarks = this.StatusRemarks;
         console.log('StatusRemarks', this.jobReq.jobReqStatusRemarks);
-        console.log(this.StatusRemarks);
         // console.log('Data', data);
         this.loader = 0;
-        this.alertify.successMsg('JR Status Remarks Updated');
+        this.alertify.successMsg1('JR Status Remarks Updated');
       });
       // this.StatusRemarks = '';
     }
